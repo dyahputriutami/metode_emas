@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMAS Assessment Tool - Mini Web</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary-color: #2e7d32;
@@ -193,8 +194,17 @@
         .status-medium { background-color: var(--medium-color); }
         .status-low { background-color: var(--low-color); }
 
+        /* Container untuk Grafik Spider Web */
+        .chart-container {
+            position: relative;
+            margin: 30px auto 15px auto;
+            height: 360px;
+            width: 100%;
+            max-width: 450px;
+        }
+
         .result-desc {
-            margin-top: 15px;
+            margin-top: 25px;
             font-size: 14px;
             color: #444;
             text-align: left;
@@ -374,6 +384,11 @@
         <div id="statusBadgeContainer">
             <span class="status-badge" id="statusBadge">KATEGORI</span>
         </div>
+        
+        <div class="chart-container">
+            <canvas id="emasSpiderChart"></canvas>
+        </div>
+
         <div class="result-desc" id="resultDesc">Deskripsi hasil kesimpulan kriteria berdasarkan buku EMAS.</div>
     </div>
 
@@ -383,6 +398,9 @@
 </div>
 
 <script>
+    // Inisialisasi variabel chart global agar bisa di-reset setiap tombol ditekan
+    let spiderChartInstance = null;
+
     // Sinkronisasi angka realtime saat slider digeser
     const sliders = document.querySelectorAll('.emas-slider');
     sliders.forEach(slider => {
@@ -395,12 +413,15 @@
     function calculateEMAS() {
         let totalRawScore = 0;
         const totalIndicators = 10;
+        const currentScores = [];
 
+        // Mengambil skor masing-masing indikator untuk grafik spider web
         sliders.forEach(slider => {
-            totalRawScore += parseInt(slider.value);
+            const val = parseInt(slider.value);
+            totalRawScore += val;
+            currentScores.push(val);
         });
 
-        // Rumus akumulasi standarisasi nilai persen (0 - 100)
         const finalScore = (totalRawScore / (totalIndicators * 10)) * 100;
         
         const resultSection = document.getElementById('resultSection');
@@ -411,7 +432,7 @@
         finalScoreDisplay.textContent = finalScore.toFixed(1);
         resultSection.style.display = 'block';
 
-        // Penentuan kategori evaluasi berdasarkan ambang batas Buku EMAS
+        // Penentuan kategori evaluasi
         if (finalScore >= 81) {
             statusBadge.textContent = "Tinggi (Luar Biasa / Unggul)";
             statusBadge.className = "status-badge status-high";
@@ -425,6 +446,59 @@
             statusBadge.className = "status-badge status-low";
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja:</strong> Menunjukkan kinerja yang belum memuaskan. Program masih menghadapi tantangan signifikan seperti keterbatasan komitmen, minimnya pelibatan masyarakat lokal secara bermakna, atau program cenderung masih bersifat karitatif/parsial.";
         }
+
+        // --- LOGIKA MERENDER SPIDER WEB CHART ---
+        const ctx = document.getElementById('emasSpiderChart').getContext('2d');
+        
+        // Hancurkan instansi chart sebelumnya jika ada agar tidak tumpang tindih saat klik ulang
+        if (spiderChartInstance !== null) {
+            spiderChartInstance.destroy();
+        }
+
+        spiderChartInstance = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 'SROI',
+                    'Shared Value', 'Kehati', 'Stakeholder', 'Kewilayahan', 'Tata Kelola'
+                ],
+                datasets: [{
+                    label: 'Capaian Performa Kriteria',
+                    data: currentScores,
+                    backgroundColor: 'rgba(46, 125, 50, 0.2)', // Hijau transparan
+                    borderColor: '#2e7d32',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#1b5e20',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#1b5e20',
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { display: true, color: '#e0e0e0' },
+                        grid: { color: '#e0e0e0' },
+                        suggestedMin: 0,
+                        suggestedMax: 10,
+                        ticks: {
+                            stepSize: 2,
+                            font: { size: 10 }
+                        },
+                        pointLabels: {
+                            font: { size: 11, weight: '600' },
+                            color: '#37474f'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { display: false } // Sembunyikan legenda atas agar grafik lebih luas
+                }
+            }
+        });
 
         // Gulir otomatis ke bagian hasil evaluasi
         resultSection.scrollIntoView({ behavior: 'smooth' });
