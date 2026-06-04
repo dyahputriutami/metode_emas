@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMAS Assessment Tool - Mini Web</title>
+    <!-- Memanggil Chart.js via CDN untuk membuat Spider Web Chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -267,6 +268,7 @@
         <p>Environmental Management Assessment Scheme — Berbasis Pemberdayaan Masyarakat Berkelanjutan</p>
     </header>
 
+    <!-- HALAMAN 1: FORM DATA DIRI -->
     <div id="pageForm" class="page active">
         <div class="instructions" style="border-left-color: var(--secondary-color); background-color: #f0f4f6;">
             Selamat datang di Platform Evaluasi EMAS. Silakan isi profil identitas Anda terlebih dahulu untuk memulai asesmen indikator keberlanjutan.
@@ -296,12 +298,14 @@
         </form>
     </div>
 
+    <!-- HALAMAN 2: KALKULATOR UTAMA -->
     <div id="pageAssessment" class="page">
         <div class="instructions">
             <strong>Petunjuk Pengisian:</strong> Geser skala penggeser (slider) pada masing-masing kriteria di bawah ini berdasarkan kondisi nyata di lapangan. Deretan angka penanda (0-10) disediakan tepat di bawah garis skala untuk memudahkan ketepatan penilaian Anda.
         </div>
 
         <form id="emasForm">
+            <!-- 1. Dampak Lingkungan -->
             <div class="indicator-card">
                 <div class="indicator-title">1. Dampak Lingkungan</div>
                 <div class="indicator-desc">Mengukur konsekuensi program terhadap lingkungan alam (pengurangan emisi GRK, limbah, konservasi air, perlindungan keanekaragaman hayati, mitigasi risiko bencana).</div>
@@ -316,6 +320,7 @@
                 </div>
             </div>
 
+            <!-- 2. Dampak Ekonomi -->
             <div class="indicator-card">
                 <div class="indicator-title">2. Dampak Ekonomi</div>
                 <div class="indicator-desc">Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan, kemandirian finansial komunitas, dan penyerapan tenaga kerja lokal.</div>
@@ -330,6 +335,7 @@
                 </div>
             </div>
 
+            <!-- 3. Dampak Sosial -->
             <div class="indicator-card">
                 <div class="indicator-title">3. Dampak Sosial</div>
                 <div class="indicator-desc">Mengukur pengaruh program terhadap kohesi sosial, penguatan modal sosial (social capital), kelembagaan lokal, serta resolusi/pengurangan konflik.</div>
@@ -344,6 +350,7 @@
                 </div>
             </div>
 
+            <!-- 4. Dampak Kesejahteraan -->
             <div class="indicator-card">
                 <div class="indicator-title">4. Dampak Kesejahteraan</div>
                 <div class="indicator-desc">Mengukur kontribusi program terhadap pemenuhan hak dasar manusia, seperti perbaikan kualitas kesehatan, akses pendidikan, status gizi, dan kepuasan hidup masyarakat.</div>
@@ -358,6 +365,7 @@
                 </div>
             </div>
 
+            <!-- 5. Rasio Pengembalian Investasi Sosial (SROI) -->
             <div class="indicator-card">
                 <div class="indicator-title">5. Rasio Pengembalian Investasi Sosial (SROI)</div>
                 <div class="indicator-desc">Mengukur efisiensi dampak moneter sosial dan lingkungan yang dihasilkan dari total investasi finansial yang dikucurkan perusahaan.</div>
@@ -372,6 +380,7 @@
                 </div>
             </div>
 
+            <!-- 6. Menciptakan Nilai Bersama (Shared Value Creation) -->
             <div class="indicator-card">
                 <div class="indicator-title">6. Menciptakan Nilai Bersama (Shared Value Creation)</div>
                 <div class="indicator-desc">Menilai keselarasan program dalam menciptakan nilai bagi bisnis internal perusahaan sekaligus memberikan kemajuan sosial bagi komunitas eksternal.</div>
@@ -386,6 +395,7 @@
                 </div>
             </div>
 
+            <!-- 7. Kontribusi terhadap Keanekaragaman Hayati -->
             <div class="indicator-card">
                 <div class="indicator-title">7. Kontribusi terhadap Keanekaragaman Hayati</div>
                 <div class="indicator-desc">Menilai komitmen program dalam mendukung konservasi flora dan fauna lokal, perlindungan ekosistem, serta integrasi kearifan tradisional (TEK).</div>
@@ -400,6 +410,7 @@
                 </div>
             </div>
 
+            <!-- 8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement) -->
             <div class="indicator-card">
                 <div class="indicator-title">8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)</div>
                 <div class="indicator-desc">Mengukur derajat pelibatan aktor kunci secara inklusif dan transparan—mulai dari komunikasi satu arah hingga tingkat keputusan bersama (co-decision making).</div>
@@ -414,6 +425,7 @@
                 </div>
             </div>
 
+            <!-- 9. Kedekatan Kewilayahan -->
             <div class="indicator-card">
                 <div class="indicator-title">9. Kedekatan Kewilayahan</div>
                 <div class="indicator-desc">Menilai ketepatan sasaran geografis program dalam merespons kebutuhan mendesak dan potensi unik pada level komunitas tapak (sekitar ring operasi).</div>
@@ -428,6 +440,7 @@
                 </div>
             </div>
 
+            <!-- 10. Tata Kelola -->
             <div class="indicator-card">
                 <div class="indicator-title">10. Tata Kelola</div>
                 <div class="indicator-desc">Mengevaluasi transparansi, akuntabilitas, kemandirian organisasi pelaksana di masyarakat, dan efektivitas mekanisme pengaduan keluhan (grievance mechanism).</div>
@@ -461,27 +474,24 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Metode Emas. Diolah dari Panduan Buku EMAS.</p>
+        <p>&copy; 2026 Mini Web Aplikasi Asesmen EMAS. Diolah dari Panduan Buku EMAS.</p>
     </footer>
 </div>
 
 <script>
-    // Menyimpan data identitas global sementara
     let userProfile = {};
     let spiderChartInstance = null;
 
-    // Fungsi Navigasi Halaman
+    // Fungsi Navigasi Form ke Kalkulator
     function navigateToAssessment(event) {
         event.preventDefault();
         
-        // Ambil nilai data diri
         userProfile.Nama = document.getElementById('inputNama').value;
         userProfile.Perusahaan = document.getElementById('inputPerusahaan').value;
         userProfile.Program = document.getElementById('inputProgram').value;
         userProfile.NoHP = document.getElementById('inputNoHP').value;
         userProfile.Email = document.getElementById('inputEmail').value;
 
-        // Berpindah halaman ke kalkulator utama
         document.getElementById('pageForm').classList.remove('active');
         document.getElementById('pageAssessment').classList.add('active');
         window.scrollTo(0, 0);
@@ -572,15 +582,13 @@
             }
         });
 
-        // Gulir otomatis ke bagian hasil evaluasi
         resultSection.scrollIntoView({ behavior: 'smooth' });
 
-        // --- PENGIRIMAN DATA KE GOOGLE SHEETS VIA APPS SCRIPT ---
+        // --- PROSES KIRIM DATA KE GOOGLE SHEET VIA WEB APP URL ANDA ---
         const btnCalc = document.getElementById('btnCalculate');
         btnCalc.innerText = "Mengirim Data Hasil ke Database...";
         btnCalc.disabled = true;
 
-        // Gabungkan profil data diri dengan skor akhir
         const payload = {
             Nama: userProfile.Nama,
             Perusahaan: userProfile.Perusahaan,
@@ -591,24 +599,26 @@
             Kategori: kategoriText
         };
 
-        // Ganti string di bawah ini dengan Web App URL dari Google Apps Script Anda
+        // URL Web App Resmi dari Anda
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwNE-XY6roO-i7nxVprMPGwI0Zdc7LqtMZBfUrRgoxIfHn4soDVoEWkDgM8HVIOFocz/exec';
 
+        // Konfigurasi fetch dioptimalkan untuk menembus batasan CORS di browser
         fetch(scriptURL, {
             method: 'POST',
-            mode: 'no-cors', // Digunakan untuk menghindari masalah CORS di Google Script
-            headers: { 'Content-Type': 'application/json' },
+            mode: 'no-cors', 
+            headers: { 'Content-Type': 'text/plain' },
             body: JSON.stringify(payload)
         })
         .then(() => {
             btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
             btnCalc.disabled = false;
-            alert("Data evaluasi Anda berhasil disimpan ke database Google Sheets!");
+            alert("Data profil dan hasil evaluasi EMAS Anda berhasil disimpan ke database Google Sheets!");
         })
         .catch(error => {
-            console.error('Error saat mengirim data database:', error);
+            console.error('Error:', error);
             btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
             btnCalc.disabled = false;
+            alert("Perhitungan selesai, namun terjadi kendala pengiriman ke database. Sila cek jaringan Anda.");
         });
     }
 </script>
