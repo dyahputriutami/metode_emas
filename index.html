@@ -3,74 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMAS Assessment Tool - Mini Web</title>
+    <title>Kalkulator Asesmen Metode EMAS</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root {
-            --primary-color: #2e7d32;
-            --primary-light: #e8f5e9;
-            --secondary-color: #37474f;
-            --bg-color: #f5f7f8;
-            --card-color: #ffffff;
-            --text-color: #212121;
-            --border-color: #cfd8dc;
-            
-            --high-color: #c62828;
-            --medium-color: #ef6c00;
-            --low-color: #c62828;
-        }
-
+        /* ==========================================================================
+           1. RESET & GLOBAL STYLES (Font & Latar Belakang Modern)
+           ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
             line-height: 1.6;
             padding: 20px;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--card-color);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .main-container {
+            max-width: 750px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px 25px;
         }
 
-        header {
+        /* ==========================================================================
+           2. HEADER COMPONENT
+           ========================================================================== */
+        .header-section {
             text-align: center;
             margin-bottom: 30px;
-            border-bottom: 2px solid var(--primary-light);
+            border-bottom: 2px solid #f1f5f9;
             padding-bottom: 20px;
         }
 
-        header h1 {
-            color: var(--primary-color);
-            font-size: 24px;
-            margin-bottom: 5px;
+        .header-section h1 {
+            color: #2e7d32;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
-        header p {
-            color: var(--secondary-color);
-            font-size: 14px;
+        .header-section p {
+            color: #64748b;
+            font-size: 0.95rem;
         }
 
-        /* Navigasi Struktur Halaman */
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
+        /* ==========================================================================
+           3. FORM IDENTITAS & PETUNJUK
+           ========================================================================== */
+        .info-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid #2e7d32;
+            padding: 15px;
+            border-radius: 4px 8px 8px 4px;
+            font-size: 0.9rem;
+            color: #166534;
+            margin-bottom: 25px;
         }
 
-        /* Style Halaman 1: Form Data Diri */
         .form-group {
             margin-bottom: 20px;
         }
@@ -78,705 +74,583 @@
         .form-group label {
             display: block;
             font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--secondary-color);
-            font-size: 14px;
+            margin-bottom: 8px;
+            color: #1e293b;
+            font-size: 0.95rem;
         }
 
-        .form-group input {
+        .form-group label span {
+            color: #ef4444;
+        }
+
+        .form-control {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border 0.3s;
-        }
-
-        .form-group input:focus {
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
             outline: none;
-            border-color: var(--primary-color);
         }
 
-        .btn-submit, .btn-calc {
-            display: block;
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 25px;
-            transition: background 0.2s;
-            text-align: center;
+        .form-control:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
         }
 
-        .btn-submit:hover, .btn-calc:hover {
-            background-color: #1b5e20;
-        }
-
-        /* Style Halaman 2: Kalkulator Slider */
-        .instructions {
-            background-color: var(--primary-light);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            font-size: 14px;
-            border-left: 5px solid var(--primary-color);
-        }
-
-        .indicator-card {
-            background: #fafafa;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+        /* ==========================================================================
+           4. KRITERIA ASSESSMENT SLIDERS
+           ========================================================================== */
+        .kriteria-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
-            transition: all 0.3s ease;
+            transition: box-shadow 0.2s;
         }
 
-        .indicator-card:hover {
-            border-color: var(--primary-color);
-            background: #fff;
+        .kriteria-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
         }
 
-        .indicator-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 8px;
+        .kriteria-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2e7d32;
+            margin-bottom: 6px;
         }
 
-        .indicator-desc {
-            font-size: 13px;
-            color: #555;
+        .kriteria-desc {
+            font-size: 0.9rem;
+            color: #64748b;
             margin-bottom: 15px;
-        }
-
-        .slider-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
         }
 
         .slider-wrapper {
-            flex: 1;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 15px;
         }
 
-        input[type="range"] {
+        .slider-input {
+            flex: 1;
+            -webkit-appearance: none;
             width: 100%;
-            accent-color: var(--primary-color);
-            cursor: pointer;
             height: 8px;
             border-radius: 5px;
+            background: #e2e8f0;
+            outline: none;
         }
 
-        .ticks-container {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 2px;
-            margin-top: 8px;
-        }
-
-        .tick-label {
-            font-size: 11px;
-            color: #78909c;
+        .slider-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
             width: 20px;
-            text-align: center;
-            font-weight: 500;
+            height: 20px;
+            border-radius: 50%;
+            background: #2e7d32;
+            cursor: pointer;
+            transition: transform 0.1s;
         }
 
-        .score-display {
-            font-size: 22px;
-            font-weight: bold;
-            color: var(--primary-color);
-            min-width: 40px;
+        .slider-input::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .slider-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e293b;
+            width: 25px;
             text-align: right;
         }
 
-        /* Style Halaman 3: Halaman Hasil */
-        .capture-area {
-            background: #ffffff;
-            padding: 10px 20px;
+        /* ==========================================================================
+           5. BUTTONS STYLE
+           ========================================================================== */
+        .btn-submit {
+            display: width;
+            width: 100%;
+            background-color: #2e7d32;
+            color: #ffffff;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
             border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 15px;
         }
 
-        .result-container {
+        .btn-submit:hover {
+            background-color: #225e25;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
+
+        /* ==========================================================================
+           6. HASIL EVALUASI PANEL (Result Section)
+           ========================================================================== */
+        #result-section {
+            display: none;
+            margin-top: 35px;
+            padding-top: 30px;
+            border-top: 2px dashed #e2e8f0;
             text-align: center;
-            padding: 10px 0;
         }
 
-        .result-container h2 {
-            font-size: 22px;
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-        }
-
-        .program-highlight {
-            color: var(--primary-color);
+        .result-title {
+            font-size: 1.3rem;
             font-weight: 700;
-            display: block;
-            font-size: 24px;
-            margin-top: 5px;
+            color: #1e293b;
             margin-bottom: 15px;
         }
 
-        .final-score {
-            font-size: 64px;
+        .score-display {
+            font-size: 4rem;
             font-weight: 800;
-            margin: 10px 0;
-            color: var(--secondary-color);
+            color: #1e293b;
+            line-height: 1;
+            margin-bottom: 10px;
         }
 
-        .status-badge {
+        .badge-status {
             display: inline-block;
-            padding: 8px 20px;
-            font-weight: bold;
-            border-radius: 50px;
-            color: white;
-            font-size: 15px;
+            padding: 6px 16px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 20px;
+            color: #ffffff;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
             margin-bottom: 25px;
         }
 
-        .status-high { background-color: var(--high-color); }
-        .status-medium { background-color: var(--medium-color); }
-        .status-low { background-color: var(--low-color); }
+        /* Warna Status Dinamis */
+        .badge-rendah { background-color: #dc2626; }
+        .badge-sedang { background-color: #ea580c; }
+        .badge-tinggi { background-color: #16a34a; }
 
         .chart-container {
             position: relative;
-            margin: 20px auto 30px auto;
-            height: 380px;
+            margin: 0 auto 30px auto;
+            max-width: 450px;
             width: 100%;
-            max-width: 480px;
-            background: #fafafa;
-            border-radius: 8px;
-            padding: 15px;
-            border: 1px solid var(--border-color);
         }
 
-        .result-desc {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #333;
-            text-align: left;
-            background: #fafafa;
+        .desc-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
             padding: 20px;
-            border-radius: 8px;
-            border-left: 5px solid var(--primary-color);
-            border: 1px solid var(--border-color);
-            border-left: 5px solid var(--primary-color);
+            text-align: left;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
         }
 
-        /* --- STYLE BARU: SEKSI CALL TO ACTION (CTA) --- */
-        .cta-box {
-            margin-top: 35px;
-            background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
-            border: 1px dashed var(--primary-color);
-            border-radius: 10px;
-            padding: 25px;
+        .desc-box strong {
+            color: #1e293b;
+        }
+
+        /* ==========================================================================
+           7. CALL TO ACTION (CTA) BARU - ELEGAN & MODERN (Sesuai Permintaan)
+           ========================================================================== */
+        .cta-container {
+            background-color: #f8fafc; /* Latar belakang off-white yang tenang */
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px;
+            padding: 28px 24px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            margin: 35px 0 15px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .cta-box p {
-            font-size: 15px;
+        .cta-container h3 {
+            color: #1e293b;
+            font-size: 1.1rem;
             font-weight: 600;
-            color: #1b5e20;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .cta-buttons-group {
+        .cta-buttons {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
-        .cta-link {
+        .btn-cta {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            font-size: 13px;
-            font-weight: bold;
-            color: white;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 22px;
+            font-size: 0.95rem;
+            font-weight: 500;
             text-decoration: none;
-            border-radius: 6px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .cta-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .cta-wa {
-            background-color: #25d366;
-        }
-
-        .cta-ig {
-            background-color: #e1306c;
-        }
-
-        /* Grouping Tombol Aksi */
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-
-        .btn-action {
-            padding: 12px 24px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 6px;
+            border-radius: 8px;
+            transition: all 0.25s ease;
             cursor: pointer;
-            border: none;
-            transition: background 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .btn-download {
-            background-color: var(--primary-color);
-            color: white;
+        .btn-cta svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
         }
 
-        .btn-download:hover {
-            background-color: #1b5e20;
+        /* WhatsApp: Hijau solid resmi */
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: #ffffff;
         }
 
-        .btn-back {
-            background-color: var(--secondary-color);
-            color: white;
+        .btn-whatsapp:hover {
+            background-color: #20ba5a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
         }
 
-        .btn-back:hover {
-            background-color: #263238;
+        /* Instagram: Gradasi resmi */
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: #ffffff;
         }
 
-        footer {
+        .btn-instagram:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 39, 67, 0.25);
+        }
+
+        /* Footer Copyright */
+        .footer-text {
             text-align: center;
-            margin-top: 40px;
-            font-size: 12px;
-            color: #777;
-            border-top: 1px solid #e0e0e0;
-            padding-top: 15px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Kalkulator Asesmen Metode EMAS</h1>
-        <p>Environmental Management Assessment Scheme — Berbasis Pemberdayaan Masyarakat Berkelanjutan</p>
-    </header>
-
-    <div id="pageForm" class="page active">
-        <div class="instructions" style="border-left-color: var(--secondary-color); background-color: #f0f4f6;">
-            Selamat datang di Platform Evaluasi EMAS. Silakan isi profil identitas Anda terlebih dahulu untuk memulai asesmen indikator keberlanjutan.
-        </div>
-        <form id="identityForm" onsubmit="navigateToAssessment(event)">
-            <div class="form-group">
-                <label for="inputNama">Nama Lengkap *</label>
-                <input type="text" id="inputNama" required placeholder="Masukkan nama lengkap Anda">
-            </div>
-            <div class="form-group">
-                <label for="inputPerusahaan">Nama Perusahaan / Institusi *</label>
-                <input type="text" id="inputPerusahaan" required placeholder="Masukkan nama perusahaan">
-            </div>
-            <div class="form-group">
-                <label for="inputProgram">Nama Program CSR / Pemberdayaan *</label>
-                <input type="text" id="inputProgram" required placeholder="Masukkan nama program keberlanjutan">
-            </div>
-            <div class="form-group">
-                <label for="inputNoHP">Nomor HP / WhatsApp *</label>
-                <input type="tel" id="inputNoHP" required placeholder="Contoh: 081234567xxx">
-            </div>
-            <div class="form-group">
-                <label for="inputEmail">Alamat Email *</label>
-                <input type="email" id="inputEmail" required placeholder="Contoh: nama@perusahaan.com">
-            </div>
-            <button type="submit" class="btn-submit">Mulai Masuk Ke Halaman Asesmen &rarr;</button>
-        </form>
-    </div>
-
-    <div id="pageAssessment" class="page">
-        <div class="instructions">
-            <strong>Petunjuk Pengisian:</strong> Geser skala penggeser (slider) pada masing-masing kriteria di bawah ini berdasarkan kondisi nyata di lapangan. Deretan angka penanda (0-10) disediakan tepat di bawah garis skala untuk memudahkan ketepatan penilaian Anda.
-        </div>
-
-        <form id="emasForm">
-            <div class="indicator-card">
-                <div class="indicator-title">1. Dampak Lingkungan</div>
-                <div class="indicator-desc">Mengukur konsekuensi program terhadap lingkungan alam (pengurangan emisi GRK, limbah, konservasi air, perlindungan keanekaragaman hayati, mitigasi risiko bencana).</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="1">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val1">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">2. Dampak Ekonomi</div>
-                <div class="indicator-desc">Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan, kemandirian finansial komunitas, dan penyerapan tenaga kerja lokal.</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="2">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val2">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">3. Dampak Sosial</div>
-                <div class="indicator-desc">Mengukur pengaruh program terhadap kohesi sosial, penguatan modal sosial (social capital), kelembagaan lokal, serta resolusi/pengurangan konflik.</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="3">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val3">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">4. Dampak Kesejahteraan</div>
-                <div class="indicator-desc">Mengukur kontribusi program terhadap pemenuhan hak dasar manusia, seperti perbaikan kualitas kesehatan, akses pendidikan, status gizi, dan kepuasan hidup masyarakat.</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="4">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val4">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">5. Rasio Pengembalian Investasi Sosial (SROI)</div>
-                <div class="indicator-desc">Mengukur efisiensi dampak moneter sosial dan lingkungan yang dihasilkan dari total investasi finansial yang dikucurkan perusahaan.</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="5">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val5">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">6. Menciptakan Nilai Bersama (Shared Value Creation)</div>
-                <div class="indicator-desc">Menilai keselarasan program dalam menciptakan nilai bagi bisnis internal perusahaan sekaligus memberikan kemajuan sosial bagi komunitas eksternal.</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="6">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val6">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">7. Kontribusi terhadap Keanekaragaman Hayati</div>
-                <div class="indicator-desc">Menilai komitmen program dalam mendukung konservasi flora dan fauna lokal, perlindungan ekosistem, serta integrasi kearifan tradisional (TEK).</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="7">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val7">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)</div>
-                <div class="indicator-desc">Mengukur derajat pelibatan aktor kunci secara inklusif dan transparan—mulai dari komunikasi satu arah hingga tingkat keputusan bersama (co-decision making).</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="8">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val8">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">9. Kedekatan Kewilayahan</div>
-                <div class="indicator-desc">Menilai ketepatan sasaran geografis program dalam merespons kebutuhan mendesak dan potensi unik pada level komunitas tapak (sekitar ring operasi).</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="9">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val9">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">10. Tata Kelola</div>
-                <div class="indicator-desc">Mengevaluasi transparansi, akuntabilitas, kemandirian organisasi pelaksana di masyarakat, dan efektivitas mekanisme pengaduan keluhan (grievance mechanism).</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="10">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val10">0</span>
-                </div>
-            </div>
-
-            <button type="button" class="btn-calc" id="btnCalculate" onclick="calculateAndNavigateToResult()">Hitung Total Capaian EMAS & Kirim Data</button>
-        </form>
-    </div>
-
-    <div id="pageResult" class="page">
-        <div id="downloadTarget" class="capture-area">
-            <div class="result-container">
-                <h2>Hasil Evaluasi Kinerja EMAS</h2>
-                <span class="program-highlight" id="programTitleDisplay">Program: -</span>
-                
-                <div class="final-score" id="finalScoreDisplay">0.0</div>
-                <div>
-                    <span class="status-badge" id="statusBadge">KATEGORI</span>
-                </div>
-                
-                <div class="chart-container">
-                    <canvas id="emasSpiderChart"></canvas>
-                </div>
-
-                <div class="result-desc" id="resultDesc">
-                    Deskripsi hasil analisis performa kriteria program berdasarkan standarisasi EMAS.
-                </div>
-            </div>
-        </div>
-
-        <div class="cta-box">
-            <p>🚀 Ingin mengoptimalkan performa dan dampak program Anda?</p>
-            <div class="cta-buttons-group">
-                <a href="https://wa.me/6281327774221text=Halo,%20saya%20tertarik%20untuk%20berkonsultasi%20mengenai%20optimalisasi%20program%20keberlanjutan%20EMAS" target="_blank" class="cta-link cta-wa">
-                    💬 Hubungi via WhatsApp
-                </a>
-                <a href="https://instagram.com/dyahput" target="_blank" class="cta-link cta-link cta-ig">
-                    📸 Ikuti Kami di Instagram
-                </a>
-            </div>
-        </div>
-
-        <div class="action-buttons">
-            <button class="btn-action btn-download" onclick="downloadResultAsJPEG()">💾 Unduh Hasil (.jpeg)</button>
-            <button class="btn-action btn-back" onclick="restartAssessment()">« Mulai Asesmen Baru</button>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Mini Web Aplikasi Asesmen EMAS. Diolah dari Panduan Buku EMAS.</p>
-    </footer>
-</div>
-
-<script>
-    let userProfile = {};
-    let spiderChartInstance = null;
-
-    function navigateToAssessment(event) {
-        event.preventDefault();
+    <div class="main-container">
         
-        userProfile.Nama = document.getElementById('inputNama').value;
-        userProfile.Perusahaan = document.getElementById('inputPerusahaan').value;
-        userProfile.Program = document.getElementById('inputProgram').value;
-        userProfile.NoHP = document.getElementById('inputNoHP').value;
-        userProfile.Email = document.getElementById('inputEmail').value;
+        <div class="header-section">
+            <h1>Kalkulator Asesmen Metode EMAS</h1>
+            <p>Environmental Management Assessment Scheme — Berbasis Pemberdayaan Masyarakat Berkelanjutan</p>
+        </div>
 
-        document.getElementById('pageForm').classList.remove('active');
-        document.getElementById('pageAssessment').classList.add('active');
-        window.scrollTo(0, 0);
-    }
+        <div class="info-box">
+            <strong>Petunjuk Pengisian:</strong> Silakan lengkapi profil identitas Anda, kemudian geser slider pada masing-masing dari 10 kriteria di bawah ini berdasarkan kondisi riil di lapangan (Skala 0 s.d 10).
+        </div>
 
-    const sliders = document.querySelectorAll('.emas-slider');
-    sliders.forEach(slider => {
-        slider.addEventListener('input', function() {
-            const index = this.getAttribute('data-index');
-            document.getElementById(`val${index}`).textContent = this.value;
-        });
-    });
+        <form id="emas-assessment-form" onsubmit="event.preventDefault(); hitungDanKirimData();">
+            
+            <div class="form-group">
+                <label for="input-nama">Nama Lengkap <span>*</span></label>
+                <input type="text" id="input-nama" class="form-control" placeholder="Masukkan nama lengkap Anda" required>
+            </div>
 
-    function calculateAndNavigateToResult() {
-        let totalRawScore = 0;
-        const totalIndicators = 10;
-        const currentScores = [];
+            <div class="form-group">
+                <label for="input-perusahaan">Nama Perusahaan / Institusi <span>*</span></label>
+                <input type="text" id="input-perusahaan" class="form-control" placeholder="Masukkan nama perusahaan" required>
+            </div>
 
-        sliders.forEach(slider => {
-            const val = parseInt(slider.value);
-            totalRawScore += val;
-            currentScores.push(val);
-        });
+            <div class="form-group">
+                <label for="input-program">Nama Program CSR / Pemberdayaan <span>*</span></label>
+                <input type="text" id="input-program" class="form-control" placeholder="Masukkan nama program keberlanjutan" required>
+            </div>
 
-        const finalScore = (totalRawScore / (totalIndicators * 10)) * 100;
-        const finalScoreStr = finalScore.toFixed(1);
-        let kategoriText = "";
-        
-        const finalScoreDisplay = document.getElementById('finalScoreDisplay');
-        const statusBadge = document.getElementById('statusBadge');
-        const resultDesc = document.getElementById('resultDesc');
-        const programTitleDisplay = document.getElementById('programTitleDisplay');
+            <div class="form-group">
+                <label for="input-nohp">Nomor HP / WhatsApp <span>*</span></label>
+                <input type="tel" id="input-nohp" class="form-control" placeholder="Contoh: 081234567xxx" required>
+            </div>
 
-        programTitleDisplay.textContent = `Program: ${userProfile.Program}`;
-        finalScoreDisplay.textContent = finalScoreStr;
+            <div class="form-group">
+                <label for="input-email">Alamat Email <span>*</span></label>
+                <input type="email" id="input-email" class="form-control" placeholder="Contoh: nama@perusahaan.com" required>
+            </div>
 
-        if (finalScore >= 81) {
-            kategoriText = "Tinggi (Luar Biasa / Unggul)";
-            statusBadge.textContent = kategoriText;
-            statusBadge.className = "status-badge status-high";
-            resultDesc.innerHTML = "<strong>Deskripsi Kinerja (Tinggi):</strong> Menunjukkan kinerja luar biasa, praktik terbaik (best practice), inovasi sosial, dan dampak positif yang signifikan di berbagai dimensi keberlanjutan. Program berhasil mengintegrasikan aspek lingkungan-sosial-ekonomi dan menempatkan masyarakat sebagai mitra strategis mandiri.";
-        } else if (finalScore >= 61) {
-            kategoriText = "Sedang (Baik)";
-            statusBadge.textContent = kategoriText;
-            statusBadge.className = "status-badge status-medium";
-            resultDesc.innerHTML = "<strong>Deskripsi Kinerja (Sedang):</strong> Menunjukkan kinerja yang baik namun masih memiliki ruang untuk perbaikan berkelanjutan. Telah menerapkan praktik-praktik efektif, tetapi mungkin masih menghadapi beberapa tantangan kapasitas atau integrasi program di lapangan.";
-        } else {
-            kategoriText = "Rendah (Belum Memuaskan)";
-            statusBadge.textContent = kategoriText;
-            statusBadge.className = "status-badge status-low";
-            resultDesc.innerHTML = "<strong>Deskripsi Kinerja (Rendah):</strong> Menunjukkan kinerja yang belum memuaskan. Program masih menghadapi tantangan signifikan seperti keterbatasan komitmen, minimnya pelibatan masyarakat lokal secara bermakna, atau program cenderung masih bersifat karitatif/parsial.";
+            <div style="margin: 30px 0 15px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
+                <h2 style="font-size: 1.2rem; color: #1e293b;">Kriteria Penilaian Indikator</h2>
+            </div>
+
+            <div class="kriteria-card">
+                <div class="kriteria-title">1. Dampak Lingkungan</div>
+                <div class="kriteria-desc">Mengukur konsekuensi program terhadap lingkungan alam (pengurangan emisi GRK, limbah, konservasi air, perlindungan keanekaragaman hayati, mitigasi risiko bencana).</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="5" class="slider-input" id="k1" oninput="updateSliderValue('k1')">
+                    <span id="v-k1" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <div class="kriteria-card">
+                <div class="kriteria-title">2. Dampak Ekonomi</div>
+                <div class="kriteria-desc">Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan, kemandirian finansial komunitas, dan penyerapan tenaga kerja lokal.</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="5" class="slider-input" id="k2" oninput="updateSliderValue('k2')">
+                    <span id="v-k2" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <div class="kriteria-card">
+                <div class="kriteria-title">3. Dampak Sosial</div>
+                <div class="kriteria-desc">Mengukur pengaruh program terhadap kohesi sosial, penguatan modal sosial (social capital), kelembagaan lokal, serta resolusi/pengurangan konflik.</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="5" class="slider-input" id="k3" oninput="updateSliderValue('k3')">
+                    <span id="v-k3" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <div class="kriteria-card">
+                <div class="kriteria-title">4. Dampak Kesejahteraan</div>
+                <div class="kriteria-desc">Menilai peningkatan kualitas hidup langsung masyarakat sasaran (akses pendidikan, fasilitas kesehatan, gizi, sanitas, maupun rasa aman).</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="5" class="slider-input" id="k4" oninput="updateSliderValue('k4')">
+                    <span id="v-k4" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <div class="kriteria-card">
+                <div class="kriteria-title">5. Rasio Pengembalian Investasi Sosial (SROI)</div>
+                <div class="kriteria-desc">Mengukur efisiensi dampak finansial sosial imbal balik dibandingkan besaran nilai investasi yang telah dialokasikan perusahaan.</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="5" class="slider-input" id="k5" oninput="updateSliderValue('k5')">
+                    <span id="v-k5" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <div class="kriteria-card">
+                <div class="kriteria-title">6. Menciptakan Nilai Bersama (Shared Value Creation)</div>
+                <div class="kriteria-desc">Mengevaluasi keselarasan nilai antara kebutuhan inti bisnis perusahaan (core business) dan penyelesaian problem sosial lingkungan secara simultan.</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="5" class="slider-input" id="k6" oninput="updateSliderValue('k6')">
+                    <span id="v-k6" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <div class="kriteria-card">
+                <div class="kriteria-title">7. Kontribusi terhadap Keanekaragaman Hayati (Kehati)</div>
+                <div class="kriteria-desc">Menilai aksi proteksi flora fauna endemik, rehabilitasi ekosistem rusak, serta kampanye kesadaran keanekaragaman lokal secara berkala.</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="5" class="slider-input" id="k7" oninput="updateSliderValue('k7')">
+                    <span id="v-k7" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <div class="kriteria-card">
+                <div class="kriteria-title">8. Perlibatan Pemangku Kepentingan (Stakeholder Engagement)</div>
+                <div class="kriteria-desc">Mendeteksi derajat inklusivitas multipihak (pemerintah, LSM, tokoh adat, akademisi) dalam perencanaan aksi hingga proses evaluasi.</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="5" class="slider-input" id="k8" oninput="updateSliderValue('k8')">
+                    <span id="v-k8" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <div class="kriteria-card">
+                <div class="kriteria-title">9. Kedekatan Kewilayahan</div>
+                <div class="kriteria-desc">Menakar kesesuaian geografi lokasi program prioritas, intervensi isu lokal yang kontekstual, serta konsentrasi ring wilayah terdekat operasional unit.</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="5" class="slider-input" id="k9" oninput="updateSliderValue('k9')">
+                    <span id="v-k9" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <div class="kriteria-card">
+                <div class="kriteria-title">10. Tata Kelola</div>
+                <div class="kriteria-desc">Mengevaluasi transparansi, akuntabilitas, kemandirian organisasi pelaksana di masyarakat, dan efektivitas mekanisme pengaduan keluhan (grievance mechanism).</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="5" class="slider-input" id="k10" oninput="updateSliderValue('k10')">
+                    <span id="v-k10" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btn-hitung">Hitung Total Capaian EMAS & Kirim Data</button>
+        </form>
+
+        <div id="result-section">
+            <h2 class="result-title">Hasil Evaluasi Kinerja EMAS Anda</h2>
+            <div class="score-display" id="total-score">0.0</div>
+            <div>
+                <span id="status-badge" class="badge-status">SEDANG (BAIK)</span>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="radarChart"></canvas>
+            </div>
+
+            <div class="desc-box">
+                <strong>Deskripsi Kinerja:</strong> <span id="performance-desc">Memuat analisis deskripsi...</span>
+            </div>
+
+            <div class="cta-container">
+                <h3>Ingin mengoptimalkan performa dan dampak program Anda?</h3>
+                <div class="cta-buttons">
+                    
+                    <a href="https://wa.me/6281234567890" class="btn-cta btn-whatsapp" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.454 5.709 1.455h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                        Hubungi via WhatsApp
+                    </a>
+
+                    <a href="https://instagram.com/risetmadani" class="btn-cta btn-instagram" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                        Ikuti Kami di Instagram
+                    </a>
+                </div>
+            </div>
+
+            <button onclick="window.location.reload();" class="btn-submit" style="background-color: #64748b; margin-top: 10px;">&laquo; Mulai Asesmen Baru</button>
+        </div>
+
+        <p class="footer-text">© 2026 Mini Web Aplikasi Asesmen EMAS. Diolah dari Panduan Buku EMAS.</p>
+    </div>
+
+    <script>
+        let myRadarChart = null;
+
+        // Fungsi memperbarui angka live indicator di samping slider
+        function updateSliderValue(id) {
+            const val = document.getElementById(id).value;
+            document.getElementById('v-' + id).innerText = val;
         }
 
-        const ctx = document.getElementById('emasSpiderChart').getContext('2d');
-        if (spiderChartInstance !== null) {
-            spiderChartInstance.destroy();
-        }
+        // Fungsi kalkulasi logika skor, penentuan kategori, dan hitung chart
+        function hitungDanKirimData() {
+            // 1. Ambil data identitas
+            const nama = document.getElementById('input-nama').value;
+            const perusahaan = document.getElementById('input-perusahaan').value;
+            const program = document.getElementById('input-program').value;
+            const nohp = document.getElementById('input-nohp').value;
+            const email = document.getElementById('input-email').value;
 
-        spiderChartInstance = new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: ['Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 'SROI', 'Shared Value', 'Kehati', 'Stakeholder', 'Kewilayahan', 'Tata Kelola'],
-                datasets: [{
-                    label: 'Capaian Performa Kriteria',
-                    data: currentScores,
-                    backgroundColor: 'rgba(46, 125, 50, 0.2)',
-                    borderColor: '#2e7d32',
-                    borderWidth: 2,
-                    pointBackgroundColor: '#1b5e20',
-                    pointBorderColor: '#fff',
-                    pointRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: { duration: 0 },
-                scales: {
-                    r: {
-                        suggestedMin: 0,
-                        suggestedMax: 10,
-                        ticks: { stepSize: 2 },
-                        pointLabels: { font: { size: 11, weight: '600' }, color: '#37474f' }
-                    }
-                },
-                plugins: { legend: { display: false } }
+            // 2. Ambil nilai 10 kriteria
+            const k1 = parseInt(document.getElementById('k1').value);
+            const k2 = parseInt(document.getElementById('k2').value);
+            const k3 = parseInt(document.getElementById('k3').value);
+            const k4 = parseInt(document.getElementById('k4').value);
+            const k5 = parseInt(document.getElementById('k5').value);
+            const k6 = parseInt(document.getElementById('k6').value);
+            const k7 = parseInt(document.getElementById('k7').value);
+            const k8 = parseInt(document.getElementById('k8').value);
+            const k9 = parseInt(document.getElementById('k9').value);
+            const k10 = parseInt(document.getElementById('k10').value);
+
+            // 3. Hitung skor total (Skala 0 - 100)
+            const totalSkor = (k1 + k2 + k3 + k4 + k5 + k6 + k7 + k8 + k9 + k10) * 1.0; 
+            document.getElementById('total-score').innerText = totalSkor.toFixed(1);
+
+            // 4. Klasifikasi Kategori Status & Deskripsi Kinerja
+            const statusBadge = document.getElementById('status-badge');
+            const descEl = document.getElementById('performance-desc');
+            let kategori = "";
+
+            statusBadge.className = "badge-status"; // reset class
+
+            if (totalSkor < 60) {
+                kategori = "RENDAH (BELUM MEMUASKAN)";
+                statusBadge.innerText = kategori;
+                statusBadge.classList.add('badge-rendah');
+                descEl.innerText = "Menunjukkan kinerja yang belum memuaskan. Program masih menghadapi tantangan signifikan seperti keterbatasan komitmen, minimnya pelibatan masyarakat lokal secara bermakna, atau program cenderung masih bersifat karitatif/parsial.";
+            } else if (totalSkor >= 60 && totalSkor <= 80) {
+                kategori = "SEDANG (BAIK)";
+                statusBadge.innerText = kategori;
+                statusBadge.classList.add('badge-sedang');
+                descEl.innerText = "Menunjukkan kinerja yang baik namun masih memiliki ruang untuk perbaikan berkelanjutan. Telah menerapkan praktik-praktik efektif, tetapi mungkin masih menghadapi beberapa tantangan kapasitas atau integrasi program di lapangan.";
+            } else {
+                kategori = "TINGGI (SANGAT UNGGUL)";
+                statusBadge.innerText = kategori;
+                statusBadge.classList.add('badge-tinggi');
+                descEl.innerText = "Menunjukkan kinerja luar biasa dan sangat unggul! Program berjalan sangat efektif, berdampak sistemik berkelanjutan, menerapkan asas akuntabilitas tinggi, serta berhasil mewujudkan kemandirian penuh pada masyarakat dampingan.";
             }
-        });
 
-        document.getElementById('pageAssessment').classList.remove('active');
-        document.getElementById('pageResult').classList.add('active');
-        window.scrollTo(0, 0);
+            // 5. Render atau Update Grafik Radar Chart.js
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            const dataKriteria = [k1, k2, k3, k4, k5, k6, k7, k8, k9, k10];
+            const labelKriteria = [
+                'Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 'SROI',
+                'Shared Value', 'Kehati', 'Stakeholder', 'Kewilayahan', 'Tata Kelola'
+            ];
 
-        const btnCalc = document.getElementById('btnCalculate');
-        btnCalc.innerText = "Mengirim Data Hasil...";
-        btnCalc.disabled = true;
+            if (myRadarChart !== null) {
+                myRadarChart.destroy(); // Hancurkan chart lama agar tidak tumpang tindih
+            }
 
-        const payload = {
-            Nama: userProfile.Nama,
-            Perusahaan: userProfile.Perusahaan,
-            Program: userProfile.Program,
-            NoHP: userProfile.NoHP,
-            Email: userProfile.Email,
-            SkorAkhir: finalScoreStr,
-            Kategori: kategoriText
-        };
+            myRadarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labelKriteria,
+                    datasets: [{
+                        label: 'Skor Asesmen',
+                        data: dataKriteria,
+                        backgroundColor: 'rgba(46, 125, 50, 0.2)',
+                        borderColor: '#2e7d32',
+                        pointBackgroundColor: '#2e7d32',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#2e7d32',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: { display: true },
+                            suggestedMin: 0,
+                            suggestedMax: 10,
+                            ticks: { stepSize: 2 }
+                        }
+                    }
+                }
+            });
 
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwNE-XY6roO-i7nxVprMPGwI0Zdc7LqtMZBfUrRgoxIfHn4soDVoEWkDgM8HVIOFocz/exec';
+            // Munculkan section hasil ke layar user
+            document.getElementById('result-section').style.display = 'block';
+            document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
 
-        fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors', 
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(payload)
-        })
-        .then(() => {
-            btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
-            btnCalc.disabled = false;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
-            btnCalc.disabled = false;
-        });
-    }
+            // 6. KIRIM DATA KE GOOGLE SHEET VIA WEB APP URL APPS SCRIPT
+            const webAppUrl = "https://script.google.com/macros/s/AKfycby...ganti_dengan_id_apps_script_anda.../exec";
 
-    function downloadResultAsJPEG() {
-        const targetElement = document.getElementById('downloadTarget');
-        const programName = userProfile.Program ? userProfile.Program.replace(/[^a-z0-9]/gi, '_').toLowerCase() : 'program';
-        const fileName = `Hasil_Asesmen_EMAS_${programName}.jpg`;
+            const payload = {
+                Nama: nama,
+                Perusahaan: perusahaan,
+                Program: program,
+                NoHP: nohp,
+                Email: email,
+                SkorAkhir: totalSkor,
+                Kategori: kategori
+            };
 
-        html2canvas(targetElement, {
-            scale: 2,
-            backgroundColor: '#ffffff',
-            useCORS: true
-        }).then(canvas => {
-            const imageData = canvas.toDataURL('image/jpeg', 1.0);
-            const downloadLink = document.createElement('a');
-            downloadLink.href = imageData;
-            downloadLink.download = fileName;
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-        }).catch(err => {
-            console.error(err);
-            alert("Terjadi kesalahan saat menyiapkan file unduhan.");
-        });
-    }
+            // Nonaktifkan tombol sebentar saat proses kirim data
+            const btnHitung = document.getElementById('btn-hitung');
+            btnHitung.innerText = "Mengirim Data Hasil Asesmen...";
+            btnHitung.disabled = true;
 
-    function restartAssessment() {
-        document.getElementById('identityForm').reset();
-        document.getElementById('emasForm').reset();
-        for (let i = 1; i <= 10; i++) {
-            document.getElementById(`val${i}`).textContent = "0";
+            fetch(webAppUrl, {
+                method: 'POST',
+                mode: 'no-cors', // Penting untuk menghindari CORS error di Apps Script
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                alert("Data asesmen berhasil disimpan ke sistem cloud database Google Sheets!");
+                btnHitung.innerText = "Hitung Total Capaian EMAS & Kirim Data";
+                btnHitung.disabled = false;
+            })
+            .catch(error => {
+                console.error("Gagal mengirim data: ", error);
+                alert("Proses perhitungan selesai, namun gagal menyambung ke Google Sheets. Silakan cek URL Apps Script Anda.");
+                btnHitung.innerText = "Hitung Total Capaian EMAS & Kirim Data";
+                btnHitung.disabled = false;
+            });
         }
-        document.getElementById('pageResult').classList.remove('active');
-        document.getElementById('pageForm').classList.add('active');
-        window.scrollTo(0, 0);
-    }
-</script>
-
+    </script>
 </body>
 </html>
