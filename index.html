@@ -61,6 +61,62 @@
             font-size: 14px;
         }
 
+        /* Navigasi Halaman */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* Style Halaman Form Data Diri */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--secondary-color);
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn-submit, .btn-calc {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: background 0.2s;
+            text-align: center;
+        }
+
+        .btn-submit:hover, .btn-calc:hover {
+            background-color: #1b5e20;
+        }
+
+        /* Style Halaman Kalkulator */
         .instructions {
             background-color: var(--primary-light);
             padding: 15px;
@@ -140,25 +196,7 @@
             text-align: right;
         }
 
-        .btn-calc {
-            display: block;
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: background 0.2s;
-        }
-
-        .btn-calc:hover {
-            background-color: #1b5e20;
-        }
-
+        /* Hasil Evaluasi */
         .result-section {
             margin-top: 35px;
             padding: 25px;
@@ -194,7 +232,6 @@
         .status-medium { background-color: var(--medium-color); }
         .status-low { background-color: var(--low-color); }
 
-        /* Container untuk Grafik Spider Web */
         .chart-container {
             position: relative;
             margin: 30px auto 15px auto;
@@ -230,176 +267,225 @@
         <p>Environmental Management Assessment Scheme — Berbasis Pemberdayaan Masyarakat Berkelanjutan</p>
     </header>
 
-    <div class="instructions">
-        <strong>Petunjuk Pengisian:</strong> Geser skala penggeser (slider) pada masing-masing kriteria di bawah ini berdasarkan kondisi nyata di lapangan. Deretan angka penanda (0-10) disediakan tepat di bawah garis skala untuk memudahkan ketepatan penilaian Anda.
+    <div id="pageForm" class="page active">
+        <div class="instructions" style="border-left-color: var(--secondary-color); background-color: #f0f4f6;">
+            Selamat datang di Platform Evaluasi EMAS. Silakan isi profil identitas Anda terlebih dahulu untuk memulai asesmen indikator keberlanjutan.
+        </div>
+        <form id="identityForm" onsubmit="navigateToAssessment(event)">
+            <div class="form-group">
+                <label for="inputNama">Nama Lengkap *</label>
+                <input type="text" id="inputNama" required placeholder="Masukkan nama lengkap Anda">
+            </div>
+            <div class="form-group">
+                <label for="inputPerusahaan">Nama Perusahaan / Institusi *</label>
+                <input type="text" id="inputPerusahaan" required placeholder="Masukkan nama perusahaan">
+            </div>
+            <div class="form-group">
+                <label for="inputProgram">Nama Program CSR / Pemberdayaan *</label>
+                <input type="text" id="inputProgram" required placeholder="Masukkan nama program keberlanjutan">
+            </div>
+            <div class="form-group">
+                <label for="inputNoHP">Nomor HP / WhatsApp *</label>
+                <input type="tel" id="inputNoHP" required placeholder="Contoh: 081234567xxx">
+            </div>
+            <div class="form-group">
+                <label for="inputEmail">Alamat Email *</label>
+                <input type="email" id="inputEmail" required placeholder="Contoh: nama@perusahaan.com">
+            </div>
+            <button type="submit" class="btn-submit">Mulai Masuk Ke Halaman Asesmen &rarr;</button>
+        </form>
     </div>
 
-    <form id="emasForm">
-        <div class="indicator-card">
-            <div class="indicator-title">1. Dampak Lingkungan</div>
-            <div class="indicator-desc">Mengukur konsekuensi program terhadap lingkungan alam (pengurangan emisi GRK, limbah, konservasi air, perlindungan keanekaragaman hayati, mitigasi risiko bencana).</div>
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="1">
-                    <div class="ticks-container">
-                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+    <div id="pageAssessment" class="page">
+        <div class="instructions">
+            <strong>Petunjuk Pengisian:</strong> Geser skala penggeser (slider) pada masing-masing kriteria di bawah ini berdasarkan kondisi nyata di lapangan. Deretan angka penanda (0-10) disediakan tepat di bawah garis skala untuk memudahkan ketepatan penilaian Anda.
+        </div>
+
+        <form id="emasForm">
+            <div class="indicator-card">
+                <div class="indicator-title">1. Dampak Lingkungan</div>
+                <div class="indicator-desc">Mengukur konsekuensi program terhadap lingkungan alam (pengurangan emisi GRK, limbah, konservasi air, perlindungan keanekaragaman hayati, mitigasi risiko bencana).</div>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="1">
+                        <div class="ticks-container">
+                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                        </div>
                     </div>
+                    <span class="score-display" id="val1">0</span>
                 </div>
-                <span class="score-display" id="val1">0</span>
             </div>
-        </div>
 
-        <div class="indicator-card">
-            <div class="indicator-title">2. Dampak Ekonomi</div>
-            <div class="indicator-desc">Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan, kemandirian finansial komunitas, dan penyerapan tenaga kerja lokal.</div>
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="2">
-                    <div class="ticks-container">
-                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+            <div class="indicator-card">
+                <div class="indicator-title">2. Dampak Ekonomi</div>
+                <div class="indicator-desc">Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan, kemandirian finansial komunitas, dan penyerapan tenaga kerja lokal.</div>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="2">
+                        <div class="ticks-container">
+                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                        </div>
                     </div>
+                    <span class="score-display" id="val2">0</span>
                 </div>
-                <span class="score-display" id="val2">0</span>
             </div>
-        </div>
 
-        <div class="indicator-card">
-            <div class="indicator-title">3. Dampak Sosial</div>
-            <div class="indicator-desc">Mengukur pengaruh program terhadap kohesi sosial, penguatan modal sosial (social capital), kelembagaan lokal, serta resolusi/pengurangan konflik.</div>
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="3">
-                    <div class="ticks-container">
-                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+            <div class="indicator-card">
+                <div class="indicator-title">3. Dampak Sosial</div>
+                <div class="indicator-desc">Mengukur pengaruh program terhadap kohesi sosial, penguatan modal sosial (social capital), kelembagaan lokal, serta resolusi/pengurangan konflik.</div>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="3">
+                        <div class="ticks-container">
+                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                        </div>
                     </div>
+                    <span class="score-display" id="val3">0</span>
                 </div>
-                <span class="score-display" id="val3">0</span>
             </div>
-        </div>
 
-        <div class="indicator-card">
-            <div class="indicator-title">4. Dampak Kesejahteraan</div>
-            <div class="indicator-desc">Mengukur kontribusi program terhadap pemenuhan hak dasar manusia, seperti perbaikan kualitas kesehatan, akses pendidikan, status gizi, dan kepuasan hidup masyarakat.</div>
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="4">
-                    <div class="ticks-container">
-                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+            <div class="indicator-card">
+                <div class="indicator-title">4. Dampak Kesejahteraan</div>
+                <div class="indicator-desc">Mengukur kontribusi program terhadap pemenuhan hak dasar manusia, seperti perbaikan kualitas kesehatan, akses pendidikan, status gizi, dan kepuasan hidup masyarakat.</div>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="4">
+                        <div class="ticks-container">
+                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                        </div>
                     </div>
+                    <span class="score-display" id="val4">0</span>
                 </div>
-                <span class="score-display" id="val4">0</span>
             </div>
-        </div>
 
-        <div class="indicator-card">
-            <div class="indicator-title">5. Rasio Pengembalian Investasi Sosial (SROI)</div>
-            <div class="indicator-desc">Mengukur efisiensi dampak moneter sosial dan lingkungan yang dihasilkan dari total investasi finansial yang dikucurkan perusahaan.</div>
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="5">
-                    <div class="ticks-container">
-                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+            <div class="indicator-card">
+                <div class="indicator-title">5. Rasio Pengembalian Investasi Sosial (SROI)</div>
+                <div class="indicator-desc">Mengukur efisiensi dampak moneter sosial dan lingkungan yang dihasilkan dari total investasi finansial yang dikucurkan perusahaan.</div>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="5">
+                        <div class="ticks-container">
+                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                        </div>
                     </div>
+                    <span class="score-display" id="val5">0</span>
                 </div>
-                <span class="score-display" id="val5">0</span>
             </div>
-        </div>
 
-        <div class="indicator-card">
-            <div class="indicator-title">6. Menciptakan Nilai Bersama (Shared Value Creation)</div>
-            <div class="indicator-desc">Menilai keselarasan program dalam menciptakan nilai bagi bisnis internal perusahaan sekaligus memberikan kemajuan sosial bagi komunitas eksternal.</div>
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="6">
-                    <div class="ticks-container">
-                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+            <div class="indicator-card">
+                <div class="indicator-title">6. Menciptakan Nilai Bersama (Shared Value Creation)</div>
+                <div class="indicator-desc">Menilai keselarasan program dalam menciptakan nilai bagi bisnis internal perusahaan sekaligus memberikan kemajuan sosial bagi komunitas eksternal.</div>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="6">
+                        <div class="ticks-container">
+                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                        </div>
                     </div>
+                    <span class="score-display" id="val6">0</span>
                 </div>
-                <span class="score-display" id="val6">0</span>
             </div>
-        </div>
 
-        <div class="indicator-card">
-            <div class="indicator-title">7. Kontribusi terhadap Keanekaragaman Hayati</div>
-            <div class="indicator-desc">Menilai komitmen program dalam mendukung konservasi flora dan fauna lokal, perlindungan ekosistem, serta integrasi kearifan tradisional (TEK).</div>
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="7">
-                    <div class="ticks-container">
-                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+            <div class="indicator-card">
+                <div class="indicator-title">7. Kontribusi terhadap Keanekaragaman Hayati</div>
+                <div class="indicator-desc">Menilai komitmen program dalam mendukung konservasi flora dan fauna lokal, perlindungan ekosistem, serta integrasi kearifan tradisional (TEK).</div>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="7">
+                        <div class="ticks-container">
+                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                        </div>
                     </div>
+                    <span class="score-display" id="val7">0</span>
                 </div>
-                <span class="score-display" id="val7">0</span>
             </div>
-        </div>
 
-        <div class="indicator-card">
-            <div class="indicator-title">8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)</div>
-            <div class="indicator-desc">Mengukur derajat pelibatan aktor kunci secara inklusif dan transparan—mulai dari komunikasi satu arah hingga tingkat keputusan bersama (co-decision making).</div>
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="8">
-                    <div class="ticks-container">
-                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+            <div class="indicator-card">
+                <div class="indicator-title">8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)</div>
+                <div class="indicator-desc">Mengukur derajat pelibatan aktor kunci secara inklusif dan transparan—mulai dari komunikasi satu arah hingga tingkat keputusan bersama (co-decision making).</div>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="8">
+                        <div class="ticks-container">
+                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                        </div>
                     </div>
+                    <span class="score-display" id="val8">0</span>
                 </div>
-                <span class="score-display" id="val8">0</span>
             </div>
-        </div>
 
-        <div class="indicator-card">
-            <div class="indicator-title">9. Kedekatan Kewilayahan</div>
-            <div class="indicator-desc">Menilai ketepatan sasaran geografis program dalam merespons kebutuhan mendesak dan potensi unik pada level komunitas tapak (sekitar ring operasi).</div>
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="9">
-                    <div class="ticks-container">
-                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+            <div class="indicator-card">
+                <div class="indicator-title">9. Kedekatan Kewilayahan</div>
+                <div class="indicator-desc">Menilai ketepatan sasaran geografis program dalam merespons kebutuhan mendesak dan potensi unik pada level komunitas tapak (sekitar ring operasi).</div>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="9">
+                        <div class="ticks-container">
+                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                        </div>
                     </div>
+                    <span class="score-display" id="val9">0</span>
                 </div>
-                <span class="score-display" id="val9">0</span>
             </div>
-        </div>
 
-        <div class="indicator-card">
-            <div class="indicator-title">10. Tata Kelola</div>
-            <div class="indicator-desc">Mengevaluasi transparansi, akuntabilitas, kemandirian organisasi pelaksana di masyarakat, dan efektivitas mekanisme pengaduan keluhan (grievance mechanism).</div>
-            <div class="slider-container">
-                <div class="slider-wrapper">
-                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="10">
-                    <div class="ticks-container">
-                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+            <div class="indicator-card">
+                <div class="indicator-title">10. Tata Kelola</div>
+                <div class="indicator-desc">Mengevaluasi transparansi, akuntabilitas, kemandirian organisasi pelaksana di masyarakat, dan efektivitas mekanisme pengaduan keluhan (grievance mechanism).</div>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="10">
+                        <div class="ticks-container">
+                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                        </div>
                     </div>
+                    <span class="score-display" id="val10">0</span>
                 </div>
-                <span class="score-display" id="val10">0</span>
             </div>
-        </div>
 
-        <button type="button" class="btn-calc" onclick="calculateEMAS()">Hitung Total Capaian EMAS</button>
-    </form>
+            <button type="button" class="btn-calc" id="btnCalculate" onclick="calculateEMAS()">Hitung Total Capaian EMAS & Kirim Data</button>
+        </form>
 
-    <div class="result-section" id="resultSection">
-        <div class="result-title">Hasil Evaluasi Kinerja EMAS</div>
-        <div class="final-score" id="finalScoreDisplay">0.0</div>
-        <div id="statusBadgeContainer">
-            <span class="status-badge" id="statusBadge">KATEGORI</span>
-        </div>
-        
-        <div class="chart-container">
-            <canvas id="emasSpiderChart"></canvas>
-        </div>
+        <div class="result-section" id="resultSection">
+            <div class="result-title">Hasil Evaluasi Kinerja EMAS</div>
+            <div class="final-score" id="finalScoreDisplay">0.0</div>
+            <div id="statusBadgeContainer">
+                <span class="status-badge" id="statusBadge">KATEGORI</span>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="emasSpiderChart"></canvas>
+            </div>
 
-        <div class="result-desc" id="resultDesc">Deskripsi hasil kesimpulan kriteria berdasarkan buku EMAS.</div>
+            <div class="result-desc" id="resultDesc">Deskripsi hasil kesimpulan kriteria berdasarkan buku EMAS.</div>
+        </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Mini Web Aplikasi Asesmen EMAS. Diolah dari Panduan Buku EMAS.</p>
+        <p>&copy; 2026 Metode Emas. Diolah dari Panduan Buku EMAS.</p>
     </footer>
 </div>
 
 <script>
-    // Inisialisasi variabel chart global agar bisa di-reset setiap tombol ditekan
+    // Menyimpan data identitas global sementara
+    let userProfile = {};
     let spiderChartInstance = null;
+
+    // Fungsi Navigasi Halaman
+    function navigateToAssessment(event) {
+        event.preventDefault();
+        
+        // Ambil nilai data diri
+        userProfile.Nama = document.getElementById('inputNama').value;
+        userProfile.Perusahaan = document.getElementById('inputPerusahaan').value;
+        userProfile.Program = document.getElementById('inputProgram').value;
+        userProfile.NoHP = document.getElementById('inputNoHP').value;
+        userProfile.Email = document.getElementById('inputEmail').value;
+
+        // Berpindah halaman ke kalkulator utama
+        document.getElementById('pageForm').classList.remove('active');
+        document.getElementById('pageAssessment').classList.add('active');
+        window.scrollTo(0, 0);
+    }
 
     // Sinkronisasi angka realtime saat slider digeser
     const sliders = document.querySelectorAll('.emas-slider');
@@ -415,7 +501,6 @@
         const totalIndicators = 10;
         const currentScores = [];
 
-        // Mengambil skor masing-masing indikator untuk grafik spider web
         sliders.forEach(slider => {
             const val = parseInt(slider.value);
             totalRawScore += val;
@@ -423,34 +508,36 @@
         });
 
         const finalScore = (totalRawScore / (totalIndicators * 10)) * 100;
+        const finalScoreStr = finalScore.toFixed(1);
+        let kategoriText = "";
         
         const resultSection = document.getElementById('resultSection');
         const finalScoreDisplay = document.getElementById('finalScoreDisplay');
         const statusBadge = document.getElementById('statusBadge');
         const resultDesc = document.getElementById('resultDesc');
 
-        finalScoreDisplay.textContent = finalScore.toFixed(1);
+        finalScoreDisplay.textContent = finalScoreStr;
         resultSection.style.display = 'block';
 
-        // Penentuan kategori evaluasi
         if (finalScore >= 81) {
-            statusBadge.textContent = "Tinggi (Luar Biasa / Unggul)";
+            kategoriText = "Tinggi (Luar Biasa / Unggul)";
+            statusBadge.textContent = kategoriText;
             statusBadge.className = "status-badge status-high";
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja:</strong> Menunjukkan kinerja luar biasa, praktik terbaik (best practice), inovasi sosial, dan dampak positif yang signifikan di berbagai dimensi keberlanjutan. Program berhasil mengintegrasikan aspek lingkungan-sosial-ekonomi dan menempatkan masyarakat sebagai mitra strategis mandiri.";
         } else if (finalScore >= 61) {
-            statusBadge.textContent = "Sedang (Baik)";
+            kategoriText = "Sedang (Baik)";
+            statusBadge.textContent = kategoriText;
             statusBadge.className = "status-badge status-medium";
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja:</strong> Menunjukkan kinerja yang baik namun masih memiliki ruang untuk perbaikan berkelanjutan. Telah menerapkan praktik-praktik efektif, tetapi mungkin masih menghadapi beberapa tantangan kapasitas atau integrasi program di lapangan.";
         } else {
-            statusBadge.textContent = "Rendah (Belum Memuaskan)";
+            kategoriText = "Rendah (Belum Memuaskan)";
+            statusBadge.textContent = kategoriText;
             statusBadge.className = "status-badge status-low";
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja:</strong> Menunjukkan kinerja yang belum memuaskan. Program masih menghadapi tantangan signifikan seperti keterbatasan komitmen, minimnya pelibatan masyarakat lokal secara bermakna, atau program cenderung masih bersifat karitatif/parsial.";
         }
 
-        // --- LOGIKA MERENDER SPIDER WEB CHART ---
+        // --- RENDER GRAFIK SPIDER WEB ---
         const ctx = document.getElementById('emasSpiderChart').getContext('2d');
-        
-        // Hancurkan instansi chart sebelumnya jika ada agar tidak tumpang tindih saat klik ulang
         if (spiderChartInstance !== null) {
             spiderChartInstance.destroy();
         }
@@ -458,20 +545,15 @@
         spiderChartInstance = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: [
-                    'Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 'SROI',
-                    'Shared Value', 'Kehati', 'Stakeholder', 'Kewilayahan', 'Tata Kelola'
-                ],
+                labels: ['Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 'SROI', 'Shared Value', 'Kehati', 'Stakeholder', 'Kewilayahan', 'Tata Kelola'],
                 datasets: [{
                     label: 'Capaian Performa Kriteria',
                     data: currentScores,
-                    backgroundColor: 'rgba(46, 125, 50, 0.2)', // Hijau transparan
+                    backgroundColor: 'rgba(46, 125, 50, 0.2)',
                     borderColor: '#2e7d32',
                     borderWidth: 2,
                     pointBackgroundColor: '#1b5e20',
                     pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: '#1b5e20',
                     pointRadius: 4
                 }]
             },
@@ -480,28 +562,54 @@
                 maintainAspectRatio: false,
                 scales: {
                     r: {
-                        angleLines: { display: true, color: '#e0e0e0' },
-                        grid: { color: '#e0e0e0' },
                         suggestedMin: 0,
                         suggestedMax: 10,
-                        ticks: {
-                            stepSize: 2,
-                            font: { size: 10 }
-                        },
-                        pointLabels: {
-                            font: { size: 11, weight: '600' },
-                            color: '#37474f'
-                        }
+                        ticks: { stepSize: 2 },
+                        pointLabels: { font: { size: 11, weight: '600' }, color: '#37474f' }
                     }
                 },
-                plugins: {
-                    legend: { display: false } // Sembunyikan legenda atas agar grafik lebih luas
-                }
+                plugins: { legend: { display: false } }
             }
         });
 
         // Gulir otomatis ke bagian hasil evaluasi
         resultSection.scrollIntoView({ behavior: 'smooth' });
+
+        // --- PENGIRIMAN DATA KE GOOGLE SHEETS VIA APPS SCRIPT ---
+        const btnCalc = document.getElementById('btnCalculate');
+        btnCalc.innerText = "Mengirim Data Hasil ke Database...";
+        btnCalc.disabled = true;
+
+        // Gabungkan profil data diri dengan skor akhir
+        const payload = {
+            Nama: userProfile.Nama,
+            Perusahaan: userProfile.Perusahaan,
+            Program: userProfile.Program,
+            NoHP: userProfile.NoHP,
+            Email: userProfile.Email,
+            SkorAkhir: finalScoreStr,
+            Kategori: kategoriText
+        };
+
+        // Ganti string di bawah ini dengan Web App URL dari Google Apps Script Anda
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxEDt59zwcGao8HBBoMigU61Zw-J22anZEmQiKV73UwU_yWmKnGLD7nR9XWt0EYc4Vl/exec';
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', // Digunakan untuk menghindari masalah CORS di Google Script
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
+            btnCalc.disabled = false;
+            alert("Data evaluasi Anda berhasil disimpan ke database Google Sheets!");
+        })
+        .catch(error => {
+            console.error('Error saat mengirim data database:', error);
+            btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
+            btnCalc.disabled = false;
+        });
     }
 </script>
 
