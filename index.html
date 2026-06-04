@@ -99,21 +99,44 @@
         .slider-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
+        }
+
+        .slider-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         input[type="range"] {
-            flex: 1;
+            width: 100%;
             accent-color: var(--primary-color);
             cursor: pointer;
+            height: 8px;
+            border-radius: 5px;
+        }
+
+        .ticks-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2px;
+            margin-top: 8px;
+        }
+
+        .tick-label {
+            font-size: 11px;
+            color: #78909c;
+            width: 20px;
+            text-align: center;
+            font-weight: 500;
         }
 
         .score-display {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: bold;
-            color: var(--secondary-color);
-            min-width: 30px;
-            text-align: center;
+            color: var(--primary-color);
+            min-width: 40px;
+            text-align: right;
         }
 
         .btn-calc {
@@ -174,6 +197,11 @@
             margin-top: 15px;
             font-size: 14px;
             color: #444;
+            text-align: left;
+            background: #fdfdfd;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
         }
 
         footer {
@@ -193,7 +221,7 @@
     </header>
 
     <div class="instructions">
-        <strong>Petunjuk Pengisian:</strong> Geser slider pada masing-masing dari 10 kriteria di bawah ini berdasarkan kondisi riil di lapangan. Skala penilaian menggunakan rentang kuantitatif <strong>0 s.d 10</strong> (0 = Sangat Rendah/Diabaikan, 10 = Luar Biasa/Unggul).
+        <strong>Petunjuk Pengisian:</strong> Geser skala penggeser (slider) pada masing-masing kriteria di bawah ini berdasarkan kondisi nyata di lapangan. Deretan angka penanda (0-10) disediakan tepat di bawah garis skala untuk memudahkan ketepatan penilaian Anda.
     </div>
 
     <form id="emasForm">
@@ -201,7 +229,12 @@
             <div class="indicator-title">1. Dampak Lingkungan</div>
             <div class="indicator-desc">Mengukur konsekuensi program terhadap lingkungan alam (pengurangan emisi GRK, limbah, konservasi air, perlindungan keanekaragaman hayati, mitigasi risiko bencana).</div>
             <div class="slider-container">
-                <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="1">
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="1">
+                    <div class="ticks-container">
+                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                    </div>
+                </div>
                 <span class="score-display" id="val1">0</span>
             </div>
         </div>
@@ -210,7 +243,12 @@
             <div class="indicator-title">2. Dampak Ekonomi</div>
             <div class="indicator-desc">Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan, kemandirian finansial komunitas, dan penyerapan tenaga kerja lokal.</div>
             <div class="slider-container">
-                <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="2">
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="2">
+                    <div class="ticks-container">
+                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                    </div>
+                </div>
                 <span class="score-display" id="val2">0</span>
             </div>
         </div>
@@ -219,7 +257,12 @@
             <div class="indicator-title">3. Dampak Sosial</div>
             <div class="indicator-desc">Mengukur pengaruh program terhadap kohesi sosial, penguatan modal sosial (social capital), kelembagaan lokal, serta resolusi/pengurangan konflik.</div>
             <div class="slider-container">
-                <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="3">
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="3">
+                    <div class="ticks-container">
+                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                    </div>
+                </div>
                 <span class="score-display" id="val3">0</span>
             </div>
         </div>
@@ -228,7 +271,12 @@
             <div class="indicator-title">4. Dampak Kesejahteraan</div>
             <div class="indicator-desc">Mengukur kontribusi program terhadap pemenuhan hak dasar manusia, seperti perbaikan kualitas kesehatan, akses pendidikan, status gizi, dan kepuasan hidup masyarakat.</div>
             <div class="slider-container">
-                <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="4">
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="4">
+                    <div class="ticks-container">
+                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                    </div>
+                </div>
                 <span class="score-display" id="val4">0</span>
             </div>
         </div>
@@ -237,7 +285,12 @@
             <div class="indicator-title">5. Rasio Pengembalian Investasi Sosial (SROI)</div>
             <div class="indicator-desc">Mengukur efisiensi dampak moneter sosial dan lingkungan yang dihasilkan dari total investasi finansial yang dikucurkan perusahaan.</div>
             <div class="slider-container">
-                <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="5">
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="5">
+                    <div class="ticks-container">
+                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                    </div>
+                </div>
                 <span class="score-display" id="val5">0</span>
             </div>
         </div>
@@ -246,7 +299,12 @@
             <div class="indicator-title">6. Menciptakan Nilai Bersama (Shared Value Creation)</div>
             <div class="indicator-desc">Menilai keselarasan program dalam menciptakan nilai bagi bisnis internal perusahaan sekaligus memberikan kemajuan sosial bagi komunitas eksternal.</div>
             <div class="slider-container">
-                <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="6">
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="6">
+                    <div class="ticks-container">
+                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                    </div>
+                </div>
                 <span class="score-display" id="val6">0</span>
             </div>
         </div>
@@ -255,7 +313,12 @@
             <div class="indicator-title">7. Kontribusi terhadap Keanekaragaman Hayati</div>
             <div class="indicator-desc">Menilai komitmen program dalam mendukung konservasi flora dan fauna lokal, perlindungan ekosistem, serta integrasi kearifan tradisional (TEK).</div>
             <div class="slider-container">
-                <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="7">
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="7">
+                    <div class="ticks-container">
+                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                    </div>
+                </div>
                 <span class="score-display" id="val7">0</span>
             </div>
         </div>
@@ -264,7 +327,12 @@
             <div class="indicator-title">8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)</div>
             <div class="indicator-desc">Mengukur derajat pelibatan aktor kunci secara inklusif dan transparan—mulai dari komunikasi satu arah hingga tingkat keputusan bersama (co-decision making).</div>
             <div class="slider-container">
-                <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="8">
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="8">
+                    <div class="ticks-container">
+                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                    </div>
+                </div>
                 <span class="score-display" id="val8">0</span>
             </div>
         </div>
@@ -273,7 +341,12 @@
             <div class="indicator-title">9. Kedekatan Kewilayahan</div>
             <div class="indicator-desc">Menilai ketepatan sasaran geografis program dalam merespons kebutuhan mendesak dan potensi unik pada level komunitas tapak (sekitar ring operasi).</div>
             <div class="slider-container">
-                <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="9">
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="9">
+                    <div class="ticks-container">
+                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                    </div>
+                </div>
                 <span class="score-display" id="val9">0</span>
             </div>
         </div>
@@ -282,7 +355,12 @@
             <div class="indicator-title">10. Tata Kelola</div>
             <div class="indicator-desc">Mengevaluasi transparansi, akuntabilitas, kemandirian organisasi pelaksana di masyarakat, dan efektivitas mekanisme pengaduan keluhan (grievance mechanism).</div>
             <div class="slider-container">
-                <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="10">
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="10">
+                    <div class="ticks-container">
+                        <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                    </div>
+                </div>
                 <span class="score-display" id="val10">0</span>
             </div>
         </div>
@@ -305,7 +383,7 @@
 </div>
 
 <script>
-    // Sinkronisasi display angka realtime ketika slider digeser
+    // Sinkronisasi angka realtime saat slider digeser
     const sliders = document.querySelectorAll('.emas-slider');
     sliders.forEach(slider => {
         slider.addEventListener('input', function() {
@@ -318,16 +396,13 @@
         let totalRawScore = 0;
         const totalIndicators = 10;
 
-        // Mengambil semua nilai slider
         sliders.forEach(slider => {
             totalRawScore += parseInt(slider.value);
         });
 
-        // Rumus konversi skala: (Total Skor yang didapat / Total Skor Maksimal) * 100
-        // Total Skor Maksimal = 10 indikator x nilai 10 = 100
+        // Rumus akumulasi standarisasi nilai persen (0 - 100)
         const finalScore = (totalRawScore / (totalIndicators * 10)) * 100;
         
-        // Tampilkan section hasil
         const resultSection = document.getElementById('resultSection');
         const finalScoreDisplay = document.getElementById('finalScoreDisplay');
         const statusBadge = document.getElementById('statusBadge');
@@ -336,14 +411,11 @@
         finalScoreDisplay.textContent = finalScore.toFixed(1);
         resultSection.style.display = 'block';
 
-        // Logika kategorisasi hasil & deskripsi berdasarkan parameter skala Buku EMAS:
-        // - Tinggi (81 - 100)
-        // - Sedang (61 - 80)
-        // - Rendah (0 - 60)
+        // Penentuan kategori evaluasi berdasarkan ambang batas Buku EMAS
         if (finalScore >= 81) {
             statusBadge.textContent = "Tinggi (Luar Biasa / Unggul)";
             statusBadge.className = "status-badge status-high";
-            resultDesc.innerHTML = "<strong>Deskripsi Kinerja:</strong> Menunjukkan kinerja luar biasa, praktik terbaik (best practice), inovasi sosial, dan dampak positif yang signifikan di berbagai dimensi keberlanjutan. Program berhasil mengintegrasikan aspek LSE dan menempatkan masyarakat sebagai mitra strategis mandiri.";
+            resultDesc.innerHTML = "<strong>Deskripsi Kinerja:</strong> Menunjukkan kinerja luar biasa, praktik terbaik (best practice), inovasi sosial, dan dampak positif yang signifikan di berbagai dimensi keberlanjutan. Program berhasil mengintegrasikan aspek lingkungan-sosial-ekonomi dan menempatkan masyarakat sebagai mitra strategis mandiri.";
         } else if (finalScore >= 61) {
             statusBadge.textContent = "Sedang (Baik)";
             statusBadge.className = "status-badge status-medium";
@@ -354,7 +426,7 @@
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja:</strong> Menunjukkan kinerja yang belum memuaskan. Program masih menghadapi tantangan signifikan seperti keterbatasan komitmen, minimnya pelibatan masyarakat lokal secara bermakna, atau program cenderung masih bersifat karitatif/parsial.";
         }
 
-        // Scroll otomatis ke tampilan hasil
+        // Gulir otomatis ke bagian hasil evaluasi
         resultSection.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
