@@ -16,7 +16,7 @@
             --text-color: #212121;
             --border-color: #cfd8dc;
             
-            --high-color: #c62828; /* Menyesuaikan visual gambar terakhir Anda */
+            --high-color: #c62828;
             --medium-color: #ef6c00;
             --low-color: #c62828;
         }
@@ -197,11 +197,10 @@
             text-align: right;
         }
 
-        /* Style Halaman 3: Hasil Evaluasi Eksklusif */
-        /* Bungkus area capture agar background foto JPEG tetap bersih & putih saat diunduh */
+        /* Style Halaman 3: Halaman Hasil */
         .capture-area {
             background: #ffffff;
-            padding: 20px;
+            padding: 10px 20px;
             border-radius: 8px;
         }
 
@@ -244,7 +243,7 @@
             margin-bottom: 25px;
         }
 
-        .status-high { background-color: #c62828; } /* Menyesuaikan warna merah gelap sesuai laporan */
+        .status-high { background-color: var(--high-color); }
         .status-medium { background-color: var(--medium-color); }
         .status-low { background-color: var(--low-color); }
 
@@ -265,10 +264,63 @@
             font-size: 14px;
             color: #333;
             text-align: left;
-            background: var(--primary-light);
+            background: #fafafa;
             padding: 20px;
             border-radius: 8px;
             border-left: 5px solid var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        /* --- STYLE BARU: SEKSI CALL TO ACTION (CTA) --- */
+        .cta-box {
+            margin-top: 35px;
+            background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
+            border: 1px dashed var(--primary-color);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .cta-box p {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1b5e20;
+            margin-bottom: 15px;
+        }
+
+        .cta-buttons-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .cta-wa {
+            background-color: #25d366;
+        }
+
+        .cta-ig {
+            background-color: #e1306c;
         }
 
         /* Grouping Tombol Aksi */
@@ -276,7 +328,7 @@
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-top: 30px;
+            margin-top: 25px;
             flex-wrap: wrap;
         }
 
@@ -529,6 +581,18 @@
             </div>
         </div>
 
+        <div class="cta-box">
+            <p>🚀 Ingin mengoptimalkan performa dan dampak program Anda?</p>
+            <div class="cta-buttons-group">
+                <a href="https://wa.me/6281327774221text=Halo,%20saya%20tertarik%20untuk%20berkonsultasi%20mengenai%20optimalisasi%20program%20keberlanjutan%20EMAS" target="_blank" class="cta-link cta-wa">
+                    💬 Hubungi via WhatsApp
+                </a>
+                <a href="https://instagram.com/dyahput" target="_blank" class="cta-link cta-link cta-ig">
+                    📸 Ikuti Kami di Instagram
+                </a>
+            </div>
+        </div>
+
         <div class="action-buttons">
             <button class="btn-action btn-download" onclick="downloadResultAsJPEG()">💾 Unduh Hasil (.jpeg)</button>
             <button class="btn-action btn-back" onclick="restartAssessment()">« Mulai Asesmen Baru</button>
@@ -544,7 +608,6 @@
     let userProfile = {};
     let spiderChartInstance = null;
 
-    // Fungsi Navigasi Halaman 1 ke Halaman 2
     function navigateToAssessment(event) {
         event.preventDefault();
         
@@ -559,7 +622,6 @@
         window.scrollTo(0, 0);
     }
 
-    // Pemantau pergerakan slider dinamis (angka realtime di sebelah kanan slider)
     const sliders = document.querySelectorAll('.emas-slider');
     sliders.forEach(slider => {
         slider.addEventListener('input', function() {
@@ -568,20 +630,17 @@
         });
     });
 
-    // Fungsi Utama: Hitung Skor, Kirim ke Google Sheet, & Alihkan ke Halaman 3
     function calculateAndNavigateToResult() {
         let totalRawScore = 0;
         const totalIndicators = 10;
         const currentScores = [];
 
-        // Ambil data nilai dari 10 slider
         sliders.forEach(slider => {
             const val = parseInt(slider.value);
             totalRawScore += val;
             currentScores.push(val);
         });
 
-        // Rumus konversi skala persen kualitatif
         const finalScore = (totalRawScore / (totalIndicators * 10)) * 100;
         const finalScoreStr = finalScore.toFixed(1);
         let kategoriText = "";
@@ -591,13 +650,9 @@
         const resultDesc = document.getElementById('resultDesc');
         const programTitleDisplay = document.getElementById('programTitleDisplay');
 
-        // Mengubah judul halaman hasil secara dinamis sesuai isian nama program di awal
         programTitleDisplay.textContent = `Program: ${userProfile.Program}`;
-
-        // Isi konten angka skor akhir di Halaman Hasil
         finalScoreDisplay.textContent = finalScoreStr;
 
-        // Penentuan Kategori Batas Nilai & Narasi Buku Panduan
         if (finalScore >= 81) {
             kategoriText = "Tinggi (Luar Biasa / Unggul)";
             statusBadge.textContent = kategoriText;
@@ -615,10 +670,9 @@
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja (Rendah):</strong> Menunjukkan kinerja yang belum memuaskan. Program masih menghadapi tantangan signifikan seperti keterbatasan komitmen, minimnya pelibatan masyarakat lokal secara bermakna, atau program cenderung masih bersifat karitatif/parsial.";
         }
 
-        // --- GENERATE GRAFIK SPIDER WEB ---
         const ctx = document.getElementById('emasSpiderChart').getContext('2d');
         if (spiderChartInstance !== null) {
-            spiderChartInstance.destroy(); // Bersihkan memori grafik lama jika ada
+            spiderChartInstance.destroy();
         }
 
         spiderChartInstance = new Chart(ctx, {
@@ -639,9 +693,7 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                animation: {
-                    duration: 0 // MATIKAN ANIMASI CHART agar html2canvas bisa langsung meng-capture nilai grafik final tanpa jeda delay loading animasi
-                },
+                animation: { duration: 0 },
                 scales: {
                     r: {
                         suggestedMin: 0,
@@ -654,12 +706,10 @@
             }
         });
 
-        // --- PERALIHAN LAYAR BERSIH KE HALAMAN 3 ---
         document.getElementById('pageAssessment').classList.remove('active');
         document.getElementById('pageResult').classList.add('active');
         window.scrollTo(0, 0);
 
-        // --- PROSES BACKGROUND FETCH KE GOOGLE SHEET APP SCRIPT ---
         const btnCalc = document.getElementById('btnCalculate');
         btnCalc.innerText = "Mengirim Data Hasil...";
         btnCalc.disabled = true;
@@ -674,7 +724,6 @@
             Kategori: kategoriText
         };
 
-        // URL Web App Google Script Anda
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwNE-XY6roO-i7nxVprMPGwI0Zdc7LqtMZBfUrRgoxIfHn4soDVoEWkDgM8HVIOFocz/exec';
 
         fetch(scriptURL, {
@@ -686,56 +735,43 @@
         .then(() => {
             btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
             btnCalc.disabled = false;
-            console.log("Data berhasil dicatat ke Google Sheets.");
         })
         .catch(error => {
-            console.error('Error pengiriman database:', error);
+            console.error('Error:', error);
             btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
             btnCalc.disabled = false;
         });
     }
 
-    // --- FUNGSI BARU: DOWNLOAD HALAMAN HASIL SEBAGAI JPEG ---
     function downloadResultAsJPEG() {
         const targetElement = document.getElementById('downloadTarget');
-        
-        // Membersihkan nama file dari spasi berlebih
         const programName = userProfile.Program ? userProfile.Program.replace(/[^a-z0-9]/gi, '_').toLowerCase() : 'program';
         const fileName = `Hasil_Asesmen_EMAS_${programName}.jpg`;
 
-        // Menjalankan html2canvas untuk merender elemen HTML menjadi berkas Gambar
         html2canvas(targetElement, {
-            scale: 2, // Menaikkan resolusi gambar (2x) agar hasil teks dan grafik tajam & tidak pecah saat disimpan
-            backgroundColor: '#ffffff', // Menjamin warna latar belakang default JPEG tetap putih bersih
-            useCORS: true // Mencegah isu keamanan browser jika terdapat aset eksternal
+            scale: 2,
+            backgroundColor: '#ffffff',
+            useCORS: true
         }).then(canvas => {
-            // Konversi objek canvas menjadi Data URL berformat image/jpeg kualitas penuh (1.0)
             const imageData = canvas.toDataURL('image/jpeg', 1.0);
-            
-            // Membuat trigger download tautan virtual di browser internet
             const downloadLink = document.createElement('a');
             downloadLink.href = imageData;
             downloadLink.download = fileName;
-            
-            // Eksekusi download otomatis
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);
         }).catch(err => {
-            console.error("Gagal mengunduh gambar:", err);
-            alert("Maaf, terjadi kesalahan saat menyiapkan gambar hasil unduhan.");
+            console.error(err);
+            alert("Terjadi kesalahan saat menyiapkan file unduhan.");
         });
     }
 
-    // Fungsi Mulai Ulang (Reset Form)
     function restartAssessment() {
         document.getElementById('identityForm').reset();
         document.getElementById('emasForm').reset();
-        
         for (let i = 1; i <= 10; i++) {
             document.getElementById(`val${i}`).textContent = "0";
         }
-
         document.getElementById('pageResult').classList.remove('active');
         document.getElementById('pageForm').classList.add('active');
         window.scrollTo(0, 0);
