@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMAS Assessment Tool - Mini Web</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
             --primary-color: #2e7d32;
@@ -15,7 +16,7 @@
             --text-color: #212121;
             --border-color: #cfd8dc;
             
-            --high-color: #2e7d32;
+            --high-color: #c62828; /* Menyesuaikan visual gambar terakhir Anda */
             --medium-color: #ef6c00;
             --low-color: #c62828;
         }
@@ -197,6 +198,13 @@
         }
 
         /* Style Halaman 3: Hasil Evaluasi Eksklusif */
+        /* Bungkus area capture agar background foto JPEG tetap bersih & putih saat diunduh */
+        .capture-area {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
         .result-container {
             text-align: center;
             padding: 10px 0;
@@ -214,6 +222,7 @@
             display: block;
             font-size: 24px;
             margin-top: 5px;
+            margin-bottom: 15px;
         }
 
         .final-score {
@@ -235,7 +244,7 @@
             margin-bottom: 25px;
         }
 
-        .status-high { background-color: var(--high-color); }
+        .status-high { background-color: #c62828; } /* Menyesuaikan warna merah gelap sesuai laporan */
         .status-medium { background-color: var(--medium-color); }
         .status-low { background-color: var(--low-color); }
 
@@ -262,19 +271,40 @@
             border-left: 5px solid var(--primary-color);
         }
 
-        .btn-back {
-            display: inline-block;
-            background-color: var(--secondary-color);
-            color: white;
-            text-decoration: none;
+        /* Grouping Tombol Aksi */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
             padding: 12px 24px;
             font-size: 14px;
             font-weight: bold;
             border-radius: 6px;
-            margin-top: 30px;
             cursor: pointer;
             border: none;
             transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-download {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-download:hover {
+            background-color: #1b5e20;
+        }
+
+        .btn-back {
+            background-color: var(--secondary-color);
+            color: white;
         }
 
         .btn-back:hover {
@@ -479,24 +509,29 @@
     </div>
 
     <div id="pageResult" class="page">
-        <div class="result-container">
-            <h2>Hasil Evaluasi Kinerja EMAS</h2>
-            <span class="program-highlight" id="programTitleDisplay">"Nama Program"</span>
-            
-            <div class="final-score" id="finalScoreDisplay">0.0</div>
-            <div>
-                <span class="status-badge" id="statusBadge">KATEGORI</span>
-            </div>
-            
-            <div class="chart-container">
-                <canvas id="emasSpiderChart"></canvas>
-            </div>
+        <div id="downloadTarget" class="capture-area">
+            <div class="result-container">
+                <h2>Hasil Evaluasi Kinerja EMAS</h2>
+                <span class="program-highlight" id="programTitleDisplay">Program: -</span>
+                
+                <div class="final-score" id="finalScoreDisplay">0.0</div>
+                <div>
+                    <span class="status-badge" id="statusBadge">KATEGORI</span>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="emasSpiderChart"></canvas>
+                </div>
 
-            <div class="result-desc" id="resultDesc">
-                Deskripsi hasil analisis performa kriteria program berdasarkan standarisasi EMAS.
+                <div class="result-desc" id="resultDesc">
+                    Deskripsi hasil analisis performa kriteria program berdasarkan standarisasi EMAS.
+                </div>
             </div>
+        </div>
 
-            <button class="btn-back" onclick="restartAssessment()">« Mulai Asesmen Baru</button>
+        <div class="action-buttons">
+            <button class="btn-action btn-download" onclick="downloadResultAsJPEG()">💾 Unduh Hasil (.jpeg)</button>
+            <button class="btn-action btn-back" onclick="restartAssessment()">« Mulai Asesmen Baru</button>
         </div>
     </div>
 
@@ -604,6 +639,9 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                animation: {
+                    duration: 0 // MATIKAN ANIMASI CHART agar html2canvas bisa langsung meng-capture nilai grafik final tanpa jeda delay loading animasi
+                },
                 scales: {
                     r: {
                         suggestedMin: 0,
@@ -646,7 +684,6 @@
             body: JSON.stringify(payload)
         })
         .then(() => {
-            // Kembalikan status tombol normal di latar belakang
             btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
             btnCalc.disabled = false;
             console.log("Data berhasil dicatat ke Google Sheets.");
@@ -658,12 +695,43 @@
         });
     }
 
+    // --- FUNGSI BARU: DOWNLOAD HALAMAN HASIL SEBAGAI JPEG ---
+    function downloadResultAsJPEG() {
+        const targetElement = document.getElementById('downloadTarget');
+        
+        // Membersihkan nama file dari spasi berlebih
+        const programName = userProfile.Program ? userProfile.Program.replace(/[^a-z0-9]/gi, '_').toLowerCase() : 'program';
+        const fileName = `Hasil_Asesmen_EMAS_${programName}.jpg`;
+
+        // Menjalankan html2canvas untuk merender elemen HTML menjadi berkas Gambar
+        html2canvas(targetElement, {
+            scale: 2, // Menaikkan resolusi gambar (2x) agar hasil teks dan grafik tajam & tidak pecah saat disimpan
+            backgroundColor: '#ffffff', // Menjamin warna latar belakang default JPEG tetap putih bersih
+            useCORS: true // Mencegah isu keamanan browser jika terdapat aset eksternal
+        }).then(canvas => {
+            // Konversi objek canvas menjadi Data URL berformat image/jpeg kualitas penuh (1.0)
+            const imageData = canvas.toDataURL('image/jpeg', 1.0);
+            
+            // Membuat trigger download tautan virtual di browser internet
+            const downloadLink = document.createElement('a');
+            downloadLink.href = imageData;
+            downloadLink.download = fileName;
+            
+            // Eksekusi download otomatis
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }).catch(err => {
+            console.error("Gagal mengunduh gambar:", err);
+            alert("Maaf, terjadi kesalahan saat menyiapkan gambar hasil unduhan.");
+        });
+    }
+
     // Fungsi Mulai Ulang (Reset Form)
     function restartAssessment() {
         document.getElementById('identityForm').reset();
         document.getElementById('emasForm').reset();
         
-        // Kembalikan indikator display teks angka slider ke 0
         for (let i = 1; i <= 10; i++) {
             document.getElementById(`val${i}`).textContent = "0";
         }
