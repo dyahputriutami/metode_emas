@@ -70,7 +70,42 @@
             display: block;
         }
 
-        /* Style Halaman 1: Form Data Diri */
+        /* Wizard Step Configuration */
+        .step-card {
+            display: none;
+        }
+        .step-card.active {
+            display: block;
+        }
+
+        .progress-container {
+            margin-bottom: 25px;
+        }
+
+        .step-counter {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 6px;
+            text-align: right;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            background-color: #e2e8f0;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 10%;
+            transition: width 0.3s ease;
+        }
+
+        /* Style Form Data Diri */
         .form-group {
             margin-bottom: 20px;
         }
@@ -97,7 +132,7 @@
             border-color: var(--primary-color);
         }
 
-        .btn-submit, .btn-calc {
+        .btn-submit {
             display: block;
             width: 100%;
             background-color: var(--primary-color);
@@ -113,11 +148,11 @@
             text-align: center;
         }
 
-        .btn-submit:hover, .btn-calc:hover {
+        .btn-submit:hover {
             background-color: #1b5e20;
         }
 
-        /* Style Halaman 2: Kalkulator Slider */
+        /* Style Kalkulator Slider */
         .instructions {
             background-color: var(--primary-light);
             padding: 15px;
@@ -133,31 +168,30 @@
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .indicator-card:hover {
-            border-color: var(--primary-color);
-            background: #fff;
         }
 
         .indicator-title {
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: 700;
             color: var(--primary-color);
             margin-bottom: 8px;
         }
 
         .indicator-desc {
-            font-size: 13px;
-            color: #555;
-            margin-bottom: 15px;
+            font-size: 14px;
+            color: #455a64;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
         .slider-container {
             display: flex;
             align-items: center;
             gap: 20px;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
         }
 
         .slider-wrapper {
@@ -190,23 +224,23 @@
         }
 
         .score-display {
-            font-size: 22px;
+            font-size: 26px;
             font-weight: bold;
             color: var(--primary-color);
-            min-width: 40px;
+            min-width: 45px;
             text-align: right;
         }
 
-        /* --- STYLE BARU: DYNAMIC RUBRIC GUIDE --- */
+        /* Rubric Guide Boxes */
         .rubric-guide-box {
-            margin-top: 15px;
-            padding: 14px 16px;
+            margin-top: 20px;
+            padding: 16px;
             background-color: #f1f5f9;
             border-left: 4px solid #b0bec5;
             border-radius: 4px;
             font-size: 13px;
             color: #334155;
-            line-height: 1.5;
+            line-height: 1.6;
             transition: all 0.2s ease;
         }
 
@@ -217,15 +251,11 @@
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 12px;
             display: inline-flex;
             align-items: center;
             gap: 4px;
             text-decoration: underline;
-        }
-
-        .btn-toggle-rubric:hover {
-            color: #1b5e20;
         }
 
         .full-rubric-table {
@@ -256,11 +286,44 @@
             font-weight: 700;
         }
 
-        .full-rubric-table tr:last-child td {
-            border-bottom: none;
+        /* Navigation Buttons Panel */
+        .navigation-panel {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 15px;
         }
 
-        /* Style Halaman 3: Halaman Hasil */
+        .btn-nav {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-prev {
+            background-color: #cfd8dc;
+            color: var(--secondary-color);
+        }
+
+        .btn-prev:hover {
+            background-color: #b0bec5;
+        }
+
+        .btn-next {
+            background-color: var(--primary-color);
+            color: white;
+            margin-left: auto; /* Push to right when single */
+        }
+
+        .btn-next:hover {
+            background-color: #1b5e20;
+        }
+
+        /* Style Halaman Hasil */
         .capture-area {
             background: #ffffff;
             padding: 10px 20px;
@@ -306,9 +369,9 @@
             margin-bottom: 25px;
         }
 
-        .status-high { background-color: var(--high-color); }
+        .status-high { background-color: var(--primary-color); }
         .status-medium { background-color: var(--medium-color); }
-        .status-low { background-color: var(--low-color); }
+        .status-low { background-color: var(--high-color); }
 
         .chart-container {
             position: relative;
@@ -330,11 +393,10 @@
             background: #fafafa;
             padding: 20px;
             border-radius: 8px;
-            border-left: 5px solid var(--primary-color);
             border: 1px solid var(--border-color);
+            border-left: 5px solid var(--primary-color);
         }
 
-        /* --- SEKSI CALL TO ACTION (CTA) --- */
         .cta-box {
             margin-top: 35px;
             background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
@@ -342,7 +404,6 @@
             border-radius: 10px;
             padding: 25px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .cta-box p {
@@ -369,7 +430,7 @@
             color: white;
             text-decoration: none;
             border-radius: 6px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
         }
 
         .cta-link:hover {
@@ -377,15 +438,9 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .cta-wa {
-            background-color: #25d366;
-        }
+        .cta-wa { background-color: #25d366; }
+        .cta-ig { background-color: #e1306c; }
 
-        .cta-ig {
-            background-color: #e1306c;
-        }
-
-        /* Grouping Tombol Aksi */
         .action-buttons {
             display: flex;
             justify-content: center;
@@ -402,28 +457,12 @@
             cursor: pointer;
             border: none;
             transition: background 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .btn-download {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .btn-download:hover {
-            background-color: #1b5e20;
-        }
-
-        .btn-back {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .btn-back:hover {
-            background-color: #263238;
-        }
+        .btn-download { background-color: var(--primary-color); color: white; }
+        .btn-download:hover { background-color: #1b5e20; }
+        .btn-back { background-color: var(--secondary-color); color: white; }
+        .btn-back:hover { background-color: #263238; }
 
         footer {
             text-align: center;
@@ -443,9 +482,10 @@
         <p>Environmental Management Assessment Scheme — Berbasis Pemberdayaan Masyarakat Berkelanjutan</p>
     </header>
 
+    <!-- HALAMAN 1: FORM IDENTITAS -->
     <div id="pageForm" class="page active">
         <div class="instructions" style="border-left-color: var(--secondary-color); background-color: #f0f4f6;">
-            Selamat datang di platform pengukuran efektifitas program dengan Metode EMAS. Silakan isi profil Anda sebelum memulai asesmen dengan Metode EMAS.
+            Selamat datang di platform pengukuran efektivitas program dengan Metode EMAS. Silakan isi profil Anda sebelum memulai asesmen.
         </div>
         <form id="identityForm" onsubmit="navigateToAssessment(event)">
             <div class="form-group">
@@ -468,204 +508,44 @@
                 <label for="inputEmail">Alamat Email *</label>
                 <input type="email" id="inputEmail" required placeholder="Contoh: nama@perusahaan.com">
             </div>
-            <button type="submit" class="btn-submit">Mulai Asesmen Metode Emas &rarr;</button>
+            <button type="submit" class="btn-submit">Mulai Asesmen Metode EMAS &rarr;</button>
         </form>
     </div>
 
+    <!-- HALAMAN 2: ASSESSMENT WIZARD (1 INDIKATOR 1 HALAMAN) -->
     <div id="pageAssessment" class="page">
+        <!-- Progress Bar Status -->
+        <div class="progress-container">
+            <div class="step-counter" id="stepCounterDisplay">Indikator 1 dari 10</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBarFillElement"></div>
+            </div>
+        </div>
+
         <div class="instructions">
-            <strong>Petunjuk Pengisian:</strong> Geser skala penggeser (slider) pada masing-masing kriteria di bawah ini berdasarkan kondisi nyata di lapangan. Deretan angka penanda (0-10) disediakan tepat di bawah garis skala untuk memudahkan ketepatan penilaian Anda.
+            <strong>Petunjuk Pengisian:</strong> Geser skala penggeser (slider) di bawah ini sesuai capaian riil program Anda. Deskripsi kriteria penilaian akan berubah secara instan untuk membantu keakuratan evaluasi Anda.
         </div>
 
         <form id="emasForm">
-            <div class="indicator-card">
-                <div class="indicator-title">1. Dampak Lingkungan</div>
-                <div class="indicator-desc">Mengukur konsekuensi program terhadap lingkungan alam (pengurangan emisi GRK, limbah, konservasi air, perlindungan keanekaragaman hayati, mitigasi risiko bencana).</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="1">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val1">0</span>
-                </div>
-                
-                <div class="rubric-guide-box" id="envGuideBox">
-                    <strong>Panduan Skoring (Skor 0):</strong> Belum ada inisiatif program pengelolaan lingkungan yang berjalan, atau program sama sekali tidak menyentuh pelibatan masyarakat tapak.
-                </div>
-                
-                <button type="button" class="btn-toggle-rubric" onclick="toggleFullRubric()">🔍 Lihat Semua Matriks Panduan Lingkungan</button>
-                
-                <div class="full-rubric-table" id="fullRubricTable">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 25%;">Rentang Skor</th>
-                                <th>Deskripsi Detail Kinerja Aspek Lingkungan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>1-2</strong><br><small style="color:var(--high-color); font-weight:bold;">Kinerja Sangat Rendah</small></td>
-                                <td>Program pengelolaan lingkungan perusahaan sama sekali tidak melibatkan masyarakat dalam aspek apapun. Justru, terdapat indikasi bahwa program atau operasi perusahaan berdampak negatif terhadap akses dan kontrol masyarakat atas sumber daya alam vital mereka (misalnya, perampasan lahan, pencemaran sumber air tanpa kompensasi atau solusi). Tidak ada upaya sedikit pun dari perusahaan untuk mengedukasi atau meningkatkan kesadaran masyarakat mengenai isu-isu lingkungan yang relevan dengan dampak operasinya. Keluhan atau masukan dari masyarakat terkait dampak lingkungan perusahaan cenderung diabaikan atau tidak ditanggapi secara serius. Aspek pemberdayaan masyarakat dalam konteks pengelolaan lingkungan sama sekali tidak tersentuh dan tidak menjadi pertimbangan perusahaan.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>3-4</strong><br><small style="color:var(--medium-color); font-weight:bold;">Kinerja Rendah</small></td>
-                                <td>Keterlibatan masyarakat dalam program pengelolaan lingkungan bersifat minimal dan seremonial. Jika ada, interaksi lebih bersifat sosialisasi satu arah dari perusahaan kepada masyarakat, tanpa adanya dialog yang substantif atau partisipasi aktif masyarakat dalam proses perencanaan dan pelaksanaan program. Upaya untuk memberikan informasi lingkungan kepada masyarakat bersifat sporadis, tidak terstruktur, dan tidak disesuaikan dengan kebutuhan atau tingkat pemahaman masyarakat. Dampak atau manfaat lingkungan yang dirasakan langsung oleh masyarakat (misalnya, pengurangan polusi lokal, perbaikan sanitasi) tidak signifikan, tidak merata, atau tidak berkelanjutan. Aspek-aspek pemberdayaan masyarakat, seperti peningkatan pengetahuan praktis, pengembangan keterampilan terkait lingkungan, atau peran dalam pengambilan keputusan, sangat terbatas atau hampir tidak ada.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>5-6</strong><br><small style="color:#fbc02d; font-weight:bold;">Kinerja Cukup/Sedang</small></td>
-                                <td>Terdapat program pengelolaan lingkungan yang secara nyata melibatkan partisipasi masyarakat, terutama dalam tahap implementasi kegiatan (misalnya, keterlibatan dalam kegiatan penanaman pohon, pembersihan sungai secara massal, atau sebagai tenaga kerja dalam proyek infrastruktur hijau). Namun, peran masyarakat dalam tahap perencanaan strategis, desain program, dan pengambilan keputusan penting masih sangat terbatas. Perusahaan telah melakukan upaya yang lebih terstruktur untuk meningkatkan kesadaran dan pengetahuan dasar masyarakat mengenai isu-isu lingkungan tertentu yang relevan dengan operasi perusahaan atau program yang dijalankan. Dampak positif lingkungan dari program mulai dirasakan oleh sebagian masyarakat, namun belum ada mekanisme yang jelas untuk memastikan keberlanjutan partisipasi masyarakat atau distribusi manfaat yang adil dan merata. Pemberdayaan masyarakat mulai terlihat dalam bentuk peningkatan kesadaran akan isu lingkungan dan partisipasi dalam kegiatan fisik, tetapi belum mencapai tingkat kemandirian dalam pengelolaan atau kontrol yang signifikan atas sumber daya.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>7-8</strong><br><small style="color:var(--primary-color); font-weight:bold;">Kinerja Baik</small></td>
-                                <td>Program pengelolaan lingkungan perusahaan dirancang dan dilaksanakan secara partisipatif, dengan melibatkan perwakilan masyarakat secara aktif dan bermakna sejak tahap identifikasi masalah, perencanaan, implementasi, hingga pemantauan dan evaluasi. Terdapat program peningkatan kapasitas (pelatihan teknis, pendampingan berkelanjutan, studi banding) yang jelas dan terukur bagi masyarakat untuk mampu mengelola sumber daya alam di sekitarnya secara berkelanjutan atau untuk beradaptasi dengan perubahan kondisi lingkungan. Dampak positif lingkungan dari program (misalnya, perbaikan signifikan kualitas udara atau air, sistem pengelolaan sampah komunal yang berfungsi baik, peningkatan tutupan hijau) dirasakan secara luas oleh mayoritas masyarakat terdampak dan didukung oleh data atau bukti yang terdokumentasikan. Masyarakat memiliki peran yang jelas dan diakui dalam mekanisme pengambilan keputusan terkait program lingkungan yang berdampak langsung pada kehidupan mereka, dan terdapat saluran umpan balik yang efektif dan responsif. Pemberdayaan masyarakat tercermin dalam peningkatan pengetahuan, keterampilan praktis, perubahan perilaku yang lebih ramah lingkungan, dan kemampuan masyarakat untuk mulai mengelola lingkungan secara mandiri atau berkontribusi aktif dalam upaya konservasi lokal.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>9-10</strong><br><small style="color:#1b5e20; font-weight:bold;">Kinerja Sangat Baik/Unggul</small></td>
-                                <td>Program pengelolaan lingkungan perusahaan menjadi model praktik terbaik (best practice) dalam kolaborasi antara perusahaan dan masyarakat, di mana masyarakat tidak hanya sebagai objek atau partisipan, tetapi telah menjadi mitra setara dan bahkan penggerak utama (driver) inisiatif lingkungan. Inisiatif lingkungan yang dijalankan menghasilkan manfaat yang signifikan, terukur, dan berkelanjutan baik bagi kualitas lingkungan maupun bagi peningkatan kesejahteraan sosial-ekonomi masyarakat. Terdapat inovasi sosial berbasis lingkungan yang dipimpin atau dimiliki bersama oleh masyarakat, dengan dukungan fasilitasi dari perusahaan. Masyarakat menunjukkan tingkat kemandirian yang tinggi dan memiliki kontrol yang signifikan atas pengelolaan sumber daya alam lokal secara berkelanjutan, yang didukung oleh kebijakan perusahaan dan pemerintah daerah. Terjadi transfer pengetahuan dan teknologi hijau yang relevan kepada masyarakat, memberdayakan mereka untuk menjadi agen perubahan lingkungan di komunitasnya dan bahkan menginspirasi komunitas lain. Pemberdayaan masyarakat sangat nyata, ditandai dengan kemandirian komunitas dalam menjaga kualitas lingkungan hidupnya, kemampuan melakukan advokasi terhadap isu-isu lingkungan, dan pengembangan solusi-solusi lingkungan lokal yang inovatif, adaptif, dan berkelanjutan.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <!-- INDIKATOR CONTAINER LOGIC (LOOPS BY SCRIPT) -->
+            <div id="dynamicStepContainer">
+                <!-- Diisi otomatis oleh JavaScript -->
             </div>
 
-            <div class="indicator-card">
-                <div class="indicator-title">2. Dampak Ekonomi</div>
-                <div class="indicator-desc">Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan, kemandirian finansial komunitas, dan penyerapan tenaga kerja lokal.</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="2">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val2">0</span>
-                </div>
+            <!-- Navigasi Panel Kontrol Halaman -->
+            <div class="navigation-panel">
+                <button type="button" class="btn-nav btn-prev" id="btnPrevStep" onclick="moveStep(-1)" style="display: none;">&larr; Kembali</button>
+                <button type="button" class="btn-nav btn-next" id="btnNextStep" onclick="moveStep(1)">Selanjutnya &rarr;</button>
             </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">3. Dampak Sosial</div>
-                <div class="indicator-desc">Mengukur pengaruh program terhadap kohesi sosial, penguatan modal sosial (social capital), kelembagaan lokal, serta resolusi/pengurangan konflik.</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="3">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val3">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">4. Dampak Kesejahteraan</div>
-                <div class="indicator-desc">Mengukur kontribusi program terhadap pemenuhan hak dasar manusia, seperti perbaikan kualitas kesehatan, akses pendidikan, status gizi, dan kepuasan hidup masyarakat.</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="4">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val4">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">5. Rasio Pengembalian Investasi Sosial (SROI)</div>
-                <div class="indicator-desc">Mengukur efisiensi dampak moneter sosial dan lingkungan yang dihasilkan dari total investasi finansial yang dikucurkan perusahaan.</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="5">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val5">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">6. Menciptakan Nilai Bersama (Shared Value Creation)</div>
-                <div class="indicator-desc">Menilai keselarasan program dalam menciptakan nilai bagi bisnis internal perusahaan sekaligus memberikan kemajuan sosial bagi komunitas eksternal.</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="6">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val6">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">7. Kontribusi terhadap Keanekaragaman Hayati</div>
-                <div class="indicator-desc">Menilai komitmen program dalam mendukung konservasi flora dan fauna lokal, perlindungan ekosistem, serta integrasi kearifan tradisional (TEK).</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="7">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val7">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)</div>
-                <div class="indicator-desc">Mengukur derajat pelibatan aktor kunci secara inklusif dan transparan—mulai dari komunikasi satu arah hingga tingkat keputusan bersama (co-decision making).</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="8">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val8">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">9. Kedekatan Kewilayahan</div>
-                <div class="indicator-desc">Menilai ketepatan sasaran geografis program dalam merespons kebutuhan mendesak dan potensi unik pada level komunitas tapak (sekitar ring operasi).</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="9">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val9">0</span>
-                </div>
-            </div>
-
-            <div class="indicator-card">
-                <div class="indicator-title">10. Tata Kelola</div>
-                <div class="indicator-desc">Mengevaluasi transparansi, akuntabilitas, kemandirian organisasi pelaksana di masyarakat, dan efektivitas mekanisme pengaduan keluhan (grievance mechanism).</div>
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="10">
-                        <div class="ticks-container">
-                            <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
-                        </div>
-                    </div>
-                    <span class="score-display" id="val10">0</span>
-                </div>
-            </div>
-
-            <button type="button" class="btn-calc" id="btnCalculate" onclick="calculateAndNavigateToResult()">Hitung Skor EMAS</button>
         </form>
     </div>
 
+    <!-- HALAMAN 3: HALAMAN HASIL -->
     <div id="pageResult" class="page">
         <div id="downloadTarget" class="capture-area">
             <div class="result-container">
                 <h2>Hasil Asesmen Metode EMAS</h2>
-                <span class="program-highlight" id="programTitleDisplay">Program-</span>
+                <span class="program-highlight" id="programTitleDisplay">Program</span>
                 
                 <div class="final-score" id="finalScoreDisplay">0.0</div>
                 <div>
@@ -683,7 +563,7 @@
         </div>
 
         <div class="cta-box">
-            <p>Ingin mengoptimalkan performa dan dampak program Anda?</p>
+            <p>Ingin mengoptimalkan performa dan dampak pemberdayaan program Anda?</p>
             <div class="cta-buttons-group">
                 <a href="https://wa.me/628113901111?text=Halo,%20saya%20tertarik%20untuk%20berkonsultasi%20mengenai%20strategi%20optimalisasi%20program%20berdasarkan%20Metode%20EMAS" target="_blank" class="cta-link cta-wa">
                     Hubungi via WhatsApp
@@ -706,9 +586,224 @@
 </div>
 
 <script>
+    // Konfigurasi Seluruh Data Rubrik Matriks Metode EMAS
+    const emasListData = [
+        {
+            id: 1,
+            title: "1. Dampak Lingkungan",
+            desc: "Mengukur konsekuensi program terhadap lingkungan alam (pengurangan emisi GRK, reduksi limbah, konservasi air, perlindungan keanekaragaman hayati, mitigasi risiko bencana).",
+            rubrics: {
+                0: "Belum ada inisiatif program pengelolaan lingkungan yang berjalan, atau program sama sekali tidak menyentuh pelibatan masyarakat tapak.",
+                "1-2": "Program pengelolaan lingkungan perusahaan sama sekali tidak melibatkan masyarakat dalam aspek apapun. Justru, terdapat indikasi bahwa program berdampak negatif terhadap akses dan kontrol masyarakat atas sumber daya alam vital mereka. Tidak ada upaya edukasi lingkungan.",
+                "3-4": "Keterlibatan masyarakat bersifat minimal dan seremonial. Interaksi berupa sosialisasi satu arah tanpa adanya dialog substantif atau partisipasi aktif masyarakat dalam proses perencanaan. Dampak positif lingkungan tidak signifikan atau tidak berkelanjutan.",
+                "5-6": "Program melibatkan masyarakat dalam tahap implementasi fisik (misal: aksi penanaman pohon atau kerja bakti). Namun, peran dalam perencanaan strategis dan pengambilan keputusan masih terbatas. Kapasitas kemandirian masyarakat belum terbangun.",
+                "7-8": "Program dirancang secara partisipatif dari perencanaan hingga evaluasi. Ada peningkatan kapasitas terstruktur bagi masyarakat untuk mengelola lingkungan secara berkelanjutan. Dampak positif terukur luas dan didukung data akurat.",
+                "9-10": "Program menjadi best practice kolaborasi setara di mana masyarakat bertindak sebagai penggerak utama (driver) inisiatif lingkungan. Terjadi inovasi sosial berbasis lingkungan yang meningkatkan kesejahteraan sosial-ekonomi serta kemandirian penuh komunitas."
+            }
+        },
+        {
+            id: 2,
+            title: "2. Dampak Ekonomi",
+            desc: "Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan riil, kemandirian finansial komunitas, dan efisiensi penyerapan tenaga kerja lokal.",
+            rubrics: {
+                0: "Belum ada inisiatif program yang memberikan dampak ekonomi nyata atau peningkatan pendapatan bagi komunitas lokal.",
+                "1-2": "Program ekonomi bersifat karitatif atau bantuan modal satu arah tanpa pendampingan, sehingga masyarakat tetap bergantung sepenuhnya pada stimulan perusahaan.",
+                "3-4": "Terdapat bantuan sarana ekonomi kelompok, namun manajemen internal lemah, kelompok cenderung pasif, dan penyerapan tenaga kerja lokal masih sangat minimal.",
+                "5-6": "Unit usaha kelompok masyarakat telah terbentuk dan beroperasi rutin, memberikan tambahan pendapatan berkala, namun belum mencapai kemandirian finansial penuh tanpa subsidi.",
+                "7-8": "Kelompok usaha tumbuh menjadi entitas mandiri (BUMDes/Koperasi), penyerapan tenaga kerja lokal signifikan, serta kenaikan portofolio pendapatan stabil dan tercatat.",
+                "9-10": "Menciptakan ekosistem rantai pasok baru, kemandirian finansial penuh secara komersial, sukses direplikasi wilayah lain, serta memberikan efek multiplier ekonomi yang masif."
+            }
+        },
+        {
+            id: 3,
+            title: "3. Dampak Sosial",
+            desc: "Mengukur pengaruh program terhadap kohesi sosial, penguatan modal sosial (social capital), penguatan kelembagaan lokal, serta resolusi atau pengurangan konflik kelompok.",
+            rubrics: {
+                0: "Program tidak menyentuh dimensi sosial atau penguatan kelembagaan di tingkat masyarakat.",
+                "1-2": "Program memicu kecemburuan sosial atau polarisasi internal akibat ketidaktepatan sasaran, minimnya transparansi, atau komunikasi yang eksklusif.",
+                "3-4": "Kelembagaan lokal dibentuk sekadar formalitas demi memenuhi syarat program administrasi; interaksi sosial masih sebatas seremonial dan rapuh.",
+                "5-6": "Kelembagaan kelompok berfungsi menjalankan aktivitas program harian, hubungan antar warga harmonis, namun belum mampu menyelesaikan masalah internal secara mandiri.",
+                "7-8": "Modal sosial sangat kuat, kelembagaan lokal aktif menjadi wadah gotong royong yang inklusif (melibatkan kelompok rentan/perempuan), serta mampu memitigasi potensi konflik.",
+                "9-10": "Kelembagaan lokal bertransformasi menjadi agen perubahan independen dengan jejaring luas, menciptakan kohesi sosial tinggi, serta menjadi rujukan resolusi konflik komunitas."
+            }
+        },
+        {
+            id: 4,
+            title: "4. Dampak Kesejahteraan",
+            desc: "Mengukur kontribusi program terhadap pemenuhan hak dasar manusia, termasuk perbaikan akses kesehatan, kualitas pendidikan, peningkatan gizi, dan kepuasan hidup.",
+            rubrics: {
+                0: "Program sama sekali tidak memberikan pengaruh terhadap tingkat kesejahteraan atau pemenuhan hak dasar penerima manfaat.",
+                "1-2": "Program tidak terarah; indikator kualitas fisik kesehatan atau pendidikan di wilayah tapak cenderung tetap buruk atau bahkan terabaikan.",
+                "3-4": "Intervensi kesejahteraan bersifat insidental (misal: donor darah sekali waktu atau pembagian alat tulis) tanpa perubahan indikator kualitas hidup jangka panjang.",
+                "5-6": "Akses terhadap layanan kesehatan/pendidikan dasar membaik bagi sebagian sasaran, serta mulai terlihat adopsi pola hidup bersih sehat yang bertahap.",
+                "7-8": "Kontribusi riil terbukti menurunkan angka penyakit/stunting atau meningkatkan angka partisipasi sekolah anak, disertai indeks kepuasan hidup yang tinggi.",
+                "9-10": "Menciptakan transformasi indeks kesejahteraan lokal yang merata; akses fasilitas dasar terjamin mandiri dan melahirkan standar kualitas hidup baru yang unggul."
+            }
+        },
+        {
+            id: 5,
+            title: "5. Rasio Pengembalian Investasi Sosial (SROI)",
+            desc: "Mengukur efisiensi dampak moneter sosial dan lingkungan yang dihasilkan dibandingkan dengan total nilai investasi finansial yang dialokasikan.",
+            rubrics: {
+                0: "Tidak dilakukan pengukuran dampak moneter, atau investasi finansial tidak menghasilkan dampak sosial-lingkungan apa pun.",
+                "1-2": "Nilai rasio dampak berada jauh di bawah nilai investasinya (SROI < 1:1); program tidak efisien karena biaya operasional jauh lebih besar dari nilai kemanfaatan.",
+                "3-4": "Rasio SROI mendekati impas (kisaran 1:1); manfaat moneter yang tercipta hanya setara dengan nilai modal awal yang digelontorkan.",
+                "5-6": "Rasio SROI berada di tingkat moderat yang efektif (kisaran 1:1 hingga 2:1); investasi finansial terbukti efisien menciptakan nilai tambah sosial-ekonomi lokal.",
+                "7-8": "Rasio SROI bernilai tinggi (kisaran 2:1 hingga 4:1); pengelolaan alokasi program sangat optimal dengan menghasilkan dampak berlapis yang terverifikasi akurat.",
+                "9-10": "Rasio SROI sangat superior (SROI > 4:1); efisiensi investasi luar biasa tinggi, menghasilkan dampak berantai yang masif bagi kelestarian sosial, ekonomi, dan ekologi."
+            }
+        },
+        {
+            id: 6,
+            title: "6. Menciptakan Nilai Bersama (Shared Value Creation)",
+            desc: "Menilai keselarasan strategis program dalam menciptakan nilai bagi bisnis internal perusahaan sekaligus menghasilkan kemajuan sosial ekonomi komunitas eksternal.",
+            rubrics: {
+                0: "Program tidak memiliki hubungan apa pun dengan kelangsungan bisnis operasional internal perusahaan.",
+                "1-2": "Program murni bersifat filantropi kosmetik/karitatif untuk sekadar menggugurkan kewajiban hukum, tanpa kaitan dengan kompetensi inti perusahaan.",
+                "3-4": "Ada korelasi marginal dengan rantai nilai bisnis (misal: penyerapan limbah non-B3 terbatas), namun belum memberikan dampak proteksi risiko atau reputasi bisnis jangka panjang.",
+                "5-6": "Program menyelaraskan sebagian kebutuhan komunitas dengan operasional (misal: pembinaan vendor lokal skala kecil), memberikan nilai tambah berimbang bagi kedua belah pihak.",
+                "7-8": "Integrasi sangat kuat antara penyelesaian isu sosial dengan strategi bisnis utama; program berhasil menurunkan biaya operasional perusahaan sekaligus memajukan kesejahteraan lokal.",
+                "9-10": "Program melahirkan model bisnis sirkular baru yang inovatif; keunggulan kompetitif perusahaan dan kemandirian sosial masyarakat menyatu secara holistik dan transformatif."
+            }
+        },
+        {
+            id: 7,
+            title: "7. Kontribusi terhadap Keanekaragaman Hayati",
+            desc: "Menilai komitmen program dalam mendukung konservasi flora-fauna lokal, pemulihan ekosistem kritis, serta pengintegrasian kearifan lingkungan tradisional (TEK).",
+            rubrics: {
+                0: "Program tidak memiliki komponen perlindungan alam, konservasi flora-fauna, atau rehabilitasi ekosistem lokal.",
+                "1-2": "Aktivitas program berisiko mengganggu keseimbangan ekosistem asli atau salah mengintroduksi spesies asing tanpa kajian ekologis yang memadai.",
+                "3-4": "Aksi perlindungan hayati sebatas simbolis atau seremonial (misal: penanaman pohon serentak namun diabaikan pasca acara sehingga tingkat kelangsungan hidup rendah).",
+                "5-6": "Terdapat upaya perlindungan ekosistem yang berjalan konsisten; masyarakat lokal dilibatkan aktif sebagai kelompok pelaksana pemeliharaan fisik berkala.",
+                "7-8": "Berhasil merehabilitasi habitat kritis, melindungi flora/fauna endemik terancam punah, serta melembagakan kearifan lokal tradisional (TEK) dalam aturan adat komunitas.",
+                "9-10": "Terbentuk kawasan konservasi mandiri bersertifikasi nasional/internasional yang dikelola mandiri oleh komunitas, memicu pemulihan kehati yang signifikan secara ilmiah."
+            }
+        },
+        {
+            id: 8,
+            title: "8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)",
+            desc: "Mengukur derajat keterlibatan aktor kunci (multi-stakeholder) secara inklusif dan transparan—mulai dari komunikasi satu arah hingga keputusan bersama (co-decision making).",
+            rubrics: {
+                0: "Perusahaan menutup diri; perencanaan dan pelaksanaan program diputuskan sepihak tanpa mendengar opini pemangku kepentingan.",
+                "1-2": "Hubungan pasif dan terbatas; interaksi sebatas pemberitahuan searah atau sosialisasi formal tanpa memberikan ruang bagi pemangku kepentingan untuk memberi masukan.",
+                "3-4": "Membuka konsultasi dua arah secara berkala, namun masukan atau kritik dari aktor lokal belum diakomodasi ke dalam perbaikan desain program kerja.",
+                "5-6": "Keterlibatan aktif multi-pihak berjalan konstan; aspirasi tokoh masyarakat, akademisi, atau pemerintah lokal diserap dan diimplementasikan dalam aksi lapangan.",
+                "7-8": "Terjalin kemitraan kolaboratif yang setara; setiap keputusan strategis krusial dirumuskan dan disepakati bersama melalui mekanisme co-decision making.",
+                "9-10": "Terbentuk koalisi multi-pihak independen yang solid; tata kelola hubungan didasari transparansi radikal, kepercayaan penuh, dan kepemilikan program secara kolektif."
+            }
+        },
+        {
+            id: 9,
+            title: "9. Kedekatan Kewilayahan",
+            desc: "Menilai ketepatan sasaran geografis intervensi program dalam merespons kebutuhan mendesak serta mengoptimalkan potensi sosiogeografis unik pada level komunitas tapak.",
+            rubrics: {
+                0: "Lokasi program salah sasaran, berada sangat jauh dari wilayah operasional atau di area yang tidak memiliki urgensi masalah.",
+                "1-2": "Meskipun berada di Ring 1, bentuk intervensi program bertolak belakang dengan hasil pemetaan sosial (social mapping) serta kebutuhan esensial masyarakat lokal.",
+                "3-4": "Program berlokasi di wilayah operasi namun cenderung seragam (copy-paste dari daerah lain) tanpa mempertimbangkan karakteristik budaya dan spasial komunitas tapak.",
+                "5-6": "Program menyasar klaster wilayah yang tepat di sekitar ring perusahaan dan sukses merespons sebagian problem prioritas komunitas berdasarkan data kebutuhan riil.",
+                "7-8": "Ketepatan spasial sangat tinggi; intervensi didesain spesifik mengoptimalkan keunikan potensi geografi lokal dan menuntaskan kerentanan keruangan wilayah tersebut.",
+                "9-10": "Desain berbasis kewilayahan menjadi jangkar utama akselerasi pembangunan daerah; sukses mentransformasi wilayah rentan menjadi pusat pertumbuhan baru yang berdaya."
+            }
+        },
+        {
+            id: 10,
+            title: "10. Tata Kelola",
+            desc: "Mengevaluasi transparansi keuangan, akuntabilitas organisasi, kemandirian kelembagaan pengelola di masyarakat, serta efektivitas saluran pengaduan (grievance mechanism).",
+            rubrics: {
+                0: "Manajemen internal tertutup, tidak memiliki struktur pengelola yang jelas, dan tidak ada ruang transparansi laporan pertanggungjawaban.",
+                "1-2": "Pengelolaan program tidak transparan; laporan keuangan tidak pernah dipaparkan ke anggota serta tidak tersedia saluran untuk menyampaikan keluhan.",
+                "3-4": "Struktur organisasi pengelola kelompok formal ada, namun roda kepengurusan pasif. Saluran komplain lambat merespons keluhan yang masuk dari warga.",
+                "5-6": "Tata kelola kelembagaan kelompok berjalan cukup sehat; pembukuan keuangan rutin diinformasikan terbuka dan komplain masyarakat ditangani dalam batas waktu wajar.",
+                "7-8": "Akuntabilitas tinggi; SOP kelembagaan ditaati konsisten, laporan performa berkala dapat diakses publik, serta grievance mechanism berfungsi sangat responsif.",
+                "9-10": "Menerapkan standar Good Governance unggul; kelembagaan masyarakat meraih legalitas hukum/audit bersih independen, manajemen risiko adaptif, dan berintegritas tinggi."
+            }
+        }
+    ];
+
     let userProfile = {};
     let spiderChartInstance = null;
+    let currentStep = 1;
+    const totalSteps = 10;
 
+    // Inisialisasi awal saat dokumen siap
+    document.addEventListener("DOMContentLoaded", () => {
+        renderWizardSteps();
+        updateStepView();
+    });
+
+    // Menghasilkan elemen HTML untuk ke-10 indikator secara dinamis
+    function renderWizardSteps() {
+        const container = document.getElementById('dynamicStepContainer');
+        container.innerHTML = ""; // Clear
+
+        emasListData.forEach(item => {
+            const stepDiv = document.createElement('div');
+            stepDiv.className = `step-card ${item.id === 1 ? 'active' : ''}`;
+            stepDiv.setAttribute('data-step', item.id);
+
+            // Buat baris opsi matriks untuk tabel accordion
+            let tableRowsHTML = "";
+            Object.keys(item.rubrics).forEach(key => {
+                if (key !== "0") {
+                    let labelKinerja = "";
+                    if (key === "1-2") labelKinerja = '<small style="color:var(--high-color); font-weight:bold;">Kinerja Sangat Rendah</small>';
+                    if (key === "3-4") labelKinerja = '<small style="color:var(--medium-color); font-weight:bold;">Kinerja Rendah</small>';
+                    if (key === "5-6") labelKinerja = '<small style="color:#fbc02d; font-weight:bold;">Kinerja Cukup/Sedang</small>';
+                    if (key === "7-8") labelKinerja = '<small style="color:var(--primary-color); font-weight:bold;">Kinerja Baik</small>';
+                    if (key === "9-10") labelKinerja = '<small style="color:#1b5e20; font-weight:bold;">Kinerja Sangat Baik/Unggul</small>';
+
+                    tableRowsHTML += `
+                        <tr>
+                            <td style="width: 25%;"><strong>Rentang ${key}</strong><br>${labelKinerja}</td>
+                            <td>${item.rubrics[key]}</td>
+                        </tr>
+                    `;
+                }
+            });
+
+            stepDiv.innerHTML = `
+                <div class="indicator-card">
+                    <div class="indicator-title">${item.title}</div>
+                    <div class="indicator-desc">${item.desc}</div>
+                    <div class="slider-container">
+                        <div class="slider-wrapper">
+                            <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="${item.id}" id="slider_${item.id}" oninput="handleSliderInput(${item.id}, this.value)">
+                            <div class="ticks-container">
+                                <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                            </div>
+                        </div>
+                        <span class="score-display" id="valDisplay_${item.id}">0</span>
+                    </div>
+                    
+                    <!-- Dynamic Live Description Box -->
+                    <div class="rubric-guide-box" id="guideBox_${item.id}">
+                        <strong>Panduan Skoring (Skor 0):</strong> ${item.rubrics[0]}
+                    </div>
+                    
+                    <!-- Accordion Trigger -->
+                    <button type="button" class="btn-toggle-rubric" onclick="toggleRubricAccordion(${item.id})">🔍 Lihat Semua Matriks Panduan Kriteria</button>
+                    
+                    <!-- Accordion Table -->
+                    <div class="full-rubric-table" id="accordionTable_${item.id}">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rentang Skor</th>
+                                    <th>Deskripsi Detail Parameter Capaian Performa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tableRowsHTML}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            container.appendChild(stepDiv);
+        });
+    }
+
+    // Fungsi navigasi submit form profil data diri
     function navigateToAssessment(event) {
         event.preventDefault();
         
@@ -720,87 +815,127 @@
 
         document.getElementById('pageForm').classList.remove('active');
         document.getElementById('pageAssessment').classList.add('active');
+        currentStep = 1;
+        updateStepView();
         window.scrollTo(0, 0);
     }
 
-    // Event Sliders Realtime Updates
-    const sliders = document.querySelectorAll('.emas-slider');
-    sliders.forEach(slider => {
-        slider.addEventListener('input', function() {
-            const index = this.getAttribute('data-index');
-            document.getElementById(`val${index}`).textContent = this.value;
-            
-            // Interaksi Khusus untuk Kriteria Dampak Lingkungan (Index 1)
-            if (index === '1') {
-                updateEnvironmentRubricGuide(parseInt(this.value));
-            }
-        });
-    });
-
-    // Fungsi Pengubah Panduan Skoring Deskriptif Secara Realtime (Dampak Lingkungan)
-    function updateEnvironmentRubricGuide(value) {
-        const guideBox = document.getElementById('envGuideBox');
-        let txt = "";
+    // Mengendalikan perubahan teks dinamis saat slider digeser
+    function handleSliderInput(indicatorId, value) {
+        const valNum = parseInt(value);
+        document.getElementById(`valDisplay_${indicatorId}`).textContent = value;
+        
+        const guideBox = document.getElementById(`guideBox_${indicatorId}`);
+        const indicatorData = emasListData.find(x => x.id === indicatorId);
+        
+        let textResult = "";
         let borderClr = "#b0bec5";
         let bgClr = "#f1f5f9";
 
-        if (value === 0) {
-            txt = "<strong>Panduan Skoring (Skor 0):</strong> Belum ada inisiatif program pengelolaan lingkungan yang berjalan, atau program sama sekali tidak menyentuh pelibatan masyarakat tapak.";
-            borderClr = "#b0bec5";
-            bgClr = "#f1f5f9";
-        } else if (value >= 1 && value <= 2) {
-            txt = "<strong>Rentang Skor 1-2 (Kinerja Sangat Rendah):</strong> Program pengelolaan lingkungan perusahaan sama sekali tidak melibatkan masyarakat dalam aspek apapun. Justru, terdapat indikasi bahwa program atau operasi perusahaan berdampak negatif terhadap akses dan kontrol masyarakat atas sumber daya alam vital mereka (misalnya, perampasan lahan, pencemaran sumber air tanpa kompensasi atau solusi). Tidak ada upaya sedikit pun dari perusahaan untuk mengedukasi atau meningkatkan kesadaran masyarakat mengenai isu-isu lingkungan yang relevan dengan dampak operasinya. Keluhan atau masukan dari masyarakat terkait dampak lingkungan perusahaan cenderung diabaikan atau tidak ditanggapi secara serius. Aspek pemberdayaan masyarakat dalam konteks pengelolaan lingkungan sama sekali tidak tersentuh dan tidak menjadi pertimbangan perusahaan.";
-            borderClr = "var(--high-color)";
-            bgClr = "#ffebee";
-        } else if (value >= 3 && value <= 4) {
-            txt = "<strong>Rentang Skor 3-4 (Kinerja Rendah):</strong> Keterlibatan masyarakat dalam program pengelolaan lingkungan bersifat minimal dan seremonial. Jika ada, interaksi lebih bersifat sosialisasi satu arah dari perusahaan kepada masyarakat, tanpa adanya dialog yang substantif atau partisipasi aktif masyarakat dalam proses perencanaan dan pelaksanaan program. Upaya untuk memberikan informasi lingkungan kepada masyarakat bersifat sporadis, tidak terstruktur, dan tidak disesuaikan dengan kebutuhan atau tingkat pemahaman masyarakat. Dampak atau manfaat lingkungan yang dirasakan langsung oleh masyarakat (misalnya, pengurangan polusi lokal, perbaikan sanitasi) tidak signifikan, tidak merata, atau tidak berkelanjutan. Aspek-aspek pemberdayaan masyarakat, seperti peningkatan pengetahuan praktis, pengembangan keterampilan terkait lingkungan, atau peran dalam pengambilan keputusan, sangat terbatas atau hampir tidak ada.";
-            borderClr = "var(--medium-color)";
-            bgClr = "#fff3e0";
-        } else if (value >= 5 && value <= 6) {
-            txt = "<strong>Rentang Skor 5-6 (Kinerja Cukup/Sedang):</strong> Terdapat program pengelolaan lingkungan yang secara nyata melibatkan partisipasi masyarakat, terutama dalam tahap implementasi kegiatan (misalnya, keterlibatan dalam kegiatan penanaman pohon, pembersihan sungai secara massal, atau sebagai tenaga kerja dalam proyek infrastruktur hijau). Namun, peran masyarakat dalam tahap perencanaan strategis, desain program, dan pengambilan keputusan penting masih sangat terbatas. Perusahaan telah melakukan upaya yang lebih terstruktur untuk meningkatkan kesadaran dan pengetahuan dasar masyarakat mengenai isu-isu lingkungan tertentu yang relevan dengan operasi perusahaan atau program yang dijalankan. Dampak positif lingkungan dari program mulai dirasakan oleh sebagian masyarakat, namun belum ada mekanisme yang jelas untuk memastikan keberlanjutan partisipasi masyarakat atau distribusi manfaat yang adil dan merata. Pemberdayaan masyarakat mulai terlihat dalam bentuk peningkatan kesadaran akan isu lingkungan dan partisipasi dalam kegiatan fisik, tetapi belum mencapai tingkat kemandirian dalam pengelolaan atau kontrol yang signifikan atas sumber daya.";
-            borderClr = "#fbc02d";
-            bgClr = "#fffde7";
-        } else if (value >= 7 && value <= 8) {
-            txt = "<strong>Rentang Skor 7-8 (Kinerja Baik):</strong> Program pengelolaan lingkungan perusahaan dirancang dan dilaksanakan secara partisipatif, dengan melibatkan perwakilan masyarakat secara aktif dan bermakna sejak tahap identifikasi masalah, perencanaan, implementasi, hingga pemantauan dan evaluasi. Terdapat program peningkatan kapasitas (pelatihan teknis, pendampingan berkelanjutan, studi banding) yang jelas dan terukur bagi masyarakat untuk mampu mengelola sumber daya alam di sekitarnya secara berkelanjutan atau untuk beradaptasi dengan perubahan kondisi lingkungan. Dampak positif lingkungan dari program (misalnya, perbaikan signifikan kualitas udara atau air, sistem pengelolaan sampah komunal yang berfungsi baik, peningkatan tutupan hijau) dirasakan secara luas oleh mayoritas masyarakat terdampak dan didukung oleh data atau bukti yang terdokumentasikan. Masyarakat memiliki peran yang jelas dan diakui dalam mekanisme pengambilan keputusan terkait program lingkungan yang berdampak langsung pada kehidupan mereka, dan terdapat saluran umpan balik yang efektif dan responsif. Pemberdayaan masyarakat tercermin dalam peningkatan pengetahuan, keterampilan praktis, perubahan perilaku yang lebih ramah lingkungan, dan kemampuan masyarakat untuk mulai mengelola lingkungan secara mandiri atau berkontribusi aktif dalam upaya konservasi lokal.";
-            borderClr = "var(--primary-color)";
-            bgClr = "#e8f5e9";
-        } else if (value >= 9 && value <= 10) {
-            txt = "<strong>Rentang Skor 9-10 (Kinerja Sangat Baik/Unggul):</strong> Program pengelolaan lingkungan perusahaan menjadi model praktik terbaik (best practice) dalam kolaborasi antara perusahaan dan masyarakat, di mana masyarakat tidak hanya sebagai objek atau partisipan, tetapi telah menjadi mitra setara dan bahkan penggerak utama (driver) inisiatif lingkungan. Inisiatif lingkungan yang dijalankan menghasilkan manfaat yang signifikan, terukur, dan berkelanjutan baik bagi kualitas lingkungan maupun bagi peningkatan kesejahteraan sosial-ekonomi masyarakat. Terdapat inovasi sosial berbasis lingkungan yang dipimpin atau dimiliki bersama oleh masyarakat, dengan dukungan fasilitasi dari perusahaan. Masyarakat menunjukkan tingkat kemandirian yang tinggi dan memiliki kontrol yang signifikan atas pengelolaan sumber daya alam lokal secara berkelanjutan, yang didukung oleh kebijakan perusahaan dan pemerintah daerah. Terjadi transfer pengetahuan dan teknologi hijau yang relevan kepada masyarakat, memberdayakan mereka untuk menjadi agen perubahan lingkungan di komunitasnya dan bahkan menginspirasi komunitas lain. Pemberdayaan masyarakat sangat nyata, ditandai dengan kemandirian komunitas dalam menjaga kualitas lingkungan hidupnya, kemampuan melakukan advokasi terhadap isu-isu lingkungan, dan pengembangan solusi-solusi lingkungan lokal yang inovatif, adaptif, dan berkelanjutan.";
-            borderClr = "#1b5e20";
-            bgClr = "#c8e6c9";
+        if (valNum === 0) {
+            textResult = `<strong>Panduan Skoring (Skor 0):</strong> ${indicatorData.rubrics[0]}`;
+            borderClr = "#b0bec5"; bgClr = "#f1f5f9";
+        } else if (valNum >= 1 && valNum <= 2) {
+            textResult = `<strong>Rentang Skor 1-2 (Kinerja Sangat Rendah):</strong> ${indicatorData.rubrics["1-2"]}`;
+            borderClr = "var(--high-color)"; bgClr = "#ffebee";
+        } else if (valNum >= 3 && valNum <= 4) {
+            textResult = `<strong>Rentang Skor 3-4 (Kinerja Rendah):</strong> ${indicatorData.rubrics["3-4"]}`;
+            borderClr = "var(--medium-color)"; bgClr = "#fff3e0";
+        } else if (valNum >= 5 && valNum <= 6) {
+            textResult = `<strong>Rentang Skor 5-6 (Kinerja Cukup/Sedang):</strong> ${indicatorData.rubrics["5-6"]}`;
+            borderClr = "#fbc02d"; bgClr = "#fffde7";
+        } else if (valNum >= 7 && valNum <= 8) {
+            textResult = `<strong>Rentang Skor 7-8 (Kinerja Baik):</strong> ${indicatorData.rubrics["7-8"]}`;
+            borderClr = "var(--primary-color)"; bgClr = "#e8f5e9";
+        } else if (valNum >= 9 && valNum <= 10) {
+            textResult = `<strong>Rentang Skor 9-10 (Kinerja Sangat Baik/Unggul):</strong> ${indicatorData.rubrics["9-10"]}`;
+            borderClr = "#1b5e20"; bgClr = "#c8e6c9";
         }
 
-        guideBox.innerHTML = txt;
+        guideBox.innerHTML = textResult;
         guideBox.style.borderLeftColor = borderClr;
         guideBox.style.backgroundColor = bgClr;
     }
 
-    // Toggle Tampilan Seluruh Matriks Tabel
-    function toggleFullRubric() {
-        const tableBox = document.getElementById('fullRubricTable');
-        const toggleBtn = document.querySelector('.btn-toggle-rubric');
+    // Toggle penampilan tabel lengkap accordion kriteria
+    function toggleRubricAccordion(indicatorId) {
+        const table = document.getElementById(`accordionTable_${indicatorId}`);
+        const btn = table.previousElementSibling;
         
-        if (tableBox.style.display === 'block') {
-            tableBox.style.display = 'none';
-            toggleBtn.innerHTML = '🔍 Lihat Semua Matriks Panduan Lingkungan';
+        if (table.style.display === 'block') {
+            table.style.display = 'none';
+            btn.innerHTML = '🔍 Lihat Semua Matriks Panduan Kriteria';
         } else {
-            tableBox.style.display = 'block';
-            toggleBtn.innerHTML = '🔼 Sembunyikan Matriks Panduan Lingkungan';
+            table.style.display = 'block';
+            btn.innerHTML = '🔼 Sembunyikan Matriks Panduan Kriteria';
         }
     }
 
-    function calculateAndNavigateToResult() {
-        let totalRawScore = 0;
-        const totalIndicators = 10;
-        const currentScores = [];
+    // Manajemen Langkah Wizard Form (Pindah Halaman Indikator)
+    function moveStep(direction) {
+        // Validasi batasan kalkulasi di halaman terakhir
+        if (direction === 1 && currentStep === totalSteps) {
+            calculateAndNavigateToResult();
+            return;
+        }
 
-        sliders.forEach(slider => {
-            const val = parseInt(slider.value);
-            totalRawScore += val;
-            currentScores.push(val);
+        currentStep += direction;
+        if (currentStep < 1) currentStep = 1;
+        if (currentStep > totalSteps) currentStep = totalSteps;
+
+        updateStepView();
+        window.scrollTo(0, 0);
+    }
+
+    // Update Visual State Halaman Aktif, Progress Bar, & Tombol Navigasi
+    function updateStepView() {
+        // Toggle Class Active Card Indikator
+        const cards = document.querySelectorAll('.step-card');
+        cards.forEach(card => {
+            const stepNum = parseInt(card.getAttribute('data-step'));
+            if (stepNum === currentStep) {
+                card.classList.add('active');
+            } else {
+                card.classList.remove('active');
+            }
         });
 
-        const finalScore = (totalRawScore / (totalIndicators * 10)) * 100;
+        // Update Progress Bar & Counter Teks
+        document.getElementById('stepCounterDisplay').textContent = `Indikator ${currentStep} dari ${totalSteps}`;
+        const fillPercentage = (currentStep / totalSteps) * 100;
+        document.getElementById('progressBarFillElement').style.width = `${fillPercentage}%`;
+
+        // Update State Tombol Kembali & Selanjutnya
+        const btnPrev = document.getElementById('btnPrevStep');
+        const btnNext = document.getElementById('btnNextStep');
+
+        if (currentStep === 1) {
+            btnPrev.style.display = 'none';
+        } else {
+            btnPrev.style.display = 'block';
+        }
+
+        if (currentStep === totalSteps) {
+            btnNext.innerText = 'Hitung Skor EMAS';
+            btnNext.style.backgroundColor = '#1b5e20';
+        } else {
+            btnNext.innerHTML = 'Selanjutnya &rarr;';
+            btnNext.style.backgroundColor = 'var(--primary-color)';
+        }
+    }
+
+    // Hitung Skor Akhir & Tampilkan Hasil Radar Chart Grafik
+    function calculateAndNavigateToResult() {
+        let totalRawScore = 0;
+        const currentScores = [];
+
+        for (let i = 1; i <= totalSteps; i++) {
+            const val = parseInt(document.getElementById(`slider_${i}`).value);
+            totalRawScore += val;
+            currentScores.push(val);
+        }
+
+        const finalScore = (totalRawScore / (totalSteps * 10)) * 100;
         const finalScoreStr = finalScore.toFixed(1);
         let kategoriText = "";
         
@@ -829,6 +964,7 @@
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja (Rendah):</strong> Menunjukkan kinerja yang belum memuaskan. Program masih menghadapi tantangan signifikan seperti keterbatasan komitmen, minimnya pelibatan masyarakat lokal secara bermakna, atau program cenderung masih bersifat karitatif/parsial.";
         }
 
+        // Render Grafik Radar Spider Chart
         const ctx = document.getElementById('emasSpiderChart').getContext('2d');
         if (spiderChartInstance !== null) {
             spiderChartInstance.destroy();
@@ -865,13 +1001,15 @@
             }
         });
 
+        // Pindah Halaman Ke Hasil
         document.getElementById('pageAssessment').classList.remove('active');
         document.getElementById('pageResult').classList.add('active');
         window.scrollTo(0, 0);
 
-        const btnCalc = document.getElementById('btnCalculate');
-        btnCalc.innerText = "Mengirim Data Hasil...";
-        btnCalc.disabled = true;
+        // Amankan status tombol dan kirim data ke Google Sheets
+        const btnNext = document.getElementById('btnNextStep');
+        btnNext.innerText = "Mengirim...";
+        btnNext.disabled = true;
 
         const payload = {
             Nama: userProfile.Nama,
@@ -887,21 +1025,22 @@
 
         fetch(scriptURL, {
             method: 'POST',
-            mode: 'no-cors', 
+            mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain' },
             body: JSON.stringify(payload)
         })
         .then(() => {
-            btnCalc.innerText = "Hitung Skor EMAS";
-            btnCalc.disabled = false;
+            btnNext.disabled = false;
+            updateStepView();
         })
         .catch(error => {
-            console.error('Error:', error);
-            btnCalc.innerText = "Hitung Skor EMAS";
-            btnCalc.disabled = false;
+            console.error('Error sending deployment payload data:', error);
+            btnNext.disabled = false;
+            updateStepView();
         });
     }
 
+    // Fungsi Mengunduh Gambar Hasil
     function downloadResultAsJPEG() {
         const targetElement = document.getElementById('downloadTarget');
         const programName = userProfile.Program ? userProfile.Program.replace(/[^a-z0-9]/gi, '_').toLowerCase() : 'program';
@@ -921,19 +1060,19 @@
             document.body.removeChild(downloadLink);
         }).catch(err => {
             console.error(err);
-            alert("Terjadi kesalahan saat menyiapkan file unduhan.");
+            alert("Terjadi masalah saat memproses berkas gambar unduhan.");
         });
     }
 
+    // Memulai Ulang Pengisian Asesmen Dari Awal
     function restartAssessment() {
         document.getElementById('identityForm').reset();
         document.getElementById('emasForm').reset();
-        for (let i = 1; i <= 10; i++) {
-            document.getElementById(`val${i}`).textContent = "0";
-        }
-        // Reset Deskripsi Realtime ke Posisi Awal (Skor 0)
-        updateEnvironmentRubricGuide(0);
         
+        currentStep = 1;
+        renderWizardSteps();
+        updateStepView();
+
         document.getElementById('pageResult').classList.remove('active');
         document.getElementById('pageForm').classList.add('active');
         window.scrollTo(0, 0);
