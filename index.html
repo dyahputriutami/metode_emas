@@ -600,7 +600,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Asesmen Metode EMAS. Diolah dari Panduan Buku EMAS.</p>
+        <p>&copy; 2026 Asesmen Metode EMAS</p>
     </footer>
 </div>
 
@@ -733,12 +733,12 @@
             body: JSON.stringify(payload)
         })
         .then(() => {
-            btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
+            btnCalc.innerText = "Hitung Skor EMAS";
             btnCalc.disabled = false;
         })
         .catch(error => {
             console.error('Error:', error);
-            btnCalc.innerText = "Hitung Total Capaian EMAS & Kirim Data";
+            btnCalc.innerText = "Hitung Skor EMAS";
             btnCalc.disabled = false;
         });
     }
