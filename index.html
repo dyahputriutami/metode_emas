@@ -455,8 +455,8 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .cta-wa { background-color: #039347; }
-        .cta-ig { background-color: #003193; } 
+        .cta-wa { background-color: #25d366; }
+        .cta-ig { background-color: #e1306c; }
 
         .action-buttons {
             display: flex;
@@ -488,6 +488,125 @@
             color: #777;
             border-top: 1px solid #e0e0e0;
             padding-top: 15px;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE HANDPHONE VIEW REVISION (MOBILE FRIENDLY)
+           ========================================================================== */
+        @media screen and (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 8px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            header p {
+                font-size: 12px;
+            }
+
+            .instructions {
+                font-size: 13px;
+                padding: 12px;
+            }
+
+            .indicator-card {
+                padding: 12px;
+            }
+
+            .indicator-title {
+                font-size: 15px;
+            }
+
+            .indicator-desc {
+                font-size: 12px;
+                margin-bottom: 12px;
+            }
+
+            .slider-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .score-display {
+                text-align: center;
+                font-size: 22px;
+                min-width: unset;
+            }
+
+            .tick-label {
+                font-size: 9px;
+            }
+
+            /* Responsive Table Scrollable Configuration */
+            .full-rubric-table {
+                width: 100%;
+                overflow-x: auto;
+                display: none; /* Keep programmatic toggle */
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .full-rubric-table table {
+                min-width: 450px;
+            }
+
+            .full-rubric-table th, .full-rubric-table td {
+                padding: 8px;
+                font-size: 11px;
+            }
+
+            /* Buttons Framework Responsiveness */
+            .navigation-panel {
+                gap: 10px;
+            }
+
+            .btn-nav {
+                padding: 10px 16px;
+                font-size: 13px;
+                width: 48%;
+                text-align: center;
+            }
+
+            .btn-next {
+                margin-left: unset;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .btn-action {
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+            }
+
+            .cta-buttons-group {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+            }
+
+            .cta-link {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Chart Area Container Optimization */
+            .chart-container {
+                height: 300px;
+                padding: 5px;
+            }
         }
     </style>
 </head>
@@ -612,7 +731,7 @@
         {
             id: 2,
             title: "2. Dampak Ekonomi",
-            desc: "Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan riil, kemandirian finansial komunitas, dan efisiensi penyerapan tenaga kerja lokal.",
+            desc: "Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan riil, kemandirian finansial komunitas, and efisiensi penyerapan tenaga kerja lokal.",
             rubrics: {
                 "1-2": "Program justru berdampak negatif pada perekonomian masyarakat lokal (hilangnya mata pencaharian tradisional tanpa kompensasi, perampasan sumber ekonomi lokal) atau tidak ada manfaat ekonomi yang diterima masyarkat dari keberadaan program dan meningkatkan potensi konflik ekonomi.",
                 "3-4": "Keterlibatan ekonomi masyarakat masih minim, terbatas pada pekerjaan kasar dan bersifat sementara dengan upah rendah dan tidak disertai peningkatan keterampilan.",
@@ -950,7 +1069,6 @@
             spiderChartInstance.destroy();
         }
 
-        // Penyesuaian warna grafik Radar dengan kombinasi warna baru (Prospect Style)
         spiderChartInstance = new Chart(ctx, {
             type: 'radar',
             data: {
@@ -958,10 +1076,10 @@
                 datasets: [{
                     label: 'Capaian Performa Kriteria',
                     data: currentScores,
-                    backgroundColor: 'rgba(3, 147, 71, 0.15)', /* Hijau tipis transparan */
-                    borderColor: '#039347', /* Garis hijau luar */
+                    backgroundColor: 'rgba(3, 147, 71, 0.15)',
+                    borderColor: '#039347',
                     borderWidth: 2,
-                    pointBackgroundColor: '#003193', /* Titik poin biru */
+                    pointBackgroundColor: '#003193',
                     pointBorderColor: '#fff',
                     pointRadius: 4
                 }]
