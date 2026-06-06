@@ -422,6 +422,18 @@
             border-left: 5px solid var(--primary-color);
         }
 
+        .result-desc h4 {
+            color: var(--secondary-color);
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .result-desc ul {
+            margin-left: 20px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
         .cta-box {
             margin-top: 35px;
             background: linear-gradient(135deg, #e6f4ed 0%, #e6eaf4 100%);
@@ -717,6 +729,8 @@
         { id: 10, title: "10. Tata Kelola", desc: "Mengevaluasi tata kelola organisasi pelaksana.", rubrics: { "1-2": "Pengelolaan tidak transparan, tidak ada laporan berkala, dan rentan konflik internal.", "3-4": "Struktur organisasi ada namun pasif; keputusan bergantung penuh pada figur tunggal.", "5-6": "Pembukuan terbuka, laporan pertanggungjawaban rutin diinformasikan kepada anggota kelompok.", "7-8": "Akuntabilitas tinggi, memiliki SOP baku, serta menerapkan grievance mechanism (saluran keluhan) yang aktif.", "9-10": "Menerapkan prinsip Good Governance sepenuhnya dan berhasil meraih legalitas hukum resmi serta audit bersih." } }
     ];
 
+    const shortLabels = ['Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 'SROI', 'Shared Value', 'Kehati', 'Stakeholder', 'Kewilayahan', 'Tata Kelola'];
+
     let userProfile = {};
     let spiderChartInstance = null;
     let currentStep = 1;
@@ -863,13 +877,36 @@
         const now = new Date();
         document.getElementById('timestampDisplay').textContent = `Waktu Pelaksanaan Asesmen: ${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()} | Pukul ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} WIB`;
 
+        // LOGIKA BARU: Analisis Deskripsi Hasil Otomatis (Dinamis Berdasarkan Skor Tertinggi dan Terendah)
+        let maxVal = -1, minVal = 11;
+        let highIndicators = [], lowIndicators = [];
+
+        for (let i = 0; i < currentScores.length; i++) {
+            if (currentScores[i] > maxVal) maxVal = currentScores[i];
+            if (currentScores[i] < minVal) minVal = currentScores[i];
+        }
+
+        for (let i = 0; i < currentScores.length; i++) {
+            if (currentScores[i] === maxVal) highIndicators.push(shortLabels[i]);
+            if (currentScores[i] === minVal) lowIndicators.push(shortLabels[i]);
+        }
+
+        let dynamicAnalysisHTML = `<h4>Analisis Performa Evaluasi:</h4>`;
+        dynamicAnalysisHTML += `<p>Berdasarkan hasil kalkulasi parameter, program <strong>${userProfile.Program}</strong> masuk ke dalam klasifikasi kategori <strong>${kategoriText}</strong>.</p>`;
+        
+        dynamicAnalysisHTML += `<p style="margin-top: 8px;"><strong>Aspek Unggulan (Kekuatan Utama):</strong><br>Program Anda menunjukkan kinerja paling optimal pada bidang <u>${highIndicators.join(', ')}</u> (Skor: ${maxVal}/10). Pertahankan praktik baik ini untuk memperluas dampak multiplikasi sosial-ekonomi.</p>`;
+        
+        dynamicAnalysisHTML += `<p style="margin-top: 8px;"><strong>Rekomendasi Area Perbaikan:</strong><br>Untuk mengoptimalkan efektivitas program secara menyeluruh, fokus intervensi terdekat disarankan menyasar peningkatan pada aspek <u>${lowIndicators.join(', ')}</u> (Skor saat ini: ${minVal}/10).</p>`;
+
+        document.getElementById('resultDesc').innerHTML = dynamicAnalysisHTML;
+
         // Render Grafik Radar
         const ctx = document.getElementById('emasSpiderChart').getContext('2d');
         if (spiderChartInstance) spiderChartInstance.destroy();
         spiderChartInstance = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ['Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 'SROI', 'Shared Value', 'Kehati', 'Stakeholder', 'Kewilayahan', 'Tata Kelola'],
+                labels: shortLabels,
                 datasets: [{ data: currentScores, backgroundColor: 'rgba(3, 147, 71, 0.15)', borderColor: '#039347', borderWidth: 2 }]
             },
             options: { scales: { r: { suggestedMin: 1, suggestedMax: 10 } }, plugins: { legend: { display: false } } }
@@ -902,7 +939,7 @@
             Skor_Indikator10: currentScores[9]
         };
 
-        // URL Web App Baru Anda
+        // URL Web App Baru Anda yang sudah terhubung dengan aman
         const scriptURL = 'https://script.google.com/macros/s/AKfycbz_wUSgU24YKm_tE2xd2xFf0FJ8qmw24reFPqc1q8nPtSLdT2i5txYNHr9X7n6NsnRC/exec';
 
         fetch(scriptURL, {
