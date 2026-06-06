@@ -8,17 +8,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
-            --primary-color: #2e7d32;
-            --primary-light: #e8f5e9;
-            --secondary-color: #37474f;
+            /* Warna Utama Berdasarkan Color Guide Prospect Institute */
+            --primary-color: #039347; /* Hijau Prospect */
+            --primary-light: #e6f4ed; /* Hijau Terang Transparan */
+            --secondary-color: #003193; /* Biru Prospect */
+            --secondary-light: #e6eaf4; /* Biru Terang Transparan */
+            
+            /* Warna Pendukung */
             --bg-color: #f5f7f8;
             --card-color: #ffffff;
             --text-color: #212121;
             --border-color: #cfd8dc;
             
+            /* Status Indikator Kinerja */
             --high-color: #c62828;
             --medium-color: #ef6c00;
             --low-color: #c62828;
+
+            /* Efek Gradasi Berdasarkan Color Guide */
+            --gradient-prospect: linear-gradient(135deg, #039347 0%, #003193 100%);
         }
 
         * {
@@ -47,19 +55,23 @@
         header {
             text-align: center;
             margin-bottom: 30px;
-            border-bottom: 2px solid var(--primary-light);
+            border-bottom: 2px solid var(--border-color);
             padding-bottom: 20px;
         }
 
         header h1 {
-            color: var(--primary-color);
-            font-size: 24px;
+            background: var(--gradient-prospect);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 26px;
+            font-weight: 800;
             margin-bottom: 5px;
         }
 
         header p {
-            color: var(--secondary-color);
+            color: #455a64;
             font-size: 14px;
+            font-weight: 500;
         }
 
         /* Navigasi Struktur Halaman */
@@ -93,14 +105,14 @@
         .progress-bar-bg {
             width: 100%;
             background-color: #e2e8f0;
-            height: 8px;
+            height: 10px;
             border-radius: 10px;
             overflow: hidden;
         }
 
         .progress-bar-fill {
             height: 100%;
-            background-color: var(--primary-color);
+            background: var(--gradient-prospect);
             width: 10%;
             transition: width 0.3s ease;
         }
@@ -130,12 +142,13 @@
         .form-group input:focus {
             outline: none;
             border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(3, 147, 71, 0.1);
         }
 
         .btn-submit {
             display: block;
             width: 100%;
-            background-color: var(--primary-color);
+            background: var(--gradient-prospect);
             color: white;
             border: none;
             padding: 14px;
@@ -144,22 +157,24 @@
             border-radius: 8px;
             cursor: pointer;
             margin-top: 25px;
-            transition: background 0.2s;
+            transition: opacity 0.2s, transform 0.2s;
             text-align: center;
         }
 
         .btn-submit:hover {
-            background-color: #1b5e20;
+            opacity: 0.95;
+            transform: translateY(-1px);
         }
 
         /* Style Kalkulator Slider */
         .instructions {
-            background-color: var(--primary-light);
+            background-color: var(--secondary-light);
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 25px;
             font-size: 14px;
-            border-left: 5px solid var(--primary-color);
+            border-left: 5px solid var(--secondary-color);
+            color: var(--secondary-color);
         }
 
         .indicator-card {
@@ -173,7 +188,7 @@
         .indicator-title {
             font-size: 18px;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--secondary-color);
             margin-bottom: 8px;
         }
 
@@ -306,7 +321,7 @@
 
         .btn-prev {
             background-color: #cfd8dc;
-            color: var(--secondary-color);
+            color: #455a64;
         }
 
         .btn-prev:hover {
@@ -316,11 +331,11 @@
         .btn-next {
             background-color: var(--primary-color);
             color: white;
-            margin-left: auto; /* Push to right when single */
+            margin-left: auto;
         }
 
         .btn-next:hover {
-            background-color: #1b5e20;
+            opacity: 0.9;
         }
 
         /* Style Halaman Hasil */
@@ -354,7 +369,9 @@
             font-size: 64px;
             font-weight: 800;
             margin: 10px 0;
-            color: var(--secondary-color);
+            background: var(--gradient-prospect);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .status-badge {
@@ -399,8 +416,8 @@
 
         .cta-box {
             margin-top: 35px;
-            background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
-            border: 1px dashed var(--primary-color);
+            background: linear-gradient(135deg, #e6f4ed 0%, #e6eaf4 100%);
+            border: 1px dashed var(--secondary-color);
             border-radius: 10px;
             padding: 25px;
             text-align: center;
@@ -409,7 +426,7 @@
         .cta-box p {
             font-size: 15px;
             font-weight: 600;
-            color: #1b5e20;
+            color: var(--secondary-color);
             margin-bottom: 15px;
         }
 
@@ -439,7 +456,7 @@
         }
 
         .cta-wa { background-color: #25d366; }
-        .cta-ig { background-color: #e1306c; }
+        .cta-ig { background-color: #e1306c; } /* Warna asli brand Instagram */
 
         .action-buttons {
             display: flex;
@@ -459,12 +476,12 @@
             transition: background 0.2s;
         }
 
-        .btn-download { background-color: var(--primary-color); color: white; }
-        .btn-download:hover { background-color: #1b5e20; }
+        .btn-download { background: var(--gradient-prospect); color: white; }
+        .btn-download:hover { opacity: 0.95; }
         .btn-back { background-color: var(--secondary-color); color: white; }
-        .btn-back:hover { background-color: #263238; }
+        .btn-back:hover { opacity: 0.9; }
 
-        刻ter {
+        footer {
             text-align: center;
             margin-top: 40px;
             font-size: 12px;
@@ -484,7 +501,7 @@
     </header>
 
     <div id="pageForm" class="page active">
-        <div class="instructions" style="border-left-color: var(--secondary-color); background-color: #f0f4f6;">
+        <div class="instructions" style="border-left-color: var(--secondary-color); background-color: var(--secondary-light);">
             Silakan isi profil Anda sebelum memulai asesmen.
         </div>
         <form id="identityForm" onsubmit="navigateToAssessment(event)">
@@ -525,8 +542,7 @@
         </div>
 
         <form id="emasForm">
-            <div id="dynamicStepContainer">
-                </div>
+            <div id="dynamicStepContainer"></div>
 
             <div class="navigation-panel">
                 <button type="button" class="btn-nav btn-prev" id="btnPrevStep" onclick="moveStep(-1)" style="display: none;">&larr; Kembali</button>
@@ -580,7 +596,6 @@
 </div>
 
 <script>
-    // Konfigurasi Seluruh Data Rubrik Matriks Metode EMAS
     const emasListData = [
         {
             id: 1,
@@ -709,23 +724,20 @@
     let currentStep = 1;
     const totalSteps = 10;
 
-    // Inisialisasi awal saat dokumen siap
     document.addEventListener("DOMContentLoaded", () => {
         renderWizardSteps();
         updateStepView();
     });
 
-    // Menghasilkan elemen HTML untuk ke-10 indikator secara dinamis
     function renderWizardSteps() {
         const container = document.getElementById('dynamicStepContainer');
-        container.innerHTML = ""; // Clear
+        container.innerHTML = "";
 
         emasListData.forEach(item => {
             const stepDiv = document.createElement('div');
             stepDiv.className = `step-card ${item.id === 1 ? 'active' : ''}`;
             stepDiv.setAttribute('data-step', item.id);
 
-            // Buat baris opsi matriks untuk tabel accordion
             let tableRowsHTML = "";
             Object.keys(item.rubrics).forEach(key => {
                 let labelKinerja = "";
@@ -733,7 +745,7 @@
                 if (key === "3-4") labelKinerja = '<small style="color:var(--medium-color); font-weight:bold;">Kinerja Rendah</small>';
                 if (key === "5-6") labelKinerja = '<small style="color:#fbc02d; font-weight:bold;">Kinerja Cukup/Sedang</small>';
                 if (key === "7-8") labelKinerja = '<small style="color:var(--primary-color); font-weight:bold;">Kinerja Baik</small>';
-                if (key === "9-10") labelKinerja = '<small style="color:#1b5e20; font-weight:bold;">Kinerja Sangat Baik/Unggul</small>';
+                if (key === "9-10") labelKinerja = '<small style="color:var(--secondary-color); font-weight:bold;">Kinerja Sangat Baik/Unggul</small>';
 
                 tableRowsHTML += `
                     <tr>
@@ -782,7 +794,6 @@
         });
     }
 
-    // Fungsi navigasi submit form profil data diri
     function navigateToAssessment(event) {
         event.preventDefault();
         
@@ -799,7 +810,6 @@
         window.scrollTo(0, 0);
     }
 
-    // Mengendalikan perubahan teks dinamis saat slider digeser
     function handleSliderInput(indicatorId, value) {
         const valNum = parseInt(value);
         document.getElementById(`valDisplay_${indicatorId}`).textContent = value;
@@ -822,10 +832,10 @@
             borderClr = "#fbc02d"; bgClr = "#fffde7";
         } else if (valNum >= 7 && valNum <= 8) {
             textResult = `<strong>Rentang Skor 7-8 (Kinerja Baik):</strong> ${indicatorData.rubrics["7-8"]}`;
-            borderClr = "var(--primary-color)"; bgClr = "#e8f5e9";
+            borderClr = "var(--primary-color)"; bgClr = "var(--primary-light)";
         } else if (valNum >= 9 && valNum <= 10) {
             textResult = `<strong>Rentang Skor 9-10 (Kinerja Sangat Baik/Unggul):</strong> ${indicatorData.rubrics["9-10"]}`;
-            borderClr = "#1b5e20"; bgClr = "#c8e6c9";
+            borderClr = "var(--secondary-color)"; bgClr = "var(--secondary-light)";
         }
 
         guideBox.innerHTML = textResult;
@@ -833,7 +843,6 @@
         guideBox.style.backgroundColor = bgClr;
     }
 
-    // Toggle penampilan tabel lengkap accordion kriteria
     function toggleRubricAccordion(indicatorId) {
         const table = document.getElementById(`accordionTable_${indicatorId}`);
         const btn = table.previousElementSibling;
@@ -847,9 +856,7 @@
         }
     }
 
-    // Manajemen Langkah Wizard Form (Pindah Halaman Indikator)
     function moveStep(direction) {
-        // Validasi batasan kalkulasi di halaman terakhir
         if (direction === 1 && currentStep === totalSteps) {
             calculateAndNavigateToResult();
             return;
@@ -863,9 +870,7 @@
         window.scrollTo(0, 0);
     }
 
-    // Update Visual State Halaman Aktif, Progress Bar, & Tombol Navigasi
     function updateStepView() {
-        // Toggle Class Active Card Indikator
         const cards = document.querySelectorAll('.step-card');
         cards.forEach(card => {
             const stepNum = parseInt(card.getAttribute('data-step'));
@@ -876,12 +881,10 @@
             }
         });
 
-        // Update Progress Bar & Counter Teks
         document.getElementById('stepCounterDisplay').textContent = `Indikator ${currentStep} dari ${totalSteps}`;
         const fillPercentage = (currentStep / totalSteps) * 100;
         document.getElementById('progressBarFillElement').style.width = `${fillPercentage}%`;
 
-        // Update State Tombol Kembali & Selanjutnya
         const btnPrev = document.getElementById('btnPrevStep');
         const btnNext = document.getElementById('btnNextStep');
 
@@ -893,14 +896,13 @@
 
         if (currentStep === totalSteps) {
             btnNext.innerText = 'Hitung Skor EMAS';
-            btnNext.style.backgroundColor = '#1b5e20';
+            btnNext.style.backgroundColor = 'var(--secondary-color)';
         } else {
             btnNext.innerHTML = 'Selanjutnya &rarr;';
             btnNext.style.backgroundColor = 'var(--primary-color)';
         }
     }
 
-    // Hitung Skor Akhir & Tampilkan Hasil Radar Chart Grafik
     function calculateAndNavigateToResult() {
         let totalRawScore = 0;
         const currentScores = [];
@@ -926,26 +928,29 @@
         if (finalScore >= 81) {
             kategoriText = "Tinggi (Luar Biasa / Unggul)";
             statusBadge.textContent = kategoriText;
-            statusBadge.className = "status-badge status-high";
+            statusBadge.className = "status-badge";
+            statusBadge.style.background = "var(--gradient-prospect)";
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja (Tinggi):</strong> Menunjukkan kinerja luar biasa, praktik terbaik (best practice), inovasi sosial, dan dampak positif yang signifikan di berbagai dimensi keberlanjutan. Program berhasil mengintegrasikan aspek lingkungan-sosial-ekonomi dan menempatkan masyarakat sebagai mitra strategis mandiri.";
         } else if (finalScore >= 61) {
             kategoriText = "Sedang (Baik)";
             statusBadge.textContent = kategoriText;
             statusBadge.className = "status-badge status-medium";
+            statusBadge.style.background = "";
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja (Sedang):</strong> Menunjukkan kinerja yang baik namun masih memiliki ruang untuk perbaikan berkelanjutan. Telah menerapkan praktik-praktik efektif, tetapi mungkin masih menghadapi beberapa tantangan kapasitas atau integrasi program di lapangan.";
         } else {
             kategoriText = "Rendah (Belum Memuaskan)";
             statusBadge.textContent = kategoriText;
             statusBadge.className = "status-badge status-low";
+            statusBadge.style.background = "";
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja (Rendah):</strong> Menunjukkan kinerja yang belum memuaskan. Program masih menghadapi tantangan signifikan seperti keterbatasan komitmen, minimnya pelibatan masyarakat lokal secara bermakna, atau program cenderung masih bersifat karitatif/parsial.";
         }
 
-        // Render Grafik Radar Spider Chart
         const ctx = document.getElementById('emasSpiderChart').getContext('2d');
         if (spiderChartInstance !== null) {
             spiderChartInstance.destroy();
         }
 
+        // Penyesuaian warna grafik Radar dengan kombinasi warna baru (Prospect Style)
         spiderChartInstance = new Chart(ctx, {
             type: 'radar',
             data: {
@@ -953,10 +958,10 @@
                 datasets: [{
                     label: 'Capaian Performa Kriteria',
                     data: currentScores,
-                    backgroundColor: 'rgba(46, 125, 50, 0.2)',
-                    borderColor: '#2e7d32',
+                    backgroundColor: 'rgba(3, 147, 71, 0.15)', /* Hijau tipis transparan */
+                    borderColor: '#039347', /* Garis hijau luar */
                     borderWidth: 2,
-                    pointBackgroundColor: '#1b5e20',
+                    pointBackgroundColor: '#003193', /* Titik poin biru */
                     pointBorderColor: '#fff',
                     pointRadius: 4
                 }]
@@ -970,19 +975,17 @@
                         suggestedMin: 1,
                         suggestedMax: 10,
                         ticks: { stepSize: 2 },
-                        pointLabels: { font: { size: 11, weight: '600' }, color: '#37474f' }
+                        pointLabels: { font: { size: 11, weight: '600' }, color: '#003193' }
                     }
                 },
                 plugins: { legend: { display: false } }
             }
         });
 
-        // Pindah Halaman Ke Hasil
         document.getElementById('pageAssessment').classList.remove('active');
         document.getElementById('pageResult').classList.add('active');
         window.scrollTo(0, 0);
 
-        // Amankan status tombol dan kirim data ke Google Sheets
         const btnNext = document.getElementById('btnNextStep');
         btnNext.innerText = "Mengirim...";
         btnNext.disabled = true;
@@ -1016,7 +1019,6 @@
         });
     }
 
-    // Fungsi Mengunduh Gambar Hasil
     function downloadResultAsJPEG() {
         const targetElement = document.getElementById('downloadTarget');
         const programName = userProfile.Program ? userProfile.Program.replace(/[^a-z0-9]/gi, '_').toLowerCase() : 'program';
@@ -1040,7 +1042,6 @@
         });
     }
 
-    // Memulai Ulang Pengisian Asesmen Dari Awal
     function restartAssessment() {
         document.getElementById('identityForm').reset();
         document.getElementById('emasForm').reset();
