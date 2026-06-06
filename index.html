@@ -351,7 +351,7 @@
         }
 
         .result-container h2 {
-            font-size: 26px;
+            font-size: 22px;
             color: var(--secondary-color);
             margin-bottom: 5px;
         }
@@ -360,7 +360,7 @@
             color: var(--primary-color);
             font-weight: 700;
             display: block;
-            font-size: 22px;
+            font-size: 24px;
             margin-top: 5px;
             margin-bottom: 5px;
         }
@@ -507,8 +507,8 @@
             transform: translateY(-1px);
         }
 
-        .social-wa { background-color: #039347; }
-        .social-ig { background-color: #003193; }
+        .social-wa { background-color: #25d366; }
+        .social-ig { background-color: #e1306c; }
 
         footer {
             text-align: center;
@@ -550,9 +550,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(3, 147, 71, 0.85) 0%, rgba(0, 49, 147, 0.75) 100%);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(3, 147, 71, 0.95) 0%, rgba(0, 49, 147, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 99999;
             display: flex;
             flex-direction: column;
@@ -560,55 +560,52 @@
             align-items: center;
             text-align: center;
             padding: 20px;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
         .splash-content {
-            max-width: 650px;
-            animation: splashFadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            max-width: 600px;
+            animation: splashFadeInUp 1s ease forwards;
         }
 
         .splash-greeting {
-            font-size: 32px;
-            font-weight: 800;
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
             line-height: 1.4;
-            margin-bottom: 35px;
-            letter-spacing: 0.5px;
-            color: #ffffff;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .btn-enter-app {
-            background-color: #ffffff;
-            color: #039347;
+            background-color: white;
+            color: var(--primary-color);
             border: none;
-            padding: 15px 36px;
+            padding: 12px 30px;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
         }
 
         .btn-enter-app:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
             background-color: #f8f9fa;
-            color: #003193;
         }
 
         @keyframes splashFadeInUp {
-            from { opacity: 0; transform: translateY(30px) scale(0.96); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    
+
 <div id="prospectSplashOverlay">
     <div class="splash-content">
-        <img src="data:image/png;base64,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" style="max-height: 85px; width: auto; margin-bottom: 25px; display: block; margin-left: auto; margin-right: auto; background-color: #ffffff; padding: 5px; border-radius: 4px;">
+        
+        <img src="https://docs.google.com/uc?export=download&id=189SNQFSVnfb5DG2GFvNtJ0zxKP1aZEVq" style="max-height: 75px; width: auto; margin-bottom: 25px; display: block; margin-left: auto; margin-right: auto; background-color: #ffffff; padding: 12px 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); object-fit: contain;">
         
         <h1 class="splash-greeting">
             Selamat Datang di Asesmen Metode Emas<br>
@@ -622,14 +619,15 @@
 
 <div class="container">
     <header>
-        <img src="data:image/png;base64,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" alt="Logo Prospect Institute" style="max-height: 55px; width: auto; margin-bottom: 12px; display: block; margin-left: auto; margin-right: auto;">
         <h1>Asesmen Metode EMAS</h1>
         <p>Environmental Management Assessment Scheme</p>
         <p>Pengelolaan Lingkungan Berbasis Pemberdayaan Masyarakat Berkelanjutan</p>
     </header>
 
     <div id="pageForm" class="page active">
-        <div class="instructions">Silakan isi profil Anda sebelum memulai asesmen.</div>
+        <div class="instructions">
+            Silakan isi profil Anda sebelum memulai asesmen.
+        </div>
         <form id="identityForm" onsubmit="navigateToAssessment(event)">
             <div class="form-group">
                 <label for="inputNama">Nama Lengkap *</label>
@@ -662,11 +660,14 @@
                 <div class="progress-bar-fill" id="progressBarFillElement"></div>
             </div>
         </div>
+
         <div class="instructions">
             <strong>Petunjuk Pengisian:</strong> Geser skala penggeser (slider) di bawah ini sesuai capaian riil program Anda.
         </div>
+
         <form id="emasForm">
             <div id="dynamicStepContainer"></div>
+
             <div class="navigation-panel">
                 <button type="button" class="btn-nav btn-prev" id="btnPrevStep" onclick="moveStep(-1)" style="display: none;">&larr; Kembali</button>
                 <button type="button" class="btn-nav btn-next" id="btnNextStep" onclick="moveStep(1)">Selanjutnya &rarr;</button>
@@ -677,486 +678,485 @@
     <div id="pageResult" class="page">
         <div id="downloadTarget" class="capture-area">
             <div class="result-container">
-                <img src="data:image/png;base64,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 {
-    }
-    header h1 {
-        background: var(--gradient-prospect);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 26px;
-        font-weight: 800;
-        margin-bottom: 5px;
-    }
-    header p {
-        color: #455a64;
-        font-size: 14px;
-        font-weight: 500;
-    }
-    .page {
-        display: none;
-    }
-    .page.active {
-        display: block;
-    }
-    .step-card {
-        display: none;
-    }
-    .step-card.active {
-        display: block;
-    }
-    .progress-container {
-        margin-bottom: 25px;
-    }
-    .step-counter {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--secondary-color);
-        margin-bottom: 6px;
-        text-align: right;
-    }
-    .progress-bar-bg {
-        width: 100%;
-        background-color: #e2e8f0;
-        height: 10px;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    .progress-bar-fill {
-        height: 100%;
-        background: var(--gradient-prospect);
-        width: 10%;
-        transition: width 0.3s ease;
-    }
-    .form-group {
-        margin-bottom: 20px;
-    }
-    .form-group label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 6px;
-        color: var(--secondary-color);
-        font-size: 14px;
-    }
-    .form-group input {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        font-size: 14px;
-        transition: border 0.3s;
-    }
-    .form-group input:focus {
-        outline: none;
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 3px rgba(3, 147, 71, 0.1);
-    }
-    .btn-submit {
-        display: block;
-        width: 100%;
-        background: var(--gradient-prospect);
-        color: white;
-        border: none;
-        padding: 14px;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-top: 25px;
-        transition: opacity 0.2s, transform 0.2s;
-        text-align: center;
-    }
-    .btn-submit:hover {
-        opacity: 0.95;
-        transform: translateY(-1px);
-    }
-    .instructions {
-        background-color: var(--secondary-light);
-        padding: 15px;
-        border-radius: 8px;
-        margin-bottom: 25px;
-        font-size: 14px;
-        border-left: 5px solid var(--secondary-color);
-        color: var(--secondary-color);
-    }
-    .indicator-card {
-        background: #fafafa;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 20px;
-    }
-    .indicator-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--secondary-color);
-        margin-bottom: 8px;
-    }
-    .indicator-desc {
-        font-size: 14px;
-        color: #455a64;
-        margin-bottom: 20px;
-        line-height: 1.5;
-    }
-    .slider-container {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        background: #ffffff;
-        padding: 15px;
-        border-radius: 8px;
-        border: 1px solid #e2e8f0;
-    }
-    .slider-wrapper {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-    }
-    input[type="range"] {
-        width: 100%;
-        accent-color: var(--primary-color);
-        cursor: pointer;
-        height: 8px;
-        border-radius: 5px;
-    }
-    .ticks-container {
-        display: flex;
-        justify-content: space-between;
-        padding: 0 2px;
-        margin-top: 8px;
-    }
-    .tick-label {
-        font-size: 11px;
-        color: #78909c;
-        width: 20px;
-        text-align: center;
-        font-weight: 500;
-    }
-    .score-display {
-        font-size: 26px;
-        font-weight: bold;
-        color: var(--primary-color);
-        min-width: 45px;
-        text-align: right;
-    }
-    .rubric-guide-box {
-        margin-top: 20px;
-        padding: 16px;
-        background-color: #f1f5f9;
-        border-left: 4px solid #b0bec5;
-        border-radius: 4px;
-        font-size: 13px;
-        color: #334155;
-        line-height: 1.6;
-        transition: all 0.2s ease;
-    }
-    .btn-toggle-rubric {
-        background: none;
-        border: none;
-        color: var(--primary-color);
-        font-size: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        margin-top: 12px;
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        text-decoration: underline;
-    }
-    .full-rubric-table {
-        display: none;
-        margin-top: 15px;
-        font-size: 12px;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        overflow: hidden;
-        background: #ffffff;
-    }
-    .full-rubric-table table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    .full-rubric-table th, .full-rubric-table td {
-        padding: 12px;
-        text-align: left;
-        vertical-align: top;
-        border-bottom: 1px solid var(--border-color);
-    }
-    .full-rubric-table th {
-        background-color: var(--primary-light);
-        color: var(--primary-color);
-        font-weight: 700;
-    }
-    .navigation-panel {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 25px;
-        gap: 15px;
-    }
-    .btn-nav {
-        padding: 12px 24px;
-        font-size: 14px;
-        font-weight: bold;
-        border-radius: 6px;
-        cursor: pointer;
-        border: none;
-        transition: all 0.2s;
-    }
-    .btn-prev {
-        background-color: #cfd8dc;
-        color: #455a64;
-    }
-    .btn-prev:hover {
-        background-color: #b0bec5;
-    }
-    .btn-next {
-        background-color: var(--primary-color);
-        color: white;
-        margin-left: auto;
-    }
-    .btn-next:hover {
-        opacity: 0.9;
-    }
-    .capture-area {
-        background: #ffffff;
-        padding: 10px 20px;
-        border-radius: 8px;
-    }
-    .result-container {
-        text-align: center;
-        padding: 10px 0;
-    }
-    .result-container h2 {
-        font-size: 26px;
-        color: var(--secondary-color);
-        margin-bottom: 5px;
-    }
-    .program-highlight {
-        color: var(--primary-color);
-        font-weight: 700;
-        display: block;
-        font-size: 22px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-    .timestamp-display {
-        font-size: 12px;
-        color: #78909c;
-        font-weight: 500;
-        display: block;
-        margin-bottom: 15px;
-    }
-    .final-score {
-        font-size: 64px;
-        font-weight: 800;
-        margin: 10px 0;
-        background: var(--gradient-prospect);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    .status-badge {
-        display: inline-block;
-        padding: 8px 20px;
-        font-weight: bold;
-        border-radius: 50px;
-        color: white;
-        font-size: 15px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 25px;
-    }
-    .status-high { background-color: var(--primary-color); }
-    .status-medium { background-color: var(--medium-color); }
-    .status-low { background-color: var(--high-color); }
+                <h2>Hasil Asesmen Metode EMAS</h2>
+                <span class="program-highlight" id="programTitleDisplay">Program</span>
+                <span class="timestamp-display" id="timestampDisplay">Waktu Rilis: -</span>
 
-    .chart-container {
-        position: relative;
-        margin: 20px auto 30px auto;
-        height: 380px;
-        width: 100%;
-        max-width: 480px;
-        background: #fafafa;
-        border-radius: 8px;
-        padding: 15px;
-        border: 1px solid var(--border-color);
-    }
-    .result-desc {
-        margin-top: 20px;
-        font-size: 14px;
-        color: #212121;
-        text-align: left;
-        background: #fafafa;
-        padding: 20px;
-        border-radius: 8px;
-        border: 1px solid var(--border-color);
-        border-left: 5px solid var(--primary-color);
-        line-height: 1.6;
-    }
-    .cta-box {
-        margin-top: 35px;
-        background: linear-gradient(135deg, #e6f4ed 0%, #e6eaf4 100%);
-        border: 1px dashed var(--primary-color);
-        border-radius: 10px;
-        padding: 25px;
-        text-align: center;
-    }
-    .cta-box p {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--primary-color);
-        margin-bottom: 15px;
-    }
-    .cta-buttons-group {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-    .cta-btn-main {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 24px;
-        font-size: 14px;
-        font-weight: bold;
-        color: white;
-        text-decoration: none;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-    .cta-btn-main:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .btn-download-main { background: var(--gradient-prospect); }
-    .btn-restart-main { background-color: var(--secondary-color); }
+                <div class="final-score" id="finalScoreDisplay">0.0</div>
+                <div><span class="status-badge" id="statusBadge">KATEGORI</span></div>
 
-    .social-action-panel {
-        text-align: center;
-        margin-top: 30px;
-        border-top: 1px dashed var(--border-color);
-        padding-top: 20px;
-    }
-    .social-action-panel p {
-        font-size: 13px;
-        color: #546e7a;
-        font-weight: 500;
-        margin-bottom: 12px;
-    }
-    .social-buttons-group {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-    .btn-social {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 8px 16px;
-        font-size: 12px;
-        font-weight: bold;
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-        transition: transform 0.2s;
-    }
-    .btn-social:hover {
-        transform: translateY(-1px);
-    }
-    .social-wa { background-color: #039347; }
-    .social-ig { background-color: #003193; }
+                <div class="chart-container">
+                    <canvas id="emasSpiderChart"></canvas>
+                </div>
 
-    footer {
-        text-align: center;
-        margin-top: 40px;
-        font-size: 12px;
-        color: #777;
-        border-top: 1px solid #e0e0e0;
-        padding-top: 15px;
+                <div class="result-desc" id="resultDesc">
+                    Catatan Asesmen: Loading...
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <p>Simpan hasil atau evaluasi ulang program Anda di bawah ini:</p>
+            <div class="cta-buttons-group">
+                <button class="cta-btn-main btn-download-main" onclick="downloadResultAsJPEG()">Unduh Hasil Asesmen</button>
+                <button class="cta-btn-main btn-restart-main" onclick="restartAssessment()">« Mulai Asesmen Baru</button>
+            </div>
+        </div>
+
+        <div class="social-action-panel">
+            <p>Ingin mengoptimalkan performa dan dampak pemberdayaan program Anda? Hubungi Prospect Institute:</p>
+            <div class="social-buttons-group">
+                <a href="https://wa.me/628113901111?text=Halo,%20saya%20tertarik%20untuk%20berkonsultasi%20mengenai%20strategi%20optimalisasi%20program%20berdasarkan%20Metode%20EMAS" target="_blank" class="btn-social social-wa">Hubungi via WhatsApp</a>
+                <a href="https://instagram.com/prospect.institute" target="_blank" class="btn-social social-ig">Ikuti Kami di Instagram</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Asesmen Metode EMAS oleh Prospect Institute</p>
+    </footer>
+</div>
+
+<script>
+    const emasListData = [
+        {
+            id: 1,
+            title: "1. Dampak Lingkungan",
+            desc: "Mengukur konsekuensi program terhadap lingkungan alam.",
+            rubrics: {
+                "1-2": "Program tidak melibatkan masyarakat dalam pengelolaan lingkungan.",
+                "3-4": "Keterlibatan masyarakat minimal dan terbatas pada implementasi tanpa edukasi.",
+                "5-6": "Melibatkan masyarakat dalam implementasi fisik secara aktif dengan pengawasan dasar.",
+                "7-8": "Dirancang secara partisipatif terukur dengan indikator keberhasilan lingkungan yang jelas.",
+                "9-10": "Menjadi best practice di mana masyarakat bertindak sebagai driver utama keberlanjutan."
+            }
+        },
+        {
+            id: 2,
+            title: "2. Dampak Ekonomi",
+            desc: "Mengukur penciptaan nilai ekonomi baru.",
+            rubrics: {
+                "1-2": "Berdampak negatif/menyebabkan konflik finansial di masyarakat lokal.",
+                "3-4": "Hanya menyediakan pekerjaan kasar berupah rendah tanpa peningkatan kapasitas.",
+                "5-6": "Menciptakan lapangan kerja lokal dan meningkatkan pendapatan kelompok dampingan.",
+                "7-8": "Menyediakan lapangan kerja layak, upah adil, dan membuka akses pasar baru yang berkelanjutan.",
+                "9-10": "Mendorong transformasi ekosistem mandiri dengan lahirnya kelembagaan ekonomi lokal kuat (LKM/Koperasi)."
+            }
+        },
+        {
+            id: 3,
+            title: "3. Dampak Sosial",
+            desc: "Mengukur pengaruh program terhadap kohesi sosial.",
+            rubrics: {
+                "1-2": "Memperburuk konflik sosial atau mengucilkan kelompok minoritas.",
+                "3-4": "Komunikasi bersifat formalitas saja tanpa ikatan komitmen nyata.",
+                "5-6": "Hubungan kelompok berjalan baik dalam kegiatan harian operasional.",
+                "7-8": "Membangun modal sosial yang sangat kuat, inklusif, dan saling mendukung antarkelompok.",
+                "9-10": "Lembaga lokal tumbuh menjadi agen perubahan mandiri yang diakui secara luas."
+            }
+        },
+        {
+            id: 4,
+            title: "4. Dampak Kesejahteraan",
+            desc: "Mengukur perbaikan kesehatan & pendidikan.",
+            rubrics: {
+                "1-2": "Fasilitas & kualitas hidup buruk dan tidak ada perhatian.",
+                "3-4": "Intervensi bersifat insidental/bantuan darurat jangka pendek tanpa program terstruktur.",
+                "5-6": "Akses terhadap kesehatan dan pendidikan membaik bagi sebagian besar sasaran program.",
+                "7-8": "Secara terukur menurunkan masalah kronis (seperti stunting/angka putus sekolah) di wilayah tersebut.",
+                "9-10": "Mencapai indeks kesejahteraan merata dan berkelanjutan dengan pengakuan eksternal."
+            }
+        },
+        {
+            id: 5,
+            title: "5. Rasio Pengembalian Investasi Sosial (SROI)",
+            desc: "Mengukur efisiensi dampak moneter dibanding investasi finansial.",
+            rubrics: {
+                "1-2": "SROI < 1:1 (Penggunaan dana tidak efisien and dampak sosial lebih rendah dari biaya).",
+                "3-4": "SROI kisaran 1:1 (Impas, dampak yang dihasilkan setara dengan nilai investasi).",
+                "5-6": "SROI 1:1 hingga 2:1 (Moderat efektif, investasi menghasilkan dampak sosial yang bernilai tambah).",
+                "7-8": "SROI 2:1 hingga 4:1 (Sangat optimal, menciptakan pengembalian dampak sosial berkelanjutan yang besar).",
+                "9-10": "SROI > 4:1 (Sangat superior, efisiensi tinggi dengan nilai dampak moneter yang luar biasa bagi publik)."
+            }
+        },
+        {
+            id: 6,
+            title: "6. Menciptakan Nilai Bersama (Shared Value Creation)",
+            desc: "Menghubungkan keberhasilan bisnis dengan kemajuan sosial lingkungan.",
+            rubrics: {
+                "1-2": "Program berupa filantropi kosmetik karitatif tanpa hubungan dengan inti bisnis perusahaan.",
+                "3-4": "Korelasi marginal dengan rantai bisnis, lebih dominan sebagai pereda isu lokal.",
+                "5-6": "Melibatkan pembinaan vendor lokal kecil untuk mendukung operasional dasar.",
+                "7-8": "Integrasi isu sosial ke dalam strategi bisnis inti, meningkatkan reputasi dan efisiensi bersama.",
+                "9-10": "Melahirkan model bisnis sirkular baru yang menguntungkan korporasi sekaligus memandirikan masyarakat."
+            }
+        },
+        {
+            id: 7,
+            title: "7. Kontribusi terhadap Keanekaragaman Hayati",
+            desc: "Menilai perlindungan ekosistem.",
+            rubrics: {
+                "1-2": "Aktivitas program mengganggu keseimbangan ekosistem asli atau memicu degradasi lahan.",
+                "3-4": "Aksi perlindungan sebatas simbolis atau seremonial tahunan tanpa perawatan lanjut.",
+                "5-6": "Masyarakat aktif memelihara fisik flora/fauna yang dilindungi secara berkala.",
+                "7-8": "Berhasil merehabilitasi habitat kritis dan melestarikan jenis keanekaragaman hayati endemik secara terukur.",
+                "9-10": "Kawasan konservasi berbasis masyarakat meraih sertifikasi atau pengakuan nasional/internasional."
+            }
+        },
+        {
+            id: 8,
+            title: "8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)",
+            desc: "Kualitas komunikasi dengan multi-pihak.",
+            rubrics: {
+                "1-2": "Hubungan pasif searah, pemangku kepentingan hanya diberi tahu tanpa ruang diskusi.",
+                "3-4": "Konsultasi dua arah terjadi namun masukan dari pihak luar belum diakomodasi dalam kebijakan.",
+                "5-6": "Aspirasi pemangku kepentingan diserap, dianalisis, dan diimplementasikan dalam program kerja.",
+                "7-8": "Kemitraan setara dalam co-decision making, di mana semua pihak berbagi tanggung jawab.",
+                "9-10": "Terbentuk koalisi independen multi-pihak dengan transparansi radikal dan agenda bersama."
+            }
+        },
+        {
+            id: 9,
+            title: "9. Kedekatan Kewilayahan",
+            desc: "Menilai dampak pada komunitas Ring 1.",
+            rubrics: {
+                "1-2": "Program bertolak belakang dengan hasil social mapping dan kebutuhan primer Ring 1.",
+                "3-4": "Program replikasi/copy-paste dari daerah lain tanpa penyesuaian konteks lokal.",
+                "5-6": "Menyasar klaster wilayah Ring 1 secara tepat guna sesuai dengan prioritas masyarakat.",
+                "7-8": "Mengoptimalkan keunikan potensi geografi dan budaya lokal untuk keunggulan komparatif.",
+                "9-10": "Menjadi jangkar akselerasi pertumbuhan wilayah baru yang berdampak luas hingga luar Ring 1."
+            }
+        },
+        {
+            id: 10,
+            title: "10. Tata Kelola",
+            desc: "Mengevaluasi tata kelola organisasi pelaksana.",
+            rubrics: {
+                "1-2": "Pengelolaan tidak transparan, tidak ada laporan berkala, dan rentan konflik internal.",
+                "3-4": "Struktur organisasi ada namun pasif; keputusan bergantung penuh pada figur tunggal.",
+                "5-6": "Pembukuan terbuka, laporan pertanggungjawaban rutin diinformasikan kepada anggota kelompok.",
+                "7-8": "Akuntabilitas tinggi, memiliki SOP baku, serta menerapkan grievance mechanism (saluran keluhan) yang aktif.",
+                "9-10": "Menerapkan prinsip Good Governance sepenuhnya dan berhasil meraih legalitas hukum resmi serta audit bersih."
+            }
+        }
+    ];
+
+    let userProfile = {};
+    let spiderChartInstance = null;
+    let currentStep = 1;
+    const totalSteps = 10;
+
+    function dismissSplashOverlay() {
+        const overlay = document.getElementById('prospectSplashOverlay');
+        if (overlay) {
+            overlay.style.opacity = '0';
+            overlay.style.visibility = 'hidden';
+            setTimeout(() => {
+                overlay.remove();
+            }, 500);
+        }
     }
 
-    @media screen and (max-width: 600px) {
-        body { padding: 10px; }
-        .container { padding: 15px; border-radius: 8px; }
-        header h1 { font-size: 20px; }
-        header p { font-size: 12px; }
-        .instructions { font-size: 13px; padding: 12px; }
-        .indicator-card { padding: 12px; }
-        .indicator-title { font-size: 15px; }
-        .indicator-desc { font-size: 12px; margin-bottom: 12px; }
-        .slider-container { flex-direction: column; align-items: stretch; gap: 10px; padding: 10px; }
-        .score-display { text-align: center; font-size: 22px; min-width: unset; }
-        .tick-label { font-size: 9px; }
-        .full-rubric-table { width: 100%; overflow-x: auto; display: none; -webkit-overflow-scrolling: touch; }
-        .full-rubric-table table { min-width: 450px; }
-        .full-rubric-table th, .full-rubric-table td { padding: 8px; font-size: 11px; }
-        .navigation-panel { gap: 10px; }
-        .btn-nav { padding: 10px 16px; font-size: 13px; width: 48%; text-align: center; }
-        .btn-next { margin-left: unset; }
-        .cta-buttons-group, .social-buttons-group { flex-direction: column; width: 100%; gap: 8px; }
-        .cta-btn-main, .btn-social { width: 100%; justify-content: center; }
-        .chart-container { height: 300px; padding: 5px; }
+    document.addEventListener("DOMContentLoaded", () => {
+        renderWizardSteps();
+        updateStepView();
+    });
+
+    function renderWizardSteps() {
+        const container = document.getElementById('dynamicStepContainer');
+        container.innerHTML = "";
+
+        emasListData.forEach(item => {
+            const stepDiv = document.createElement('div');
+            stepDiv.className = `step-card ${item.id === 1 ? 'active' : ''}`;
+            stepDiv.setAttribute('data-step', item.id);
+
+            let tableRowsHTML = "";
+            Object.keys(item.rubrics).forEach(key => {
+                tableRowsHTML += `
+                    <tr>
+                        <td style="width: 25%;"><strong>Rentang ${key}</strong></td>
+                        <td>${item.rubrics[key]}</td>
+                    </tr>
+                `;
+            });
+
+            stepDiv.innerHTML = `
+                <div class="indicator-card">
+                    <div class="indicator-title">${item.title}</div>
+                    <div class="indicator-desc">${item.desc}</div>
+                    
+                    <div class="slider-container">
+                        <div class="slider-wrapper">
+                            <input type="range" min="1" max="10" value="1" class="emas-slider" data-index="${item.id}" id="slider_${item.id}" oninput="handleSliderInput(${item.id}, this.value)">
+                            <div class="ticks-container">
+                                <span class="tick-label">1</span>
+                                <span class="tick-label">2</span>
+                                <span class="tick-label">3</span>
+                                <span class="tick-label">4</span>
+                                <span class="tick-label">5</span>
+                                <span class="tick-label">6</span>
+                                <span class="tick-label">7</span>
+                                <span class="tick-label">8</span>
+                                <span class="tick-label">9</span>
+                                <span class="tick-label">10</span>
+                            </div>
+                        </div>
+                        <span class="score-display" id="valDisplay_${item.id}">1</span>
+                    </div>
+
+                    <div class="rubric-guide-box" id="guideBox_${item.id}">
+                        <strong>Rentang 1-2:</strong> ${item.rubrics["1-2"]}
+                    </div>
+
+                    <button type="button" class="btn-toggle-rubric" onclick="toggleRubricAccordion(${item.id})">
+                        🔍 Lihat Semua Matriks Panduan Kriteria
+                    </button>
+
+                    <div class="full-rubric-table" id="accordionTable_${item.id}">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rentang</th>
+                                    <th>Deskripsi Parameter</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tableRowsHTML}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            container.appendChild(stepDiv);
+        });
     }
 
-    #prospectSplashOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(3, 147, 71, 0.85) 0%, rgba(0, 49, 147, 0.75) 100%);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        z-index: 99999;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 20px;
-        transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
+    function navigateToAssessment(event) {
+        event.preventDefault();
+        
+        userProfile.Nama = document.getElementById('inputNama').value;
+        userProfile.Perusahaan = document.getElementById('inputPerusahaan').value;
+        userProfile.Program = document.getElementById('inputProgram').value;
+        userProfile.NoHP = document.getElementById('inputNoHP').value;
+        userProfile.Email = document.getElementById('inputEmail').value;
+
+        document.getElementById('pageForm').classList.remove('active');
+        document.getElementById('pageAssessment').classList.add('active');
+        
+        currentStep = 1;
+        updateStepView();
+        window.scrollTo(0, 0);
     }
-    .splash-content {
-        max-width: 650px;
-        animation: splashFadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+
+    function handleSliderInput(indicatorId, value) {
+        document.getElementById(`valDisplay_${indicatorId}`).textContent = value;
+        
+        const valNum = parseInt(value);
+        const guideBox = document.getElementById(`guideBox_${indicatorId}`);
+        const rubrics = emasListData.find(x => x.id === indicatorId).rubrics;
+        
+        if (valNum <= 2) {
+            guideBox.innerHTML = `<strong>Rentang 1-2:</strong> ${rubrics["1-2"]}`;
+        } else if (valNum <= 4) {
+            guideBox.innerHTML = `<strong>Rentang 3-4:</strong> ${rubrics["3-4"]}`;
+        } else if (valNum <= 6) {
+            guideBox.innerHTML = `<strong>Rentang 5-6:</strong> ${rubrics["5-6"]}`;
+        } else if (valNum <= 8) {
+            guideBox.innerHTML = `<strong>Rentang 7-8:</strong> ${rubrics["7-8"]}`;
+        } else {
+            guideBox.innerHTML = `<strong>Rentang 9-10:</strong> ${rubrics["9-10"]}`;
+        }
     }
-    .splash-greeting {
-        font-size: 32px;
-        font-weight: 800;
-        line-height: 1.4;
-        margin-bottom: 35px;
-        letter-spacing: 0.5px;
-        color: #ffffff;
-        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+    function toggleRubricAccordion(id) {
+        const table = document.getElementById(`accordionTable_${id}`);
+        if (table.style.display === 'block') {
+            table.style.display = 'none';
+        } else {
+            table.style.display = 'block';
+        }
     }
-    .btn-enter-app {
-        background-color: #ffffff;
-        color: #039347;
-        border: none;
-        padding: 15px 36px;
-        font-size: 16px;
-        font-weight: 700;
-        border-radius: 50px;
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
+
+    function moveStep(direction) {
+        if (direction === 1 && currentStep === totalSteps) {
+            calculateAndNavigateToResult();
+            return;
+        }
+        
+        currentStep += direction;
+        updateStepView();
+        window.scrollTo(0, 0);
     }
-    .btn-enter-app:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        background-color: #f8f9fa;
-        color: #003193;
+
+    function updateStepView() {
+        const cards = document.querySelectorAll('.step-card');
+        cards.forEach(card => {
+            const stepNum = parseInt(card.getAttribute('data-step'));
+            if (stepNum === currentStep) {
+                card.classList.add('active');
+            } else {
+                card.classList.remove('active');
+            }
+        });
+
+        document.getElementById('stepCounterDisplay').textContent = `Indikator ${currentStep} dari ${totalSteps}`;
+        
+        const progressPercent = (currentStep / totalSteps) * 100;
+        document.getElementById('progressBarFillElement').style.width = `${progressPercent}%`;
+
+        if (currentStep === 1) {
+            document.getElementById('btnPrevStep').style.display = 'none';
+        } else {
+            document.getElementById('btnPrevStep').style.display = 'block';
+        }
+
+        const btnNext = document.getElementById('btnNextStep');
+        if (currentStep === totalSteps) {
+            btnNext.innerText = 'Hitung Skor EMAS';
+            btnNext.style.backgroundColor = 'var(--secondary-color)';
+        } else {
+            btnNext.innerHTML = 'Selanjutnya &rarr;';
+            btnNext.style.backgroundColor = 'var(--primary-color)';
+        }
     }
-    @keyframes splashFadeInUp {
-        from { opacity: 0; transform: translateY(30px) scale(0.96); }
-        to { opacity: 1; transform: translateY(0) scale(1); }
+
+    function calculateAndNavigateToResult() {
+        let totalRawScore = 0;
+        const currentScores = [];
+
+        for (let i = 1; i <= totalSteps; i++) {
+            const val = parseInt(document.getElementById(`slider_${i}`).value);
+            totalRawScore += val;
+            currentScores.push(val);
+        }
+
+        const finalScore = (totalRawScore / (totalSteps * 10)) * 100;
+        const finalScoreStr = finalScore.toFixed(1);
+        
+        let kategoriText = "";
+        let catatanTeks = "";
+        
+        if (finalScore >= 81) {
+            kategoriText = "Tinggi";
+            catatanTeks = "Menunjukkan kinerja luar biasa, praktik terbaik, inovasi, dan dampak positif signifikan di berbagai dimensi keberlanjutan";
+        } else if (finalScore >= 61) {
+            kategoriText = "Sedang";
+            catatanTeks = "Menunjukkan kinerja baik namun masih ada ruang perbaikan untuk meningkatkan implementasi dan dampak";
+        } else {
+            kategoriText = "Rendah";
+            catatanTeks = "Menunjukkan kinerja yang belum memuaskan dan komitmen keberlanjutan masih lemah";
+        }
+        
+        document.getElementById('programTitleDisplay').textContent = `Program: ${userProfile.Program}`;
+        document.getElementById('finalScoreDisplay').textContent = finalScoreStr;
+        
+        const badge = document.getElementById('statusBadge');
+        badge.textContent = kategoriText;
+        badge.className = "status-badge";
+        
+        if (kategoriText === "Tinggi") {
+            badge.classList.add('status-high');
+        } else if (kategoriText === "Sedang") {
+            badge.classList.add('status-medium');
+        } else {
+            badge.classList.add('status-low');
+        }
+
+        document.getElementById('resultDesc').innerHTML = `<strong>Catatan Asesmen:</strong> ${catatanTeks}.`;
+
+        const now = new Date();
+        document.getElementById('timestampDisplay').textContent = `Waktu Pelaksanaan Asesmen: ${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()} | Pukul ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} WIB`;
+
+        document.getElementById('pageAssessment').classList.remove('active');
+        document.getElementById('pageResult').classList.add('active');
+        window.scrollTo(0, 0);
+
+        const ctx = document.getElementById('emasSpiderChart').getContext('2d');
+        if (spiderChartInstance) {
+            spiderChartInstance.destroy();
+        }
+        
+        spiderChartInstance = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 
+                    'SROI', 'Shared Value', 'Kehati', 'Stakeholder', 
+                    'Kewilayahan', 'Tata Kelola'
+                ],
+                datasets: [{
+                    data: currentScores,
+                    backgroundColor: 'rgba(3, 147, 71, 0.2)',
+                    borderColor: '#039347',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        suggestedMin: 1,
+                        suggestedMax: 10,
+                        ticks: { stepSize: 2 }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        const payload = {
+            Nama: userProfile.Nama,
+            Perusahaan: userProfile.Perusahaan,
+            Program: userProfile.Program,
+            NoHP: userProfile.NoHP,
+            Email: userProfile.Email,
+            SkorAkhir: finalScoreStr,
+            Kategori: kategoriText,
+            Skor_Indikator1: currentScores[0],
+            Skor_Indikator2: currentScores[1],
+            Skor_Indikator3: currentScores[2],
+            Skor_Indikator4: currentScores[3],
+            Skor_Indikator5: currentScores[4],
+            Skor_Indikator6: currentScores[5],
+            Skor_Indikator7: currentScores[6],
+            Skor_Indikator8: currentScores[7],
+            Skor_Indikator9: currentScores[8],
+            Skor_Indikator10: currentScores[9]
+        };
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz_wUSgU24YKm_tE2xd2xFf0FJ8qmw24reFPqc1q8nPtSLdT2i5txYNHr9X7n6NsnRC/exec';
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(payload)
+        }).catch(error => console.error('Error database sync:', error));
     }
-</style>
-</head>
-<body>
-    
-<div id="prospectSplashOverlay">
-    <div class="splash-content">
-        <img src="data:image/png;base64,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
+
+    function downloadResultAsJPEG() {
+        html2canvas(document.getElementById('downloadTarget'), { scale: 2, backgroundColor: '#ffffff', useCORS: true }).then(canvas => {
+            const downloadLink = document.createElement('a');
+            downloadLink.href = canvas.toDataURL('image/jpeg', 1.0);
+            downloadLink.download = `Hasil_Asesmen_EMAS_${userProfile.Program.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.jpg`;
+            downloadLink.click();
+        });
+    }
+
+    function restartAssessment() {
+        document.getElementById('identityForm').reset();
+        document.getElementById('emasForm').reset();
+        currentStep = 1;
+        renderWizardSteps();
+        updateStepView();
+        document.getElementById('pageResult').classList.remove('active');
+        document.getElementById('pageForm').classList.add('active');
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+</html>
