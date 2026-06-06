@@ -351,7 +351,7 @@
         }
 
         .result-container h2 {
-            font-size: 22px;
+            font-size: 26px;
             color: var(--secondary-color);
             margin-bottom: 5px;
         }
@@ -360,7 +360,7 @@
             color: var(--primary-color);
             font-weight: 700;
             display: block;
-            font-size: 24px;
+            font-size: 22px;
             margin-top: 5px;
             margin-bottom: 5px;
         }
@@ -413,13 +413,14 @@
         .result-desc {
             margin-top: 20px;
             font-size: 14px;
-            color: #333;
+            color: #212121;
             text-align: left;
             background: #fafafa;
             padding: 20px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             border-left: 5px solid var(--primary-color);
+            line-height: 1.6;
         }
 
         .cta-box {
@@ -506,8 +507,8 @@
             transform: translateY(-1px);
         }
 
-        .social-wa { background-color: #25d366; }
-        .social-ig { background-color: #e1306c; }
+        .social-wa { background-color: #039347; }
+        .social-ig { background-color: #003193; }
 
         footer {
             text-align: center;
@@ -564,7 +565,46 @@
 
         .splash-content {
             max-width: 650px;
-            color: #ffffff;
+            animation: splashFadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .splash-greeting {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.4;
+            margin-bottom: 35px;
+            letter-spacing: 0.5px;
+            color: #ffffff; /* Kembali ke putih solid agar kontras tinggi */
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-enter-app {
+            background-color: #ffffff;
+            color: #039347;
+            border: none;
+            padding: 15px 36px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-enter-app:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background-color: #f8f9fa;
+            color: #003193;
+        }
+
+        @keyframes splashFadeInUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .splash-content {
+            max-width: 650px;
+            color: #039347;
             animation: splashFadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
@@ -679,7 +719,7 @@
                 <div class="final-score" id="finalScoreDisplay">0.0</div>
                 <div><span class="status-badge" id="statusBadge">KATEGORI</span></div>
                 <div class="chart-container"><canvas id="emasSpiderChart"></canvas></div>
-                <div class="result-desc" id="resultDesc">Deskripsi hasil analisis performa kriteria program.</div>
+                <div class="result-desc" id="resultDesc">Catatan Asesmen: Loading...</div>
             </div>
         </div>
 
@@ -709,7 +749,7 @@
         { id: 2, title: "2. Dampak Ekonomi", desc: "Mengukur penciptaan nilai ekonomi baru.", rubrics: { "1-2": "Berdampak negatif/menyebabkan konflik finansial di masyarakat lokal.", "3-4": "Hanya menyediakan pekerjaan kasar berupah rendah tanpa peningkatan kapasitas.", "5-6": "Menciptakan lapangan kerja lokal dan meningkatkan pendapatan kelompok dampingan.", "7-8": "Menyediakan lapangan kerja layak, upah adil, dan membuka akses pasar baru yang berkelanjutan.", "9-10": "Mendorong transformasi ekosistem mandiri dengan lahirnya kelembagaan ekonomi lokal kuat (LKM/Koperasi)." } },
         { id: 3, title: "3. Dampak Sosial", desc: "Mengukur pengaruh program terhadap kohesi sosial.", rubrics: { "1-2": "Memperburuk konflik sosial atau mengucilkan kelompok minoritas.", "3-4": "Komunikasi bersifat formalitas saja tanpa ikatan komitmen nyata.", "5-6": "Hubungan kelompok berjalan baik dalam kegiatan harian operasional.", "7-8": "Membangun modal sosial yang sangat kuat, inklusif, dan saling mendukung antarkelompok.", "9-10": "Lembaga lokal tumbuh menjadi agen perubahan mandiri yang diakui secara luas." } },
         { id: 4, title: "4. Dampak Kesejahteraan", desc: "Mengukur perbaikan kesehatan & pendidikan.", rubrics: { "1-2": "Fasilitas & kualitas hidup buruk dan tidak ada perhatian.", "3-4": "Intervensi bersifat insidental/bantuan darurat jangka pendek tanpa program terstruktur.", "5-6": "Akses terhadap kesehatan dan pendidikan membaik bagi sebagian besar sasaran program.", "7-8": "Secara terukur menurunkan masalah kronis (seperti stunting/angka putus sekolah) di wilayah tersebut.", "9-10": "Mencapai indeks kesejahteraan merata dan berkelanjutan dengan pengakuan eksternal." } },
-        { id: 5, title: "5. Rasio Pengembalian Investasi Sosial (SROI)", desc: "Mengukur efisiensi dampak moneter dibanding investasi finansial.", rubrics: { "1-2": "SROI < 1:1 (Penggunaan dana tidak efisien dan dampak sosial lebih rendah dari biaya).", "3-4": "SROI kisaran 1:1 (Impas, dampak yang dihasilkan setara dengan nilai investasi).", "5-6": "SROI 1:1 hingga 2:1 (Moderat efektif, investasi menghasilkan dampak sosial yang bernilai tambah).", "7-8": "SROI 2:1 hingga 4:1 (Sangat optimal, menciptakan pengembalian dampak sosial berkelanjutan yang besar).", "9-10": "SROI > 4:1 (Sangat superior, efisiensi tinggi dengan nilai dampak moneter yang luar biasa bagi publik)." } },
+        { id: 5, title: "5. Rasio Pengembalian Investasi Sosial (SROI)", desc: "Mengukur efisiensi dampak moneter dibanding investasi finansial.", rubrics: { "1-2": "SROI < 1:1 (Penggunaan dana tidak efisien and dampak sosial lebih rendah dari biaya).", "3-4": "SROI kisaran 1:1 (Impas, dampak yang dihasilkan setara dengan nilai investasi).", "5-6": "SROI 1:1 hingga 2:1 (Moderat efektif, investasi menghasilkan dampak sosial yang bernilai tambah).", "7-8": "SROI 2:1 hingga 4:1 (Sangat optimal, menciptakan pengembalian dampak sosial berkelanjutan yang besar).", "9-10": "SROI > 4:1 (Sangat superior, efisiensi tinggi dengan nilai dampak moneter yang luar biasa bagi publik)." } },
         { id: 6, title: "6. Menciptakan Nilai Bersama (Shared Value Creation)", desc: "Menghubungkan keberhasilan bisnis dengan kemajuan sosial lingkungan.", rubrics: { "1-2": "Program berupa filantropi kosmetik karitatif tanpa hubungan dengan inti bisnis perusahaan.", "3-4": "Korelasi marginal dengan rantai bisnis, lebih dominan sebagai pereda isu lokal.", "5-6": "Melibatkan pembinaan vendor lokal kecil untuk mendukung operasional dasar.", "7-8": "Integrasi isu sosial ke dalam strategi bisnis inti, meningkatkan reputasi dan efisiensi bersama.", "9-10": "Melahirkan model bisnis sirkular baru yang menguntungkan korporasi sekaligus memandirikan masyarakat." } },
         { id: 7, title: "7. Kontribusi terhadap Keanekaragaman Hayati", desc: "Menilai perlindungan ekosistem.", rubrics: { "1-2": "Aktivitas program mengganggu keseimbangan ekosistem asli atau memicu degradasi lahan.", "3-4": "Aksi perlindungan sebatas simbolis atau seremonial tahunan tanpa perawatan lanjut.", "5-6": "Masyarakat aktif memelihara fisik flora/fauna yang dilindungi secara berkala.", "7-8": "Berhasil merehabilitasi habitat kritis dan melestarikan jenis keanekaragaman hayati endemik secara terukur.", "9-10": "Kawasan konservasi berbasis masyarakat meraih sertifikasi atau pengakuan nasional/internasional." } },
         { id: 8, title: "8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)", desc: "Kualitas komunikasi dengan multi-pihak.", rubrics: { "1-2": "Hubungan pasif searah, pemangku kepentingan hanya diberi tahu tanpa ruang diskusi.", "3-4": "Konsultasi dua arah terjadi namun masukan dari pihak luar belum diakomodasi dalam kebijakan.", "5-6": "Aspirasi pemangku kepentingan diserap, dianalisis, dan diimplementasikan dalam program kerja.", "7-8": "Kemitraan setara dalam co-decision making, di mana semua pihak berbagi tanggung jawab.", "9-10": "Terbentuk koalisi independen multi-pihak dengan transparansi radikal dan agenda bersama." } },
@@ -849,21 +889,42 @@
 
         const finalScore = (totalRawScore / (totalSteps * 10)) * 100;
         const finalScoreStr = finalScore.toFixed(1);
-        let kategoriText = finalScore >= 81 ? "Tinggi (Luar Biasa)" : (finalScore >= 61 ? "Sedang (Baik)" : "Rendah (Belum Memuaskan)");
+        
+        let kategoriText = "";
+        let catatanTeks = "";
+        
+        // Logika Orisinal Sesuai Rubrik Klasifikasi Asli
+        if (finalScore >= 81) {
+            kategoriText = "Tinggi";
+            catatanTeks = "Menunjukkan kinerja luar biasa, praktik terbaik, inovasi, dan dampak positif signifikan di berbagai dimensi keberlanjutan";
+        } else if (finalScore >= 61) {
+            kategoriText = "Sedang";
+            catatanTeks = "Menunjukkan kinerja baik namun masih ada ruang perbaikan untuk meningkatkan implementasi dan dampak";
+        } else {
+            kategoriText = "Rendah";
+            catatanTeks = "Menunjukkan kinerja yang belum memuaskan dan komitmen keberlanjutan masih lemah";
+        }
         
         document.getElementById('programTitleDisplay').textContent = `Program: ${userProfile.Program}`;
         document.getElementById('finalScoreDisplay').textContent = finalScoreStr;
         
         const badge = document.getElementById('statusBadge');
         badge.textContent = kategoriText;
-        badge.className = "status-badge " + (finalScore >= 81 ? "status-high" : (finalScore >= 61 ? "status-medium" : "status-low"));
-        if(finalScore >= 81) badge.style.background = "var(--gradient-prospect)";
+        badge.className = "status-badge " + (kategoriText === "Tinggi" ? "status-high" : (kategoriText === "Sedang" ? "status-medium" : "status-low"));
+        if(kategoriText === "Tinggi") badge.style.background = "var(--gradient-prospect)";
+
+        // Set teks catatan hasil tepat sesuai permintaan orisinal
+        document.getElementById('resultDesc').innerHTML = `<strong>Catatan Asesmen:</strong> ${catatanTeks}.`;
 
         // Pengisian Waktu Otomatis
         const now = new Date();
         document.getElementById('timestampDisplay').textContent = `Waktu Pelaksanaan Asesmen: ${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()} | Pukul ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} WIB`;
 
-        // Render Grafik Radar
+        document.getElementById('pageAssessment').classList.remove('active');
+        document.getElementById('pageResult').classList.add('active');
+        window.scrollTo(0, 0);
+
+        // Render Grafik Radar (DIPERBAIKI AGAR DI TENGAH SEMPURNA)
         const ctx = document.getElementById('emasSpiderChart').getContext('2d');
         if (spiderChartInstance) spiderChartInstance.destroy();
         spiderChartInstance = new Chart(ctx, {
@@ -872,14 +933,33 @@
                 labels: ['Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 'SROI', 'Shared Value', 'Kehati', 'Stakeholder', 'Kewilayahan', 'Tata Kelola'],
                 datasets: [{ data: currentScores, backgroundColor: 'rgba(3, 147, 71, 0.15)', borderColor: '#039347', borderWidth: 2 }]
             },
-            options: { scales: { r: { suggestedMin: 1, suggestedMax: 10 } }, plugins: { legend: { display: false } } }
+            options: { 
+                responsive: true,
+                maintainAspectRatio: false, 
+                layout: {
+                    padding: {
+                        top: 10,
+                        bottom: 10,
+                        left: 10,
+                        right: 10
+                    }
+                },
+                scales: { 
+                    r: { 
+                        suggestedMin: 1, 
+                        suggestedMax: 10,
+                        ticks: {
+                            stepSize: 2 
+                        }
+                    } 
+                }, 
+                plugins: { 
+                    legend: { display: false } 
+                } 
+            }
         });
 
-        document.getElementById('pageAssessment').classList.remove('active');
-        document.getElementById('pageResult').classList.add('active');
-        window.scrollTo(0, 0);
-
-        // Menyusun Payload lengkap termasuk skor individu per indikator
+        // Menyusun Payload lengkap termasuk skor individu per indikator ke database
         const payload = {
             Nama: userProfile.Nama,
             Perusahaan: userProfile.Perusahaan,
@@ -889,7 +969,6 @@
             SkorAkhir: finalScoreStr,
             Kategori: kategoriText,
             
-            // Menyimpan skor tiap indikator secara modular
             Skor_Indikator1: currentScores[0],
             Skor_Indikator2: currentScores[1],
             Skor_Indikator3: currentScores[2],
@@ -902,7 +981,6 @@
             Skor_Indikator10: currentScores[9]
         };
 
-        // URL Web App Baru Anda
         const scriptURL = 'https://script.google.com/macros/s/AKfycbz_wUSgU24YKm_tE2xd2xFf0FJ8qmw24reFPqc1q8nPtSLdT2i5txYNHr9X7n6NsnRC/exec';
 
         fetch(scriptURL, {
