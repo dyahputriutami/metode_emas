@@ -413,25 +413,14 @@
         .result-desc {
             margin-top: 20px;
             font-size: 14px;
-            color: #333;
+            color: #212121;
             text-align: left;
             background: #fafafa;
             padding: 20px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             border-left: 5px solid var(--primary-color);
-        }
-
-        .result-desc h4 {
-            color: var(--secondary-color);
-            margin-bottom: 8px;
-            font-size: 15px;
-        }
-
-        .result-desc ul {
-            margin-left: 20px;
-            margin-top: 5px;
-            margin-bottom: 10px;
+            line-height: 1.6;
         }
 
         .cta-box {
@@ -691,7 +680,7 @@
                 <div class="final-score" id="finalScoreDisplay">0.0</div>
                 <div><span class="status-badge" id="statusBadge">KATEGORI</span></div>
                 <div class="chart-container"><canvas id="emasSpiderChart"></canvas></div>
-                <div class="result-desc" id="resultDesc">Deskripsi hasil analisis performa kriteria program.</div>
+                <div class="result-desc" id="resultDesc">Catatan Asesmen: Loading...</div>
             </div>
         </div>
 
@@ -728,8 +717,6 @@
         { id: 9, title: "9. Kedekatan Kewilayahan", desc: "Menilai dampak pada komunitas Ring 1.", rubrics: { "1-2": "Program bertolak belakang dengan hasil social mapping dan kebutuhan primer Ring 1.", "3-4": "Program replikasi/copy-paste dari daerah lain tanpa penyesuaian konteks lokal.", "5-6": "Menyasar klaster wilayah Ring 1 secara tepat guna sesuai dengan prioritas masyarakat.", "7-8": "Mengoptimalkan keunikan potensi geografi dan budaya lokal untuk keunggulan komparatif.", "9-10": "Menjadi jangkar akselerasi pertumbuhan wilayah baru yang berdampak luas hingga luar Ring 1." } },
         { id: 10, title: "10. Tata Kelola", desc: "Mengevaluasi tata kelola organisasi pelaksana.", rubrics: { "1-2": "Pengelolaan tidak transparan, tidak ada laporan berkala, dan rentan konflik internal.", "3-4": "Struktur organisasi ada namun pasif; keputusan bergantung penuh pada figur tunggal.", "5-6": "Pembukuan terbuka, laporan pertanggungjawaban rutin diinformasikan kepada anggota kelompok.", "7-8": "Akuntabilitas tinggi, memiliki SOP baku, serta menerapkan grievance mechanism (saluran keluhan) yang aktif.", "9-10": "Menerapkan prinsip Good Governance sepenuhnya dan berhasil meraih legalitas hukum resmi serta audit bersih." } }
     ];
-
-    const shortLabels = ['Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 'SROI', 'Shared Value', 'Kehati', 'Stakeholder', 'Kewilayahan', 'Tata Kelola'];
 
     let userProfile = {};
     let spiderChartInstance = null;
@@ -863,42 +850,36 @@
 
         const finalScore = (totalRawScore / (totalSteps * 10)) * 100;
         const finalScoreStr = finalScore.toFixed(1);
-        let kategoriText = finalScore >= 81 ? "Tinggi (Luar Biasa)" : (finalScore >= 61 ? "Sedang (Baik)" : "Rendah (Belum Memuaskan)");
+        
+        let kategoriText = "";
+        let catatanTeks = "";
+        
+        // Logika Orisinal Sesuai Rubrik Klasifikasi Asli
+        if (finalScore >= 81) {
+            kategoriText = "Tinggi";
+            catatanTeks = "Menunjukkan kinerja luar biasa, praktik terbaik, inovasi, dan dampak positif signifikan di berbagai dimensi keberlanjutan";
+        } else if (finalScore >= 61) {
+            kategoriText = "Sedang";
+            catatanTeks = "Menunjukkan kinerja baik namun masih ada ruang perbaikan untuk meningkatkan implementasi dan dampak";
+        } else {
+            kategoriText = "Rendah";
+            catatanTeks = "Menunjukkan kinerja yang belum memuaskan dan komitmen keberlanjutan masih lemah";
+        }
         
         document.getElementById('programTitleDisplay').textContent = `Program: ${userProfile.Program}`;
         document.getElementById('finalScoreDisplay').textContent = finalScoreStr;
         
         const badge = document.getElementById('statusBadge');
         badge.textContent = kategoriText;
-        badge.className = "status-badge " + (finalScore >= 81 ? "status-high" : (finalScore >= 61 ? "status-medium" : "status-low"));
-        if(finalScore >= 81) badge.style.background = "var(--gradient-prospect)";
+        badge.className = "status-badge " + (kategoriText === "Tinggi" ? "status-high" : (kategoriText === "Sedang" ? "status-medium" : "status-low"));
+        if(kategoriText === "Tinggi") badge.style.background = "var(--gradient-prospect)";
+
+        // Set teks catatan hasil tepat sesuai permintaan orisinal
+        document.getElementById('resultDesc').innerHTML = `<strong>Catatan Asesmen:</strong> ${catatanTeks}.`;
 
         // Pengisian Waktu Otomatis
         const now = new Date();
         document.getElementById('timestampDisplay').textContent = `Waktu Pelaksanaan Asesmen: ${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()} | Pukul ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} WIB`;
-
-        // LOGIKA BARU: Analisis Deskripsi Hasil Otomatis (Dinamis Berdasarkan Skor Tertinggi dan Terendah)
-        let maxVal = -1, minVal = 11;
-        let highIndicators = [], lowIndicators = [];
-
-        for (let i = 0; i < currentScores.length; i++) {
-            if (currentScores[i] > maxVal) maxVal = currentScores[i];
-            if (currentScores[i] < minVal) minVal = currentScores[i];
-        }
-
-        for (let i = 0; i < currentScores.length; i++) {
-            if (currentScores[i] === maxVal) highIndicators.push(shortLabels[i]);
-            if (currentScores[i] === minVal) lowIndicators.push(shortLabels[i]);
-        }
-
-        let dynamicAnalysisHTML = `<h4>Analisis Performa Evaluasi:</h4>`;
-        dynamicAnalysisHTML += `<p>Berdasarkan hasil kalkulasi parameter, program <strong>${userProfile.Program}</strong> masuk ke dalam klasifikasi kategori <strong>${kategoriText}</strong>.</p>`;
-        
-        dynamicAnalysisHTML += `<p style="margin-top: 8px;"><strong>Aspek Unggulan (Kekuatan Utama):</strong><br>Program Anda menunjukkan kinerja paling optimal pada bidang <u>${highIndicators.join(', ')}</u> (Skor: ${maxVal}/10). Pertahankan praktik baik ini untuk memperluas dampak multiplikasi sosial-ekonomi.</p>`;
-        
-        dynamicAnalysisHTML += `<p style="margin-top: 8px;"><strong>Rekomendasi Area Perbaikan:</strong><br>Untuk mengoptimalkan efektivitas program secara menyeluruh, fokus intervensi terdekat disarankan menyasar peningkatan pada aspek <u>${lowIndicators.join(', ')}</u> (Skor saat ini: ${minVal}/10).</p>`;
-
-        document.getElementById('resultDesc').innerHTML = dynamicAnalysisHTML;
 
         // Render Grafik Radar
         const ctx = document.getElementById('emasSpiderChart').getContext('2d');
@@ -906,7 +887,7 @@
         spiderChartInstance = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: shortLabels,
+                labels: ['Lingkungan', 'Ekonomi', 'Sosial', 'Kesejahteraan', 'SROI', 'Shared Value', 'Kehati', 'Stakeholder', 'Kewilayahan', 'Tata Kelola'],
                 datasets: [{ data: currentScores, backgroundColor: 'rgba(3, 147, 71, 0.15)', borderColor: '#039347', borderWidth: 2 }]
             },
             options: { scales: { r: { suggestedMin: 1, suggestedMax: 10 } }, plugins: { legend: { display: false } } }
@@ -916,7 +897,7 @@
         document.getElementById('pageResult').classList.add('active');
         window.scrollTo(0, 0);
 
-        // Menyusun Payload lengkap termasuk skor individu per indikator
+        // Menyusun Payload lengkap termasuk skor individu per indikator ke database
         const payload = {
             Nama: userProfile.Nama,
             Perusahaan: userProfile.Perusahaan,
@@ -926,7 +907,6 @@
             SkorAkhir: finalScoreStr,
             Kategori: kategoriText,
             
-            // Menyimpan skor tiap indikator secara modular
             Skor_Indikator1: currentScores[0],
             Skor_Indikator2: currentScores[1],
             Skor_Indikator3: currentScores[2],
@@ -939,7 +919,6 @@
             Skor_Indikator10: currentScores[9]
         };
 
-        // URL Web App Baru Anda yang sudah terhubung dengan aman
         const scriptURL = 'https://script.google.com/macros/s/AKfycbz_wUSgU24YKm_tE2xd2xFf0FJ8qmw24reFPqc1q8nPtSLdT2i5txYNHr9X7n6NsnRC/exec';
 
         fetch(scriptURL, {
