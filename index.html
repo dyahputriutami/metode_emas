@@ -59,6 +59,15 @@
             padding-bottom: 20px;
         }
 
+        /* Gaya Khusus untuk Logo agar Rapi di Tengah */
+        .prospect-logo {
+            display: block;
+            margin: 0 auto 15px auto;
+            max-height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
         header h1 {
             background: var(--gradient-prospect);
             -webkit-background-clip: text;
@@ -143,18 +152,6 @@
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(3, 147, 71, 0.1);
-        }
-
-        /* Khusus Optimalisasi Foto Logo Agar Sesuai Format Eksisting */
-        .prospect-logo {
-            display: block;
-            margin: 0 auto 20px auto;
-            max-width: 100%;
-            height: auto;
-            background-color: #ffffff;
-            padding: 10px 18px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .btn-submit {
@@ -353,7 +350,7 @@
         /* Style Halaman Hasil */
         .capture-area {
             background: #ffffff;
-            padding: 10px 20px;
+            padding: 20px 20px;
             border-radius: 8px;
         }
 
@@ -586,47 +583,8 @@
             line-height: 1.4;
             margin-bottom: 35px;
             letter-spacing: 0.5px;
-            color: #ffffff; /* Kembali ke putih solid agar kontras tinggi */
+            color: #ffffff;
             text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-enter-app {
-            background-color: #ffffff;
-            color: #039347;
-            border: none;
-            padding: 15px 36px;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .btn-enter-app:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            background-color: #f8f9fa;
-            color: #003193;
-        }
-
-        @keyframes splashFadeInUp {
-            from { opacity: 0; transform: translateY(30px) scale(0.96); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .splash-content {
-            max-width: 650px;
-            color: #039347;
-            animation: splashFadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
-        .splash-greeting {
-            font-size: 32px;
-            font-weight: 800;
-            line-height: 1.4;
-            margin-bottom: 35px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-            letter-spacing: 0.5px;
         }
 
         .btn-enter-app {
@@ -659,8 +617,6 @@
 
 <div id="prospectSplashOverlay">
     <div class="splash-content">
-        <img src="https://images.squarespace-cdn.com/content/v1/660c07e0c0df4e286f91fdf1/dfd3b259-7f32-4740-9753-f725339df5fa/PROSPECT+INSTITUTE+LOGO.jpg" alt="Logo Prospect Institute" class="prospect-logo" style="max-height: 80px; width: auto;">
-        
         <h1 class="splash-greeting">
             Selamat Datang di Asesmen Metode Emas<br>
             <span style="font-weight: 400; font-size: 22px; opacity: 0.95; display: block; margin-top: 10px;">
@@ -673,6 +629,8 @@
 
 <div class="container">
     <header>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABYCAMAAAC9OnwhAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMAUExURf///wAzZgAzzgAz/wBmzABmzgBm/wD/ZgD/zgD//wBmmf+Zmf+ZzP+Z/wDMmZHMzJHM/8zMzNDMzNDM/9DM/8z//9D///8AZgAAMwAAZgAAmQAAsgAA0gAA/wAzADMAMwBmMwCZMwDMMwDPMwD/MwBmMwBmMwBmZiBmZpBmzJlmzJlm/5lmzMxmzMxm/9TMzNTMzNTM/9bM/9b//9f///8AmQAnM0AnZkAnmSAnzCAnzEDM0EDM/8zM0MzM0Mz//9D/zND/zP//0P///8AAsgAzsgBmsgBmwgCysgDysgDy0gDy/8zy0szy0v//8v///8A00gA00wA01gA03wA0/wA1cwA1dwA1mQA1vQA1/wBmswBmswBmtSBmtSBytSBy0SB00SB0/8y00sy00v/00v/0/9b009b00//0/9f/1f//1///9v///wD/swD/vQD/wwD/0wD/2wD/7gD/7wD/9gD//wAz/wBm/wCZ/wDN/wDv/wD//zMzADMzM0MzZkMzmUMzs0MzvUMz/0NmM0NmmUNmzENm0ENm/0SZM0SZZkSZmUSZzESZzETM0ETM2ETM/0TM0UTM2UTM/9bM1dbM2dbM/9b/1tb/2f//2///9v///wCZmQCZmTOZizOZmTOZzDOZ7DOZ/zOmmTOmmf+mzP+mzP/Mzf/Mzv/M//bMzvbMz/bM//b/zvb/z///zv///8zMzMzMzzPMmTPMzDPMzTPM7TPM/zPWmTPWmf/WzP/Wzf/Wzv/W//bWzvbWz/bW//b/zvb/z///zv///8z/zMz/mTP/zDP/7DP//zP/mTP/zDP/7DP//8zMmczMzMzM/8zMzMzM//bMzPbMz/bMz/b/zvb/z///zv///9b/1tb/zdb/7db//9bMmdbMztbM/9bMztbM///M///M///0///0//b0//b/zvb/z///zv///+///+///9b//9b//9b///b///b///b/zvb/z///zv///wAAAAAAACH5BAEAAAAALAAAAAAwAFgAAAX+ICCOZGmeaKqubOu6byXPdG3feK7vfO//wKBwSCwaj8ikcslsOp/IpHLJbDqf0Kh0yWw6n9CodMlsOp/QqHTJbDqf0Kh0yWw6n9CodMlsOp/QqHTJbDqf0Kh0yWw6n9CodMlsOp/QqHTJbDqf0Kh0yWw6n9CodMlsOp/QqHTJbDqf0Kh0yWw6n9CodMlsOp/QqHTJbDqf0Kh0yWw6n3CidC6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um+9U07lsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bL5XTeeYXDaf0Wn1mlw2n9Fp9ZpYms0AAAAAAg==" alt="Logo Prospect Institute" class="prospect-logo">
+        
         <h1>Asesmen Metode EMAS</h1>
         <p>Environmental Management Assessment Scheme</p>
         <p>Pengelolaan Lingkungan Berbasis Pemberdayaan Masyarakat Berkelanjutan</p>
@@ -727,6 +685,8 @@
     <div id="pageResult" class="page">
         <div id="downloadTarget" class="capture-area">
             <div class="result-container">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABYCAMAAAC9OnwhAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMAUExURf///wAzZgAzzgAz/wBmzABmzgBm/wD/ZgD/zgD//wBmmf+Zmf+ZzP+Z/wDMmZHMzJHM/8zMzNDMzNDM/9DM/8z//9D///8AZgAAMwAAZgAAmQAAsgAA0gAA/wAzADMAMwBmMwCZMwDMMwDPMwD/MwBmMwBmMwBmZiBmZpBmzJlmzJlm/5lmzMxmzMxm/9TMzNTMzNTM/9bM/9b//9f///8AmQAnM0AnZkAnmSAnzCAnzEDM0EDM/8zM0MzM0Mz//9D/zND/zP//0P///AAsgAzsgBmsgBmwgCysgDysgDy0gDy/8zy0szy0v//8v///8A00gA00wA01gA03wA0/wA1cwA1dwA1mQA1vQA1/wBmswBmswBmtSBmtSBytSBy0SB00SB0/8y00sy00v/00v/0/9b009b00//0/9f/1f//1///9v///wD/swD/vQD/wwD/0wD/2wD/7gD/7wD/9gD//wAz/wBm/wCZ/wDN/wDv/wD//zMzADMzM0MzZkMzmUMzs0MzvUMz/0NmM0NmmUNmzENm0ENm/0SZM0SZZkSZmUSZzESZzETM0ETM2ETM/0TM0UTM2UTM/9bM1dbM2dbM/9b/1tb/2f//2///9v///wCZmQCZmTOZizOZmTOZzDOZ7DOZ/zOmmTOmmf+mzP+mzP/Mzf/Mzv/M//bMzvbMz/bM//b/zvb/z///zv///8zMzMzMzzPMmTPMzDPMzTPM7TPM/zPWmTPWmf/WzP/Wzf/Wzv/W//bWzvbWz/bW//b/zvb/z///zv///8z/zMz/mTP/zDP/7DP//zP/mTP/zDP/7DP//8zMmczMzMzM/8zMzMzM//bMzPbMz/bMz/b/zvb/z///zv///9b/1tb/zdb/7db//9bMmdbMztbM/9bMztbM///M///M///0///0//b0//b/zvb/z///zv///+///+///9b//9b//9b///b///b///b/zvb/z///zv///wAAAAAAACH5BAEAAAAALAAAAAAwAFgAAAX+ICCOZGmeaKqubOu6byXPdG3feK7vfO//wKBwSCwaj8ikcslsOp/IpHLJbDqf0Kh0yWw6n9CodMlsOp/QqHTJbDqf0Kh0yWw6n9CodMlsOp/QqHTJbDqf0Kh0yWw6n9CodMlsOp/QqHTJbDqf0Kh0yWw6n9CodMlsOp/QqHTJbDqf0Kh0yWw6n9CodMlsOp/QqHTJbDqf0Kh0yWw6n3CidC6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um8/otHpNLpvP6LR6TS6bz+i0ek0um+9U07lsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bD6j0+o1uWw+o9PqNblsPqPT6jW5bL5XTeeYXDaf0Wn1mlw2n9Fp9ZpYms0AAAAAAg==" alt="Logo Prospect Institute" class="prospect-logo">
+
                 <h2>Hasil Asesmen Metode EMAS</h2>
                 <span class="program-highlight" id="programTitleDisplay">Program</span>
                 <span class="timestamp-display" id="timestampDisplay">Waktu Rilis: -</span>
@@ -907,7 +867,6 @@
         let kategoriText = "";
         let catatanTeks = "";
         
-        // Logika Orisinal Sesuai Rubrik Klasifikasi Asli
         if (finalScore >= 81) {
             kategoriText = "Tinggi";
             catatanTeks = "Menunjukkan kinerja luar biasa, praktik terbaik, inovasi, dan dampak positif signifikan di berbagai dimensi keberlanjutan";
@@ -927,10 +886,8 @@
         badge.className = "status-badge " + (kategoriText === "Tinggi" ? "status-high" : (kategoriText === "Sedang" ? "status-medium" : "status-low"));
         if(kategoriText === "Tinggi") badge.style.background = "var(--gradient-prospect)";
 
-        // Set teks catatan hasil tepat sesuai permintaan orisinal
         document.getElementById('resultDesc').innerHTML = `<strong>Catatan Asesmen:</strong> ${catatanTeks}.`;
 
-        // Pengisian Waktu Otomatis
         const now = new Date();
         document.getElementById('timestampDisplay').textContent = `Waktu Pelaksanaan Asesmen: ${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()} | Pukul ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} WIB`;
 
@@ -938,7 +895,6 @@
         document.getElementById('pageResult').classList.add('active');
         window.scrollTo(0, 0);
 
-        // Render Grafik Radar (DIPERBAIKI AGAR DI TENGAH SEMPURNA)
         const ctx = document.getElementById('emasSpiderChart').getContext('2d');
         if (spiderChartInstance) spiderChartInstance.destroy();
         spiderChartInstance = new Chart(ctx, {
@@ -951,29 +907,19 @@
                 responsive: true,
                 maintainAspectRatio: false, 
                 layout: {
-                    padding: {
-                        top: 10,
-                        bottom: 10,
-                        left: 10,
-                        right: 10
-                    }
+                    padding: { top: 10, bottom: 10, left: 10, right: 10 }
                 },
                 scales: { 
                     r: { 
                         suggestedMin: 1, 
                         suggestedMax: 10,
-                        ticks: {
-                            stepSize: 2 
-                        }
+                        ticks: { stepSize: 2 }
                     } 
                 }, 
-                plugins: { 
-                    legend: { display: false } 
-                } 
+                plugins: { legend: { display: false } }
             }
         });
 
-        // Menyusun Payload lengkap termasuk skor individu per indikator ke database
         const payload = {
             Nama: userProfile.Nama,
             Perusahaan: userProfile.Perusahaan,
@@ -982,7 +928,6 @@
             Email: userProfile.Email,
             SkorAkhir: finalScoreStr,
             Kategori: kategoriText,
-            
             Skor_Indikator1: currentScores[0],
             Skor_Indikator2: currentScores[1],
             Skor_Indikator3: currentScores[2],
