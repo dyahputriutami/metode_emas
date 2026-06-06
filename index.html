@@ -362,6 +362,14 @@
             display: block;
             font-size: 24px;
             margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .timestamp-display {
+            font-size: 12px;
+            color: #78909c;
+            font-weight: 500;
+            display: block;
             margin-bottom: 15px;
         }
 
@@ -689,7 +697,7 @@
                 by Prospect Institute
             </span>
         </h1>
-        <button class="btn-enter-app" onclick="dismissSplashOverlay()">Mulai Asesmen &rarr;</button>
+        <button class="btn-enter-app" onclick="dismissSplashOverlay()">Mulai Aplikasi &rarr;</button>
     </div>
 </div>
 
@@ -756,6 +764,7 @@
             <div class="result-container">
                 <h2>Hasil Asesmen Metode EMAS</h2>
                 <span class="program-highlight" id="programTitleDisplay">Program</span>
+                <span class="timestamp-display" id="timestampDisplay">Waktu Rilis: -</span>
                 
                 <div class="final-score" id="finalScoreDisplay">0.0</div>
                 <div>
@@ -899,7 +908,7 @@
             desc: "Menilai dampak program pada komunitas lokal yang terpengaruh operasional organisasi.",
             rubrics: {
                 "1-2": "Meskipun berada di Ring 1, bentuk intervensi program bertolak belakang dengan hasil pemetaan sosial (social mapping) serta kebutuhan esensial masyarakat lokal.",
-                "3-4": "Program berlokasi di wilayah operasi namun cenderung seragam (copy-paste dari daerah lain) tanpa mempertimbangkan karakteristik budaya dan spasial komunitas tapak.",
+                "3-4": "Program berlokasi di wilayah operasi namun cenderung seragam (copy-paste dari daerah lain) tanpa mempertimbangkan karakteristik budaya and spasial komunitas tapak.",
                 "5-6": "Program menyasar klaster wilayah yang tepat di sekitar ring perusahaan dan sukses merespons sebagian problem prioritas komunitas berdasarkan data kebutuhan riil.",
                 "7-8": "Ketepatan spasial sangat tinggi; intervensi didesain spesifik mengoptimalkan keunikan potensi geografi lokal dan menuntaskan kerentanan keruangan wilayah tersebut.",
                 "9-10": "Desain berbasis kewilayahan menjadi jangkar utama akselerasi pembangunan daerah; sukses mentransformasi wilayah rentan menjadi pusat pertumbuhan baru yang berdaya."
@@ -1133,8 +1142,19 @@
         const statusBadge = document.getElementById('statusBadge');
         const resultDesc = document.getElementById('resultDesc');
         const programTitleDisplay = document.getElementById('programTitleDisplay');
+        const timestampDisplay = document.getElementById('timestampDisplay');
 
+        // Cetak Judul Program
         programTitleDisplay.textContent = `Program: ${userProfile.Program}`;
+        
+        // Cetak Tanggal dan Waktu Real-time Saat Hasil Dirilis
+        const now = new Date();
+        const namaBulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        const tanggalStr = `${now.getDate()} ${namaBulan[now.getMonth()]} ${now.getFullYear()}`;
+        const jamStr = String(now.getHours()).padStart(2, '0');
+        const menitStr = String(now.getMinutes()).padStart(2, '0');
+        timestampDisplay.textContent = `Waktu Pelaksanaan Asesmen: ${tanggalStr} | Pukul ${jamStr}:${menitStr} WIB`;
+
         finalScoreDisplay.textContent = finalScoreStr;
 
         if (finalScore >= 81) {
