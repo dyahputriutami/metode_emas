@@ -546,11 +546,10 @@
                 font-size: 9px;
             }
 
-            /* Responsive Table Scrollable Configuration */
             .full-rubric-table {
                 width: 100%;
                 overflow-x: auto;
-                display: none; /* Keep programmatic toggle */
+                display: none;
                 -webkit-overflow-scrolling: touch;
             }
 
@@ -563,7 +562,6 @@
                 font-size: 11px;
             }
 
-            /* Buttons Framework Responsiveness */
             .navigation-panel {
                 gap: 10px;
             }
@@ -602,7 +600,6 @@
                 justify-content: center;
             }
 
-            /* Chart Area Container Optimization */
             .chart-container {
                 height: 300px;
                 padding: 5px;
@@ -618,10 +615,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Gradient background with roughly 50% opacity equivalent colors */
-            background: linear-gradient(135deg, rgba(3, 147, 71, 0.85) 0%, rgba(0, 49, 147, 0.85) 100%);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            /* Gradasi warna Prospect dengan Opacity 50% dikombinasikan dengan efek blur kaca premium */
+            background: linear-gradient(135deg, rgba(3, 147, 71, 0.50) 0%, rgba(0, 49, 147, 0.50) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 99999;
             display: flex;
             flex-direction: column;
@@ -629,21 +626,23 @@
             align-items: center;
             text-align: center;
             padding: 20px;
-            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+            /* Efek transisi pudar (fade out) smooth selama 0.8 detik */
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
         }
 
         .splash-content {
-            max-width: 600px;
+            max-width: 650px;
             color: #ffffff;
-            animation: splashFadeInUp 1s ease-out;
+            /* Animasi teks muncul bergerak perlahan ke atas (Fade In Up) */
+            animation: splashFadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .splash-greeting {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 800;
             line-height: 1.4;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 35px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
             letter-spacing: 0.5px;
         }
 
@@ -651,30 +650,31 @@
             background-color: #ffffff;
             color: #039347;
             border: none;
-            padding: 14px 32px;
+            padding: 15px 36px;
             font-size: 16px;
             font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
 
         .btn-enter-app:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            background-color: #f4f4f4;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background-color: #f8f9fa;
             color: #003193;
         }
 
+        /* Keyframes untuk Animasi Fade-In Teks Greeting */
         @keyframes splashFadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px) scale(0.96);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
     </style>
@@ -683,7 +683,12 @@
 
 <div id="prospectSplashOverlay">
     <div class="splash-content">
-        <h1 class="splash-greeting">Selamat Datang di Asesmen Metode Emas<br><span style="font-weight: 400; font-size: 20px; opacity: 0.9;">by Prospect Institute</span></h1>
+        <h1 class="splash-greeting">
+            Selamat Datang di Asesmen Metode Emas<br>
+            <span style="font-weight: 400; font-size: 22px; opacity: 0.95; display: block; margin-top: 10px;">
+                by Prospect Institute
+            </span>
+        </h1>
         <button class="btn-enter-app" onclick="dismissSplashOverlay()">Mulai Aplikasi &rarr;</button>
     </div>
 </div>
@@ -861,7 +866,7 @@
                 "3-4": "Ada korelasi marginal dengan rantai nilai bisnis (misal: penyerapan limbah non-B3 terbatas), namun belum memberikan dampak proteksi risiko atau reputasi bisnis jangka panjang.",
                 "5-6": "Program menyelaraskan sebagian kebutuhan komunitas dengan operasional (misal: pembinaan vendor lokal skala kecil), memberikan nilai tambah berimbang bagi kedua belah pihak.",
                 "7-8": "Integrasi sangat kuat antara penyelesaian isu sosial dengan strategi bisnis utama; program berhasil menurunkan biaya operasional perusahaan sekaligus memajukan kesejahteraan lokal.",
-                "9-10": "Program melahirkan model bisnis sirkular baru yang inovatif; keunggulan kompetitif perusahaan dan kemandirian sosial masyarakat menyatu secara holistik dan transformatif."
+                "9-10": "Program melahirkan model bisnis sirkular baru yang inovatif; keunggulan kompetitif perusahaan and kemandirian sosial masyarakat menyatu secara holistik dan transformatif."
             }
         },
         {
@@ -919,13 +924,16 @@
     let currentStep = 1;
     const totalSteps = 10;
 
+    // Fungsi Pengendali Menutup Splash Screen dengan Efek Fade Out Halus
     function dismissSplashOverlay() {
         const overlay = document.getElementById('prospectSplashOverlay');
-        overlay.style.opacity = '0';
-        overlay.style.visibility = 'hidden';
-        setTimeout(() => {
-            overlay.remove();
-        }, 600);
+        if (overlay) {
+            overlay.style.opacity = '0';
+            overlay.style.visibility = 'hidden';
+            setTimeout(() => {
+                overlay.remove();
+            }, 800);
+        }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
