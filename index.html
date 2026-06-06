@@ -422,10 +422,11 @@
             border-left: 5px solid var(--primary-color);
         }
 
+        /* Penyesuaian Kotak Utama Setelah Ditukar */
         .cta-box {
             margin-top: 35px;
             background: linear-gradient(135deg, #e6f4ed 0%, #e6eaf4 100%);
-            border: 1px dashed var(--secondary-color);
+            border: 1px dashed var(--primary-color);
             border-radius: 10px;
             padding: 25px;
             text-align: center;
@@ -434,7 +435,7 @@
         .cta-box p {
             font-size: 15px;
             font-weight: 600;
-            color: var(--secondary-color);
+            color: var(--primary-color);
             margin-bottom: 15px;
         }
 
@@ -445,49 +446,70 @@
             flex-wrap: wrap;
         }
 
-        .cta-link {
+        .cta-btn-main {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
-            font-size: 13px;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-
-        .cta-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .cta-wa { background-color: #25d366; }
-        .cta-ig { background-color: #e1306c; }
-
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-
-        .btn-action {
             padding: 12px 24px;
             font-size: 14px;
             font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border: none;
             border-radius: 6px;
             cursor: pointer;
-            border: none;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
 
-        .btn-download { background: var(--gradient-prospect); color: white; }
-        .btn-download:hover { opacity: 0.95; }
-        .btn-back { background-color: var(--secondary-color); color: white; }
-        .btn-back:hover { opacity: 0.9; }
+        .cta-btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-download-main { background: var(--gradient-prospect); }
+        .btn-restart-main { background-color: var(--secondary-color); }
+
+        /* Panel Sosial Media di Posisi Bawah */
+        .social-action-panel {
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 20px;
+        }
+
+        .social-action-panel p {
+            font-size: 13px;
+            color: #546e7a;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .social-buttons-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-social {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: transform 0.2s;
+        }
+
+        .btn-social:hover {
+            transform: translateY(-1px);
+        }
+
+        .social-wa { background-color: #25d366; }
+        .social-ig { background-color: #e1306c; }
 
         footer {
             text-align: center;
@@ -585,25 +607,13 @@
                 margin-left: unset;
             }
 
-            .action-buttons {
-                flex-direction: column;
-                gap: 10px;
-                width: 100%;
-            }
-
-            .btn-action {
-                width: 100%;
-                text-align: center;
-                padding: 12px;
-            }
-
-            .cta-buttons-group {
+            .cta-buttons-group, .social-buttons-group {
                 flex-direction: column;
                 width: 100%;
                 gap: 8px;
             }
 
-            .cta-link {
+            .cta-btn-main, .btn-social {
                 width: 100%;
                 justify-content: center;
             }
@@ -623,7 +633,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Gradasi warna Prospect dengan Opacity 50% dikombinasikan dengan efek blur kaca premium */
             background: linear-gradient(135deg, rgba(3, 147, 71, 0.50) 0%, rgba(0, 49, 147, 0.50) 100%);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -634,14 +643,12 @@
             align-items: center;
             text-align: center;
             padding: 20px;
-            /* Efek transisi pudar (fade out) smooth selama 0.8 detik */
             transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
         }
 
         .splash-content {
             max-width: 650px;
-            color: (--gradient-prospect);
-            /* Animasi teks muncul bergerak perlahan ke atas (Fade In Up) */
+            color: #ffffff;
             animation: splashFadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
@@ -674,7 +681,6 @@
             color: #003193;
         }
 
-        /* Keyframes untuk Animasi Fade-In Teks Greeting */
         @keyframes splashFadeInUp {
             from {
                 opacity: 0;
@@ -782,20 +788,27 @@
         </div>
 
         <div class="cta-box">
-            <p>Ingin mengoptimalkan performa dan dampak pemberdayaan program Anda?</p>
+            <p>Simpan hasil atau evaluasi ulang program Anda di bawah ini:</p>
             <div class="cta-buttons-group">
-                <a href="https://wa.me/628113901111?text=Halo,%20saya%20tertarik%20untuk%20berkonsultasi%20mengenai%20strategi%20optimalisasi%20program%20berdasarkan%20Metode%20EMAS" target="_blank" class="cta-link cta-wa">
-                    Hubungi via WhatsApp
-                </a>
-                <a href="https://instagram.com/prospect.institute" target="_blank" class="cta-link cta-ig">
-                    Ikuti Kami di Instagram
-                </a>
+                <button class="cta-btn-main btn-download-main" onclick="downloadResultAsJPEG()">
+                    Unduh Hasil Asesmen
+                </button>
+                <button class="cta-btn-main btn-restart-main" onclick="restartAssessment()">
+                    « Mulai Asesmen Baru
+                </button>
             </div>
         </div>
 
-        <div class="action-buttons">
-            <button class="btn-action btn-download" onclick="downloadResultAsJPEG()">Unduh Hasil Asesmen</button>
-            <button class="btn-action btn-back" onclick="restartAssessment()">« Mulai Asesmen Baru</button>
+        <div class="social-action-panel">
+            <p>Ingin mengoptimalkan performa dan dampak pemberdayaan program Anda? Hubungi Prospect Institute:</p>
+            <div class="social-buttons-group">
+                <a href="https://wa.me/628113901111?text=Halo,%20saya%20tertarik%20untuk%20berkonsultasi%20mengenai%20strategi%20optimalisasi%20program%20berdasarkan%20Metode%20EMAS" target="_blank" class="btn-social social-wa">
+                    Hubungi via WhatsApp
+                </a>
+                <a href="https://instagram.com/prospect.institute" target="_blank" class="btn-social social-ig">
+                    Ikuti Kami di Instagram
+                </a>
+            </div>
         </div>
     </div>
 
@@ -892,7 +905,7 @@
         },
         {
             id: 8,
-            title: "8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)",
+            title: "8. Pelibatan Pemangku Kelompok (Stakeholder Engagement)",
             desc: "Mengukur kualitas dan efektivitas interaksi dengan pemangku kepentingan (komunikasi, dialog, kolaborasi, dan kemitraan).",
             rubrics: {
                 "1-2": "Hubungan pasif dan terbatas; interaksi sebatas pemberitahuan searah atau sosialisasi formal tanpa memberikan ruang bagi pemangku kepentingan untuk memberi masukan.",
@@ -933,7 +946,6 @@
     let currentStep = 1;
     const totalSteps = 10;
 
-    // Fungsi Pengendali Menutup Splash Screen dengan Efek Fade Out Halus
     function dismissSplashOverlay() {
         const overlay = document.getElementById('prospectSplashOverlay');
         if (overlay) {
@@ -1144,10 +1156,8 @@
         const programTitleDisplay = document.getElementById('programTitleDisplay');
         const timestampDisplay = document.getElementById('timestampDisplay');
 
-        // Cetak Judul Program
         programTitleDisplay.textContent = `Program: ${userProfile.Program}`;
         
-        // Cetak Tanggal dan Waktu Real-time Saat Hasil Dirilis
         const now = new Date();
         const namaBulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         const tanggalStr = `${now.getDate()} ${namaBulan[now.getMonth()]} ${now.getFullYear()}`;
