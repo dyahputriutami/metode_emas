@@ -1,603 +1,14 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMAS Assessment Tool - Mini Web</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        :root {
-            --primary-color: #2e7d32;
-            --primary-light: #e8f5e9;
-            --secondary-color: #37474f;
-            --bg-color: #f5f7f8;
-            --card-color: #ffffff;
-            --text-color: #212121;
-            --border-color: #cfd8dc;
-            
-            --high-color: #c62828;
-            --medium-color: #ef6c00;
-            --low-color: #c62828;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--card-color);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 20px;
-        }
-
-        header h1 {
-            color: var(--primary-color);
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        header p {
-            color: var(--secondary-color);
-            font-size: 14px;
-        }
-
-        /* Navigasi Struktur Halaman */
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
-
-        /* Wizard Step Configuration */
-        .step-card {
-            display: none;
-        }
-        .step-card.active {
-            display: block;
-        }
-
-        .progress-container {
-            margin-bottom: 25px;
-        }
-
-        .step-counter {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--secondary-color);
-            margin-bottom: 6px;
-            text-align: right;
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            background-color: #e2e8f0;
-            height: 8px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background-color: var(--primary-color);
-            width: 10%;
-            transition: width 0.3s ease;
-        }
-
-        /* Style Form Data Diri */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--secondary-color);
-            font-size: 14px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .btn-submit {
-            display: block;
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 25px;
-            transition: background 0.2s;
-            text-align: center;
-        }
-
-        .btn-submit:hover {
-            background-color: #1b5e20;
-        }
-
-        /* Style Kalkulator Slider */
-        .instructions {
-            background-color: var(--primary-light);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            font-size: 14px;
-            border-left: 5px solid var(--primary-color);
-        }
-
-        .indicator-card {
-            background: #fafafa;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .indicator-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-        }
-
-        .indicator-desc {
-            font-size: 14px;
-            color: #455a64;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .slider-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: #ffffff;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .slider-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            accent-color: var(--primary-color);
-            cursor: pointer;
-            height: 8px;
-            border-radius: 5px;
-        }
-
-        .ticks-container {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 2px;
-            margin-top: 8px;
-        }
-
-        .tick-label {
-            font-size: 11px;
-            color: #78909c;
-            width: 20px;
-            text-align: center;
-            font-weight: 500;
-        }
-
-        .score-display {
-            font-size: 26px;
-            font-weight: bold;
-            color: var(--primary-color);
-            min-width: 45px;
-            text-align: right;
-        }
-
-        /* Rubric Guide Boxes */
-        .rubric-guide-box {
-            margin-top: 20px;
-            padding: 16px;
-            background-color: #f1f5f9;
-            border-left: 4px solid #b0bec5;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #334155;
-            line-height: 1.6;
-            transition: all 0.2s ease;
-        }
-
-        .btn-toggle-rubric {
-            background: none;
-            border: none;
-            color: var(--primary-color);
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            text-decoration: underline;
-        }
-
-        .full-rubric-table {
-            display: none;
-            margin-top: 15px;
-            font-size: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            overflow: hidden;
-            background: #ffffff;
-        }
-
-        .full-rubric-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .full-rubric-table th, .full-rubric-table td {
-            padding: 12px;
-            text-align: left;
-            vertical-align: top;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .full-rubric-table th {
-            background-color: var(--primary-light);
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        /* Navigation Buttons Panel */
-        .navigation-panel {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 25px;
-            gap: 15px;
-        }
-
-        .btn-nav {
-            padding: 12px 24px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-        }
-
-        .btn-prev {
-            background-color: #cfd8dc;
-            color: var(--secondary-color);
-        }
-
-        .btn-prev:hover {
-            background-color: #b0bec5;
-        }
-
-        .btn-next {
-            background-color: var(--primary-color);
-            color: white;
-            margin-left: auto; /* Push to right when single */
-        }
-
-        .btn-next:hover {
-            background-color: #1b5e20;
-        }
-
-        /* Style Halaman Hasil */
-        .capture-area {
-            background: #ffffff;
-            padding: 10px 20px;
-            border-radius: 8px;
-        }
-
-        .result-container {
-            text-align: center;
-            padding: 10px 0;
-        }
-
-        .result-container h2 {
-            font-size: 22px;
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-        }
-
-        .program-highlight {
-            color: var(--primary-color);
-            font-weight: 700;
-            display: block;
-            font-size: 24px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-        }
-
-        .final-score {
-            font-size: 64px;
-            font-weight: 800;
-            margin: 10px 0;
-            color: var(--secondary-color);
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            font-weight: bold;
-            border-radius: 50px;
-            color: white;
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 25px;
-        }
-
-        .status-high { background-color: var(--primary-color); }
-        .status-medium { background-color: var(--medium-color); }
-        .status-low { background-color: var(--high-color); }
-
-        .chart-container {
-            position: relative;
-            margin: 20px auto 30px auto;
-            height: 380px;
-            width: 100%;
-            max-width: 480px;
-            background: #fafafa;
-            border-radius: 8px;
-            padding: 15px;
-            border: 1px solid var(--border-color);
-        }
-
-        .result-desc {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #333;
-            text-align: left;
-            background: #fafafa;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            border-left: 5px solid var(--primary-color);
-        }
-
-        .cta-box {
-            margin-top: 35px;
-            background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%);
-            border: 1px dashed var(--primary-color);
-            border-radius: 10px;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .cta-box p {
-            font-size: 15px;
-            font-weight: 600;
-            color: #1b5e20;
-            margin-bottom: 15px;
-        }
-
-        .cta-buttons-group {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .cta-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            font-size: 13px;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-
-        .cta-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .cta-wa { background-color: #25d366; }
-        .cta-ig { background-color: #e1306c; }
-
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-
-        .btn-action {
-            padding: 12px 24px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            border: none;
-            transition: background 0.2s;
-        }
-
-        .btn-download { background-color: var(--primary-color); color: white; }
-        .btn-download:hover { background-color: #1b5e20; }
-        .btn-back { background-color: var(--secondary-color); color: white; }
-        .btn-back:hover { background-color: #263238; }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 12px;
-            color: #777;
-            border-top: 1px solid #e0e0e0;
-            padding-top: 15px;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <header>
-        <h1>Asesmen Metode EMAS</h1>
-        <p>Environmental Management Assessment Scheme — Berbasis Pemberdayaan Masyarakat Berkelanjutan</p>
-    </header>
-
-    <!-- HALAMAN 1: FORM IDENTITAS -->
-    <div id="pageForm" class="page active">
-        <div class="instructions" style="border-left-color: var(--secondary-color); background-color: #f0f4f6;">
-            Selamat datang di platform pengukuran efektivitas program dengan Metode EMAS. Silakan isi profil Anda sebelum memulai asesmen.
-        </div>
-        <form id="identityForm" onsubmit="navigateToAssessment(event)">
-            <div class="form-group">
-                <label for="inputNama">Nama Lengkap *</label>
-                <input type="text" id="inputNama" required placeholder="Masukkan nama lengkap Anda">
-            </div>
-            <div class="form-group">
-                <label for="inputPerusahaan">Nama Perusahaan / Institusi *</label>
-                <input type="text" id="inputPerusahaan" required placeholder="Masukkan nama perusahaan">
-            </div>
-            <div class="form-group">
-                <label for="inputProgram">Nama Program CSR / Pemberdayaan *</label>
-                <input type="text" id="inputProgram" required placeholder="Masukkan nama program keberlanjutan">
-            </div>
-            <div class="form-group">
-                <label for="inputNoHP">Nomor HP / WhatsApp *</label>
-                <input type="tel" id="inputNoHP" required placeholder="Contoh: 081234567xxx">
-            </div>
-            <div class="form-group">
-                <label for="inputEmail">Alamat Email *</label>
-                <input type="email" id="inputEmail" required placeholder="Contoh: nama@perusahaan.com">
-            </div>
-            <button type="submit" class="btn-submit">Mulai Asesmen Metode EMAS &rarr;</button>
-        </form>
-    </div>
-
-    <!-- HALAMAN 2: ASSESSMENT WIZARD (1 INDIKATOR 1 HALAMAN) -->
-    <div id="pageAssessment" class="page">
-        <!-- Progress Bar Status -->
-        <div class="progress-container">
-            <div class="step-counter" id="stepCounterDisplay">Indikator 1 dari 10</div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progressBarFillElement"></div>
-            </div>
-        </div>
-
-        <div class="instructions">
-            <strong>Petunjuk Pengisian:</strong> Geser skala penggeser (slider) di bawah ini sesuai capaian riil program Anda. Deskripsi kriteria penilaian akan berubah secara instan untuk membantu keakuratan evaluasi Anda.
-        </div>
-
-        <form id="emasForm">
-            <!-- INDIKATOR CONTAINER LOGIC (LOOPS BY SCRIPT) -->
-            <div id="dynamicStepContainer">
-                <!-- Diisi otomatis oleh JavaScript -->
-            </div>
-
-            <!-- Navigasi Panel Kontrol Halaman -->
-            <div class="navigation-panel">
-                <button type="button" class="btn-nav btn-prev" id="btnPrevStep" onclick="moveStep(-1)" style="display: none;">&larr; Kembali</button>
-                <button type="button" class="btn-nav btn-next" id="btnNextStep" onclick="moveStep(1)">Selanjutnya &rarr;</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- HALAMAN 3: HALAMAN HASIL -->
-    <div id="pageResult" class="page">
-        <div id="downloadTarget" class="capture-area">
-            <div class="result-container">
-                <h2>Hasil Asesmen Metode EMAS</h2>
-                <span class="program-highlight" id="programTitleDisplay">Program</span>
-                
-                <div class="final-score" id="finalScoreDisplay">0.0</div>
-                <div>
-                    <span class="status-badge" id="statusBadge">KATEGORI</span>
-                </div>
-                
-                <div class="chart-container">
-                    <canvas id="emasSpiderChart"></canvas>
-                </div>
-
-                <div class="result-desc" id="resultDesc">
-                    Deskripsi hasil analisis performa kriteria program berdasarkan Metode EMAS.
-                </div>
-            </div>
-        </div>
-
-        <div class="cta-box">
-            <p>Ingin mengoptimalkan performa dan dampak pemberdayaan program Anda?</p>
-            <div class="cta-buttons-group">
-                <a href="https://wa.me/628113901111?text=Halo,%20saya%20tertarik%20untuk%20berkonsultasi%20mengenai%20strategi%20optimalisasi%20program%20berdasarkan%20Metode%20EMAS" target="_blank" class="cta-link cta-wa">
-                    Hubungi via WhatsApp
-                </a>
-                <a href="https://instagram.com/prospect.institute" target="_blank" class="cta-link cta-ig">
-                    Ikuti Kami di Instagram
-                </a>
-            </div>
-        </div>
-
-        <div class="action-buttons">
-            <button class="btn-action btn-download" onclick="downloadResultAsJPEG()">Unduh Hasil Asesmen</button>
-            <button class="btn-action btn-back" onclick="restartAssessment()">« Mulai Asesmen Baru</button>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Asesmen Metode EMAS oleh Prospect Institute</p>
-    </footer>
-</div>
-
-<script>
-    // Konfigurasi Seluruh Data Rubrik Matriks Metode EMAS
+// Konfigurasi Seluruh Data Rubrik Matriks Metode EMAS
     const emasListData = [
         {
             id: 1,
             title: "1. Dampak Lingkungan",
             desc: "Mengukur konsekuensi program terhadap lingkungan alam (pengurangan emisi GRK, reduksi limbah, konservasi air, perlindungan keanekaragaman hayati, mitigasi risiko bencana).",
             rubrics: {
-                0: "Belum ada inisiatif program pengelolaan lingkungan yang berjalan, atau program sama sekali tidak menyentuh pelibatan masyarakat tapak.",
                 "1-2": "Program pengelolaan lingkungan perusahaan sama sekali tidak melibatkan masyarakat dalam aspek apapun. Justru, terdapat indikasi bahwa program berdampak negatif terhadap akses dan kontrol masyarakat atas sumber daya alam vital mereka. Tidak ada upaya edukasi lingkungan.",
-                "3-4": "Keterlibatan masyarakat bersifat minimal dan seremonial. Interaksi berupa sosialisasi satu arah tanpa adanya dialog substantif atau partisipasi aktif masyarakat dalam proses perencanaan. Dampak positif lingkungan tidak signifikan atau tidak berkelanjutan.",
+                "3-4": "Keterlibatan masyarakat bersifat minimal dan seremonial. Interaksi berupa sosialisasi satu arah tanpa adanya dialog substantif atau partisipasi aktif masyarakat dalam proses perencanaan. Pemberian informasi lingkungan kepada masyarakat bersifat sporadis dan tidak terstruktur serta tidak disesuaikan dengan kebutuhan dan tingkat pemahaman masyarakat. Dampak atau manfaat lingkungan yang dihasilkan tidak signifikan dan tidak merata. Keterkaitan pemberdayaan masyarakat dan keberlanjutan lingkungan sangat minim.",
                 "5-6": "Program melibatkan masyarakat dalam tahap implementasi fisik (misal: aksi penanaman pohon atau kerja bakti). Namun, peran dalam perencanaan strategis dan pengambilan keputusan masih terbatas. Kapasitas kemandirian masyarakat belum terbangun.",
-                "7-8": "Program dirancang secara partisipatif dari perencanaan hingga evaluasi. Ada peningkatan kapasitas terstruktur bagi masyarakat untuk mengelola lingkungan secara berkelanjutan. Dampak positif terukur luas dan didukung data akurat.",
+                "7-8": "Program dirancang secara partisipatif dari perencanaan hingga evaluasi. Ada peningkatan kapasitas terstruktur bagi masyarakat untuk mengelola lingkungan secara berkelanjutan. Dampak positif terukur luas and didukung data akurat.",
                 "9-10": "Program menjadi best practice kolaborasi setara di mana masyarakat bertindak sebagai penggerak utama (driver) inisiatif lingkungan. Terjadi inovasi sosial berbasis lingkungan yang meningkatkan kesejahteraan sosial-ekonomi serta kemandirian penuh komunitas."
             }
         },
@@ -606,12 +17,11 @@
             title: "2. Dampak Ekonomi",
             desc: "Mengukur penciptaan nilai ekonomi baru, peningkatan pendapatan riil, kemandirian finansial komunitas, dan efisiensi penyerapan tenaga kerja lokal.",
             rubrics: {
-                0: "Belum ada inisiatif program yang memberikan dampak ekonomi nyata atau peningkatan pendapatan bagi komunitas lokal.",
-                "1-2": "Program ekonomi bersifat karitatif atau bantuan modal satu arah tanpa pendampingan, sehingga masyarakat tetap bergantung sepenuhnya pada stimulan perusahaan.",
-                "3-4": "Terdapat bantuan sarana ekonomi kelompok, namun manajemen internal lemah, kelompok cenderung pasif, dan penyerapan tenaga kerja lokal masih sangat minimal.",
-                "5-6": "Unit usaha kelompok masyarakat telah terbentuk dan beroperasi rutin, memberikan tambahan pendapatan berkala, namun belum mencapai kemandirian finansial penuh tanpa subsidi.",
-                "7-8": "Kelompok usaha tumbuh menjadi entitas mandiri (BUMDes/Koperasi), penyerapan tenaga kerja lokal signifikan, serta kenaikan portofolio pendapatan stabil dan tercatat.",
-                "9-10": "Menciptakan ekosistem rantai pasok baru, kemandirian finansial penuh secara komersial, sukses direplikasi wilayah lain, serta memberikan efek multiplier ekonomi yang masif."
+                "1-2": "Program murni berdampak negatif pada perekonomian masyarakat lokal (hilangnya mata pencaharian tradisional tanpa kompensasi, perampasan sumber ekonomi lokal) atau tidak ada manfaat ekonomi yang diterima masyarkat dari keberadaan program dan meningkatkan potensi konflik ekonomi.",
+                "3-4": "Keterlibatan ekonomi masyarakat masih minim, terbatas pada pekerjaan kasar dan bersifat sementara dengan upah rendah dan tidak disertai peningkatan keterampilan.",
+                "5-6": "Menciptakan lapangan pekerjaan untuk masyarakat lokal dan meningkatkan penghasilan masyarakat, namun dampak ekonomi belum merata.",
+                "7-8": "Secara signifikan menciptakan lapangan pekerjaan yang layak dengan upah yang adil dan kondisi kerja yang layak yang disertai dengan akses kepada modal dan keterampilan.",
+                "9-10": "Terjadi transformasi ekonomi lokal yang positif dan berkelanjutan sehingga membentuk ekosistem ekonomi yang mandiri dan berdaya saing. ."
             }
         },
         {
@@ -619,9 +29,8 @@
             title: "3. Dampak Sosial",
             desc: "Mengukur pengaruh program terhadap kohesi sosial, penguatan modal sosial (social capital), penguatan kelembagaan lokal, serta resolusi atau pengurangan konflik kelompok.",
             rubrics: {
-                0: "Program tidak menyentuh dimensi sosial atau penguatan kelembagaan di tingkat masyarakat.",
-                "1-2": "Program memicu kecemburuan sosial atau polarisasi internal akibat ketidaktepatan sasaran, minimnya transparansi, atau komunikasi yang eksklusif.",
-                "3-4": "Kelembagaan lokal dibentuk sekadar formalitas demi memenuhi syarat program administrasi; interaksi sosial masih sebatas seremonial dan rapuh.",
+                "1-2": "Program memperburuk konflik sosial atau merusak modal sosial yang telah ada atau program sama sekali tidak membangun hubungan positif.",
+                "3-4": "Dampak sosial masih minim and komunikasi masih bersifat formalitas. Pelibatan masyarakat juga belum optimal.",
                 "5-6": "Kelembagaan kelompok berfungsi menjalankan aktivitas program harian, hubungan antar warga harmonis, namun belum mampu menyelesaikan masalah internal secara mandiri.",
                 "7-8": "Modal sosial sangat kuat, kelembagaan lokal aktif menjadi wadah gotong royong yang inklusif (melibatkan kelompok rentan/perempuan), serta mampu memitigasi potensi konflik.",
                 "9-10": "Kelembagaan lokal bertransformasi menjadi agen perubahan independen dengan jejaring luas, menciptakan kohesi sosial tinggi, serta menjadi rujukan resolusi konflik komunitas."
@@ -632,7 +41,6 @@
             title: "4. Dampak Kesejahteraan",
             desc: "Mengukur kontribusi program terhadap pemenuhan hak dasar manusia, termasuk perbaikan akses kesehatan, kualitas pendidikan, peningkatan gizi, dan kepuasan hidup.",
             rubrics: {
-                0: "Program sama sekali tidak memberikan pengaruh terhadap tingkat kesejahteraan atau pemenuhan hak dasar penerima manfaat.",
                 "1-2": "Program tidak terarah; indikator kualitas fisik kesehatan atau pendidikan di wilayah tapak cenderung tetap buruk atau bahkan terabaikan.",
                 "3-4": "Intervensi kesejahteraan bersifat insidental (misal: donor darah sekali waktu atau pembagian alat tulis) tanpa perubahan indikator kualitas hidup jangka panjang.",
                 "5-6": "Akses terhadap layanan kesehatan/pendidikan dasar membaik bagi sebagian sasaran, serta mulai terlihat adopsi pola hidup bersih sehat yang bertahap.",
@@ -645,7 +53,6 @@
             title: "5. Rasio Pengembalian Investasi Sosial (SROI)",
             desc: "Mengukur efisiensi dampak moneter sosial dan lingkungan yang dihasilkan dibandingkan dengan total nilai investasi finansial yang dialokasikan.",
             rubrics: {
-                0: "Tidak dilakukan pengukuran dampak moneter, atau investasi finansial tidak menghasilkan dampak sosial-lingkungan apa pun.",
                 "1-2": "Nilai rasio dampak berada jauh di bawah nilai investasinya (SROI < 1:1); program tidak efisien karena biaya operasional jauh lebih besar dari nilai kemanfaatan.",
                 "3-4": "Rasio SROI mendekati impas (kisaran 1:1); manfaat moneter yang tercipta hanya setara dengan nilai modal awal yang digelontorkan.",
                 "5-6": "Rasio SROI berada di tingkat moderat yang efektif (kisaran 1:1 hingga 2:1); investasi finansial terbukti efisien menciptakan nilai tambah sosial-ekonomi lokal.",
@@ -656,9 +63,8 @@
         {
             id: 6,
             title: "6. Menciptakan Nilai Bersama (Shared Value Creation)",
-            desc: "Menilai keselarasan strategis program dalam menciptakan nilai bagi bisnis internal perusahaan sekaligus menghasilkan kemajuan sosial ekonomi komunitas eksternal.",
+            desc: "Menilai sejauh mana program menciptakan nilai simultan bagi organisasi dan pemangku kepentingan, dengan menghubungkan keberhasilan bisnis dengan kemajuan sosial lingkungan.",
             rubrics: {
-                0: "Program tidak memiliki hubungan apa pun dengan kelangsungan bisnis operasional internal perusahaan.",
                 "1-2": "Program murni bersifat filantropi kosmetik/karitatif untuk sekadar menggugurkan kewajiban hukum, tanpa kaitan dengan kompetensi inti perusahaan.",
                 "3-4": "Ada korelasi marginal dengan rantai nilai bisnis (misal: penyerapan limbah non-B3 terbatas), namun belum memberikan dampak proteksi risiko atau reputasi bisnis jangka panjang.",
                 "5-6": "Program menyelaraskan sebagian kebutuhan komunitas dengan operasional (misal: pembinaan vendor lokal skala kecil), memberikan nilai tambah berimbang bagi kedua belah pihak.",
@@ -669,9 +75,8 @@
         {
             id: 7,
             title: "7. Kontribusi terhadap Keanekaragaman Hayati",
-            desc: "Menilai komitmen program dalam mendukung konservasi flora-fauna lokal, pemulihan ekosistem kritis, serta pengintegrasian kearifan lingkungan tradisional (TEK).",
+            desc: "Menilai dampak program terhadap perlindungan dan peningkatan keanekaragaman hayati melalui indeks keanekaragaman hayati, spesies yang dikonservasi, atau area konservasi.",
             rubrics: {
-                0: "Program tidak memiliki komponen perlindungan alam, konservasi flora-fauna, atau rehabilitasi ekosistem lokal.",
                 "1-2": "Aktivitas program berisiko mengganggu keseimbangan ekosistem asli atau salah mengintroduksi spesies asing tanpa kajian ekologis yang memadai.",
                 "3-4": "Aksi perlindungan hayati sebatas simbolis atau seremonial (misal: penanaman pohon serentak namun diabaikan pasca acara sehingga tingkat kelangsungan hidup rendah).",
                 "5-6": "Terdapat upaya perlindungan ekosistem yang berjalan konsisten; masyarakat lokal dilibatkan aktif sebagai kelompok pelaksana pemeliharaan fisik berkala.",
@@ -682,9 +87,8 @@
         {
             id: 8,
             title: "8. Pelibatan Pemangku Kepentingan (Stakeholder Engagement)",
-            desc: "Mengukur derajat keterlibatan aktor kunci (multi-stakeholder) secara inklusif dan transparan—mulai dari komunikasi satu arah hingga keputusan bersama (co-decision making).",
+            desc: "Mengukur kualitas dan efektivitas interaksi dengan pemangku kepentingan (kominikasi, dialog, kolaborasi, dan kemitraan).",
             rubrics: {
-                0: "Perusahaan menutup diri; perencanaan dan pelaksanaan program diputuskan sepihak tanpa mendengar opini pemangku kepentingan.",
                 "1-2": "Hubungan pasif dan terbatas; interaksi sebatas pemberitahuan searah atau sosialisasi formal tanpa memberikan ruang bagi pemangku kepentingan untuk memberi masukan.",
                 "3-4": "Membuka konsultasi dua arah secara berkala, namun masukan atau kritik dari aktor lokal belum diakomodasi ke dalam perbaikan desain program kerja.",
                 "5-6": "Keterlibatan aktif multi-pihak berjalan konstan; aspirasi tokoh masyarakat, akademisi, atau pemerintah lokal diserap dan diimplementasikan dalam aksi lapangan.",
@@ -695,12 +99,11 @@
         {
             id: 9,
             title: "9. Kedekatan Kewilayahan",
-            desc: "Menilai ketepatan sasaran geografis intervensi program dalam merespons kebutuhan mendesak serta mengoptimalkan potensi sosiogeografis unik pada level komunitas tapak.",
+            desc: "Menilai dampak program pada komunitas lokal yang terpengaruh operasional organisasi.",
             rubrics: {
-                0: "Lokasi program salah sasaran, berada sangat jauh dari wilayah operasional atau di area yang tidak memiliki urgensi masalah.",
                 "1-2": "Meskipun berada di Ring 1, bentuk intervensi program bertolak belakang dengan hasil pemetaan sosial (social mapping) serta kebutuhan esensial masyarakat lokal.",
                 "3-4": "Program berlokasi di wilayah operasi namun cenderung seragam (copy-paste dari daerah lain) tanpa mempertimbangkan karakteristik budaya dan spasial komunitas tapak.",
-                "5-6": "Program menyasar klaster wilayah yang tepat di sekitar ring perusahaan dan sukses merespons sebagian problem prioritas komunitas berdasarkan data kebutuhan riil.",
+                "5-6": "Program menyasar klaster wilayah yang tepat di sekitar ring perusahaan and sukses merespons sebagian problem prioritas komunitas berdasarkan data kebutuhan riil.",
                 "7-8": "Ketepatan spasial sangat tinggi; intervensi didesain spesifik mengoptimalkan keunikan potensi geografi lokal dan menuntaskan kerentanan keruangan wilayah tersebut.",
                 "9-10": "Desain berbasis kewilayahan menjadi jangkar utama akselerasi pembangunan daerah; sukses mentransformasi wilayah rentan menjadi pusat pertumbuhan baru yang berdaya."
             }
@@ -708,9 +111,8 @@
         {
             id: 10,
             title: "10. Tata Kelola",
-            desc: "Mengevaluasi transparansi keuangan, akuntabilitas organisasi, kemandirian kelembagaan pengelola di masyarakat, serta efektivitas saluran pengaduan (grievance mechanism).",
+            desc: "Mengevaluasi tata kelola program dan organisasi pelaksana untuk memastikan keberlanjutan dan kemandirian.",
             rubrics: {
-                0: "Manajemen internal tertutup, tidak memiliki struktur pengelola yang jelas, dan tidak ada ruang transparansi laporan pertanggungjawaban.",
                 "1-2": "Pengelolaan program tidak transparan; laporan keuangan tidak pernah dipaparkan ke anggota serta tidak tersedia saluran untuk menyampaikan keluhan.",
                 "3-4": "Struktur organisasi pengelola kelompok formal ada, namun roda kepengurusan pasif. Saluran komplain lambat merespons keluhan yang masuk dari warga.",
                 "5-6": "Tata kelola kelembagaan kelompok berjalan cukup sehat; pembukuan keuangan rutin diinformasikan terbuka dan komplain masyarakat ditangani dalam batas waktu wajar.",
@@ -744,21 +146,19 @@
             // Buat baris opsi matriks untuk tabel accordion
             let tableRowsHTML = "";
             Object.keys(item.rubrics).forEach(key => {
-                if (key !== "0") {
-                    let labelKinerja = "";
-                    if (key === "1-2") labelKinerja = '<small style="color:var(--high-color); font-weight:bold;">Kinerja Sangat Rendah</small>';
-                    if (key === "3-4") labelKinerja = '<small style="color:var(--medium-color); font-weight:bold;">Kinerja Rendah</small>';
-                    if (key === "5-6") labelKinerja = '<small style="color:#fbc02d; font-weight:bold;">Kinerja Cukup/Sedang</small>';
-                    if (key === "7-8") labelKinerja = '<small style="color:var(--primary-color); font-weight:bold;">Kinerja Baik</small>';
-                    if (key === "9-10") labelKinerja = '<small style="color:#1b5e20; font-weight:bold;">Kinerja Sangat Baik/Unggul</small>';
+                let labelKinerja = "";
+                if (key === "1-2") labelKinerja = '<small style="color:var(--high-color); font-weight:bold;">Kinerja Sangat Rendah</small>';
+                if (key === "3-4") labelKinerja = '<small style="color:var(--medium-color); font-weight:bold;">Kinerja Rendah</small>';
+                if (key === "5-6") labelKinerja = '<small style="color:#fbc02d; font-weight:bold;">Kinerja Cukup/Sedang</small>';
+                if (key === "7-8") labelKinerja = '<small style="color:var(--primary-color); font-weight:bold;">Kinerja Baik</small>';
+                if (key === "9-10") labelKinerja = '<small style="color:#1b5e20; font-weight:bold;">Kinerja Sangat Baik/Unggul</small>';
 
-                    tableRowsHTML += `
-                        <tr>
-                            <td style="width: 25%;"><strong>Rentang ${key}</strong><br>${labelKinerja}</td>
-                            <td>${item.rubrics[key]}</td>
-                        </tr>
-                    `;
-                }
+                tableRowsHTML += `
+                    <tr>
+                        <td style="width: 25%;"><strong>Rentang ${key}</strong><br>${labelKinerja}</td>
+                        <td>${item.rubrics[key]}</td>
+                    </tr>
+                `;
             });
 
             stepDiv.innerHTML = `
@@ -767,23 +167,20 @@
                     <div class="indicator-desc">${item.desc}</div>
                     <div class="slider-container">
                         <div class="slider-wrapper">
-                            <input type="range" min="0" max="10" value="0" class="emas-slider" data-index="${item.id}" id="slider_${item.id}" oninput="handleSliderInput(${item.id}, this.value)">
+                            <input type="range" min="1" max="10" value="1" class="emas-slider" data-index="${item.id}" id="slider_${item.id}" oninput="handleSliderInput(${item.id}, this.value)">
                             <div class="ticks-container">
-                                <span class="tick-label">0</span><span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
+                                <span class="tick-label">1</span><span class="tick-label">2</span><span class="tick-label">3</span><span class="tick-label">4</span><span class="tick-label">5</span><span class="tick-label">6</span><span class="tick-label">7</span><span class="tick-label">8</span><span class="tick-label">9</span><span class="tick-label">10</span>
                             </div>
                         </div>
-                        <span class="score-display" id="valDisplay_${item.id}">0</span>
+                        <span class="score-display" id="valDisplay_${item.id}">1</span>
                     </div>
                     
-                    <!-- Dynamic Live Description Box -->
-                    <div class="rubric-guide-box" id="guideBox_${item.id}">
-                        <strong>Panduan Skoring (Skor 0):</strong> ${item.rubrics[0]}
+                    <div class="rubric-guide-box" id="guideBox_${item.id}" style="border-left-color: var(--high-color); background-color: #ffebee;">
+                        <strong>Rentang Skor 1-2 (Kinerja Sangat Rendah):</strong> ${item.rubrics["1-2"]}
                     </div>
                     
-                    <!-- Accordion Trigger -->
                     <button type="button" class="btn-toggle-rubric" onclick="toggleRubricAccordion(${item.id})">🔍 Lihat Semua Matriks Panduan Kriteria</button>
                     
-                    <!-- Accordion Table -->
                     <div class="full-rubric-table" id="accordionTable_${item.id}">
                         <table>
                             <thead>
@@ -832,10 +229,7 @@
         let borderClr = "#b0bec5";
         let bgClr = "#f1f5f9";
 
-        if (valNum === 0) {
-            textResult = `<strong>Panduan Skoring (Skor 0):</strong> ${indicatorData.rubrics[0]}`;
-            borderClr = "#b0bec5"; bgClr = "#f1f5f9";
-        } else if (valNum >= 1 && valNum <= 2) {
+        if (valNum >= 1 && valNum <= 2) {
             textResult = `<strong>Rentang Skor 1-2 (Kinerja Sangat Rendah):</strong> ${indicatorData.rubrics["1-2"]}`;
             borderClr = "var(--high-color)"; bgClr = "#ffebee";
         } else if (valNum >= 3 && valNum <= 4) {
@@ -948,7 +342,7 @@
         finalScoreDisplay.textContent = finalScoreStr;
 
         if (finalScore >= 81) {
-            kategoriText = "Tinggi (Luar Biasa / Unggul)";
+            kategoriText = "Tinggi (Luar Bias As / Unggul)";
             statusBadge.textContent = kategoriText;
             statusBadge.className = "status-badge status-high";
             resultDesc.innerHTML = "<strong>Deskripsi Kinerja (Tinggi):</strong> Menunjukkan kinerja luar biasa, praktik terbaik (best practice), inovasi sosial, dan dampak positif yang signifikan di berbagai dimensi keberlanjutan. Program berhasil mengintegrasikan aspek lingkungan-sosial-ekonomi dan menempatkan masyarakat sebagai mitra strategis mandiri.";
@@ -991,7 +385,7 @@
                 animation: { duration: 0 },
                 scales: {
                     r: {
-                        suggestedMin: 0,
+                        suggestedMin: 1,
                         suggestedMax: 10,
                         ticks: { stepSize: 2 },
                         pointLabels: { font: { size: 11, weight: '600' }, color: '#37474f' }
@@ -1077,7 +471,3 @@
         document.getElementById('pageForm').classList.add('active');
         window.scrollTo(0, 0);
     }
-</script>
-
-</body>
-</html>
