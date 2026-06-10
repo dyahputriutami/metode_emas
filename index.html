@@ -78,7 +78,6 @@
         .page { display: none; }
         .page.active { display: block; }
 
-        /* Sembunyikan semua step-card secara default, hanya tampilkan yang .active */
         .step-card { display: none; }
         .step-card.active { display: block; }
 
@@ -180,9 +179,9 @@
         .btn-next { background-color: var(--primary-color); color: white; margin-left: auto; }
         .btn-next:hover { opacity: 0.9; }
 
-        .capture-area { background: #ffffff; padding: 20px 20px; border-radius: 8px; }
+        .capture-area { background: #ffffff; padding: 25px; border-radius: 8px; }
         .result-container { text-align: center; padding: 10px 0; }
-        .result-container h2 { font-size: 26px; color: var(--secondary-color); margin-bottom: 5px; }
+        .result-container h2 { font-size: 24px; color: var(--secondary-color); margin-bottom: 5px; font-weight: 800; }
         .program-highlight { color: var(--primary-color); font-weight: 700; display: block; font-size: 22px; margin-top: 5px; margin-bottom: 5px; }
         .timestamp-display { font-size: 12px; color: #78909c; font-weight: 500; display: block; margin-bottom: 15px; }
         
@@ -309,7 +308,7 @@
     </div>
 </div>
 
-<div class="container" id="downloadTarget">
+<div class="container">
     <header>
         <img src="./logoprospect.png" alt="Logo Prospect Institute" class="prospect-logo">
         <h1>Asesmen Metode EMAS</h1>
@@ -364,7 +363,7 @@
     </div>
 
     <div id="pageResult" class="page">
-        <div class="capture-area">
+        <div class="capture-area" id="specificCardCaptureArea">
             <div class="result-container">
                 <h2>HASIL ASESMEN MANDIRI METODE EMAS</h2>
                 <span class="program-highlight" id="programTitleDisplay">Nama Program Keberlanjutan</span>
@@ -444,7 +443,6 @@
 
         emasListData.forEach(item => {
             const stepDiv = document.createElement('div');
-            // Menambahkan class 'active' hanya jika item.id adalah 1 (halaman pertama)
             stepDiv.className = `step-card ${item.id === 1 ? 'active' : ''}`;
             stepDiv.setAttribute('data-step', item.id);
 
@@ -538,7 +536,6 @@
         const cards = document.querySelectorAll('.step-card');
         cards.forEach(card => {
             const stepNum = parseInt(card.getAttribute('data-step'));
-            // Menampilkan HANYA kartu indikator yang sesuai dengan currentStep saat ini
             card.classList.toggle('active', stepNum === currentStep);
         });
 
@@ -660,7 +657,8 @@
     }
 
     function downloadResultAsJPEG() {
-        html2canvas(document.getElementById('downloadTarget'), { scale: 2, backgroundColor: '#ffffff', useCORS: true }).then(canvas => {
+        const targetCard = document.getElementById('specificCardCaptureArea');
+        html2canvas(targetCard, { scale: 2, backgroundColor: '#ffffff', useCORS: true }).then(canvas => {
             const downloadLink = document.createElement('a');
             downloadLink.href = canvas.toDataURL('image/jpeg', 1.0);
             downloadLink.download = `Hasil_Asesmen_EMAS_${userProfile.Program.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.jpg`;
