@@ -573,17 +573,17 @@
         document.getElementById('timestampDisplay').textContent = `Diproses pada: ${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')} WIB`;
 
         if (finalScore >= 81) {
-            kategoriText = "Tinggi (Luar Biasa)";
+            kategoriText = "Tinggi";
             statusBadge.textContent = kategoriText;
             statusBadge.className = "status-badge status-high";
             resultDesc.innerHTML = "<strong>Deskripsi Capaian (Tinggi):</strong> Program menunjukkan integrasi pilar keberlanjutan yang sangat kuat. Keterlibatan masyarakat berada di level mandiri (driver), akuntabilitas tata kelola transparan, dan dampak positif lingkungan terdokumentasi dengan sangat baik.";
         } else if (finalScore >= 61) {
-            kategoriText = "Sedang (Baik)";
+            kategoriText = "Sedang";
             statusBadge.textContent = kategoriText;
             statusBadge.className = "status-badge status-medium";
             resultDesc.innerHTML = "<strong>Deskripsi Capaian (Sedang):</strong> Program berjalan efektif dan memberikan manfaat riil. Namun, masih terdapat ruang evaluasi untuk transisi dari program karitatif menuju program kemandirian penuh yang berkelanjutan.";
         } else {
-            kategoriText = "Rendah (Perlu Evaluasi)";
+            kategoriText = "Rendah";
             statusBadge.textContent = kategoriText;
             statusBadge.className = "status-badge status-low";
             resultDesc.innerHTML = "<strong>Deskripsi Capaian (Rendah):</strong> Program cenderung bersifat parsial atau seremonial pendek. Pelibatan pemangku kepentingan dan integrasi rantai nilai bisnis inti (CSV) memerlukan rekonstruksi strategi yang mendalam.";
